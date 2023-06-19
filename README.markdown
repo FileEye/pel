@@ -2,7 +2,7 @@ This is a fork of the [pel/pel](https://github.com/pel/pel) repository.
 
 # PEL: PHP Exif Library
 
-[![Tests](https://github.com/pel/pel/actions/workflows/tests.yml/badge.svg)](https://github.com/pel/pel/actions/workflows/tests.yml) [![Code Coverage](https://scrutinizer-ci.com/g/pel/pel/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/pel/pel/?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pel/pel/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/pel/pel/?branch=master) [![Latest Stable Version](https://poser.pugx.org/lsolesen/pel/v/stable)](https://packagist.org/packages/lsolesen/pel) [![Total Downloads](https://poser.pugx.org/lsolesen/pel/downloads)](https://packagist.org/packages/lsolesen/pel) [![License](https://poser.pugx.org/lsolesen/pel/license)](https://packagist.org/packages/lsolesen/pel)
+[![Tests](https://github.com/FileEye/pel/actions/workflows/tests.yml/badge.svg)](https://github.com/FileEye/pel/actions/workflows/tests.yml) [![Latest Stable Version](https://poser.pugx.org/fileeye/pel/v/stable)](https://packagist.org/packages/fileeye/pel) [![Total Downloads](https://poser.pugx.org/fileeye/pel/downloads)](https://packagist.org/packages/fileeye/pel) [![License](https://poser.pugx.org/fileeye/pel/license)](https://packagist.org/packages/fileeye/pel)
 
 README file for PEL: PHP Exif Library.  A library with support for
 reading and writing Exif headers in JPEG and TIFF images using PHP.
@@ -32,7 +32,7 @@ share your ideas about how the API should look like.
 ## Installation
 
 ```
-composer require lsolesen/pel
+composer require fileeye/pel
 ```
 
 ## Documentation Overview
@@ -88,7 +88,7 @@ Please try the latest version before reporting bugs -- it might have
 been fixed already.  The latest code can be found in the git
 repository at
 
-  http://github.com/pel/pel
+  http://github.com/FileEye/pel
 
 It is very helpful if you try out the latest code from the git
 repository before submitting a bug report. The code found there is
@@ -108,4 +108,4 @@ instructions.
 ## Credits
 
 Please see the AUTHORS file for a list of people who have contributed
-to PEL. See the full list of [code contributors](https://github.com/pel/pel/graphs/contributors).
+to PEL. See the full list of [code contributors](https://github.com/FileEye/pel/graphs/contributors).
