@@ -1,12 +1,12 @@
 {
-	"name" : "lsolesen/pel",
+	"name" : "fileeye/pel",
 	"type" : "library",
 	"description" : "PHP Exif Library. A library for reading and writing Exif headers in JPEG and TIFF images using PHP.",
 	"keywords" : [
 		"image",
 		"exif"
 	],
-	"homepage" : "http://pel.github.com/pel/",
+	"homepage" : "https://github.com/FileEye/pel",
 	"authors" : [{
 			"name" : "Lars Olesen",
 			"email" : "lars@intraface.dk",
