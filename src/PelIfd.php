@@ -1528,7 +1528,8 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
             } elseif ($type == PelIfd::INTEROPERABILITY) {
                 $tag = PelTag::INTEROPERABILITY_IFD_POINTER;
             } else {
-                throw new PelIfdException('Unknown IFD type: %d', $type);
+                // PelConvert::BIG_ENDIAN is the default used by PelConvert
+                $tag = PelConvert::BIG_ENDIAN;
             }
             /* Make an aditional entry with the pointer. */
             $bytes .= PelConvert::shortToBytes($tag, $order);
