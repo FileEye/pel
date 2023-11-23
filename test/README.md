@@ -37,9 +37,9 @@ phpunit
 
 ## Failing Tests
 
-Should one or more of the tests fail, please report the error to 
+Should one or more of the tests fail, please report the error to
 the PEL developers:
 
-  https://github.com/pel/pel/issues
+  https://github.com/FileEye/pel/issues
 
 Remember to include all the output in your bug report.

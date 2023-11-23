@@ -50,7 +50,7 @@ More examples are needed!  If you have a neat example of how PEL can
 be used, then please contribute it to PEL.  Please submit it as a new
 item in the Github issue tracker:
 
-  http://github.com/lsolesen/pel/issues
+  http://github.com/FileEye/pel/issues
 
 Or issue a pull request. It will then be included in the next release
 of PEL, of course with full credit in the AUTHORS file.

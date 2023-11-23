@@ -1,12 +1,12 @@
 {
-	"name" : "lsolesen/pel",
+	"name" : "fileeye/pel",
 	"type" : "library",
 	"description" : "PHP Exif Library. A library for reading and writing Exif headers in JPEG and TIFF images using PHP.",
 	"keywords" : [
 		"image",
 		"exif"
 	],
-	"homepage" : "http://pel.github.com/pel/",
+	"homepage" : "https://github.com/FileEye/pel",
 	"authors" : [{
 			"name" : "Lars Olesen",
 			"email" : "lars@intraface.dk",
@@ -28,7 +28,7 @@
 		"ext-exif" : "*",
 		"squizlabs/php_codesniffer" : ">3.5",
 		"php-coveralls/php-coveralls" : ">2.4",
-		"symfony/phpunit-bridge" : "^4 || ^5",
+		"symfony/phpunit-bridge" : "^4 || ^5 || ^6",
 		"phpstan/phpstan": "^1.4"
 	},
 	"autoload" : {

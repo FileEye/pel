@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.9.20 - 2023-06-20
+
+* Move package on Packagist to [fileeye/pel](https://packagist.org/packages/fileeye/pel)
+* Move main repository to [FileEye/pel](https://github.com/FileEye/pel)
+* PHP 8.2 compatibility
+
 ## 0.9.11 - 2022-02-04
 
 * Update dump-image.php
@@ -15,7 +21,7 @@ Thank you, @mondrake!
 ## 0.9.10 - 2021-01-01
 
 * Breaking changes:
-  - The constructor of PelJpeg(filename) and PelJpeg::loadFile() 
+  - The constructor of PelJpeg(filename) and PelJpeg::loadFile()
     now throws a PelException if file can not be read.
 
 * Get make-image-test.php working again
@@ -26,7 +32,7 @@ Thank you, @mondrake!
 
 * Cast output from getBytes() to float (#155)
 * Fix non-numeric value issue in PelIfd (#156, #163)
-* Avoid division by zero. (#164)  
+* Avoid division by zero. (#164)
 
 ## 0.9.8 - 2020-02-11
 
@@ -66,7 +72,7 @@ Fixes some errors, refactor code and make compatible to PHP 7.4.
 
 ## 0.9.6 - 2017-02-03
 
-* Trim null characters from the end of ascii fields only when available. Fixes #77 
+* Trim null characters from the end of ascii fields only when available. Fixes #77
 
 ## 0.9.5 - 2017-01-31
 
@@ -152,7 +158,7 @@ Changes:
   for this.
 
 
-## 0.9.1 - 2016-12-19
+## 0.9.1 - 2006-12-19
 
 Notes:
 
