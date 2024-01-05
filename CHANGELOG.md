@@ -2,6 +2,7 @@
 
 ## 0.9.21 - 2024-xx-xx
 
+* [CI] Run PHPStan at rule level 0
 * Removed support for PHP lower than 7.4
 
 ## 0.9.20 - 2023-06-20
