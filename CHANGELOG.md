@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.9.21 - 2024-xx-xx
+
+* Removed support for PHP lower than 7.4
+
 ## 0.9.20 - 2023-06-20
 
 * Move package on Packagist to [fileeye/pel](https://packagist.org/packages/fileeye/pel)
