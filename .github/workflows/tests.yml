@@ -48,5 +48,4 @@ jobs:
 
         - name: PHPStan code analysis
           if: ${{ matrix.php-version == 8.2 }}
-          continue-on-error: true
           run: php vendor/bin/phpstan analyze
