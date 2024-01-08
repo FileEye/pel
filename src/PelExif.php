@@ -121,7 +121,7 @@ class PelExif extends PelJpegContent
      * The actual Exif data is stored in a {@link PelTiff} object, and
      * this method provides access to it.
      *
-     * @return PelTiff the TIFF object with the Exif data.
+     * @return PelTiff|null the TIFF object with the Exif data.
      */
     public function getTiff()
     {
