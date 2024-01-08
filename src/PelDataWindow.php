@@ -202,6 +202,7 @@ class PelDataWindow
      * @return PelDataWindow a new window that operates on the same data
      *         as this window, but (optionally) with a smaller window size.
      * @throws PelDataWindowWindowException
+     * @throws PelDataWindowOffsetException
      */
     public function getClone($start = null, $size = null)
     {
