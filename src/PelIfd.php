@@ -1291,7 +1291,7 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
      *
      * @param integer $tag
      *            the tag identifying the entry.
-     * @return PelEntry the entry associated with the tag, or null if no
+     * @return PelEntry|null the entry associated with the tag, or null if no
      *         such entry exists.
      */
     public function getEntry($tag)
