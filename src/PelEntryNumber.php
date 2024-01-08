@@ -242,7 +242,7 @@ abstract class PelEntryNumber extends PelEntry
      * sophisticated behavior than the default, which is to just return
      * the number as is.
      *
-     * @param int $number
+     * @param int|array $number
      *            the number which will be formatted.
      * @param boolean $brief
      *            it could be that there is both a verbose and a
@@ -252,7 +252,7 @@ abstract class PelEntryNumber extends PelEntry
      */
     public function formatNumber($number, $brief = false)
     {
-        return (string) $number;
+        return in_int($number) ? (string) $number : implode(', ', $number);
     }
 
     /**
