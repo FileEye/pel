@@ -1410,7 +1410,7 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
      *            the type of the sub IFD. This must be one of {@link
      *            PelIfd::EXIF}, {@link PelIfd::GPS}, or {@link
      *            PelIfd::INTEROPERABILITY}.
-     * @return PelIfd the IFD associated with the type, or null if that
+     * @return PelIfd|null the IFD associated with the type, or null if that
      *         sub IFD does not exist.
      */
     public function getSubIfd($type)

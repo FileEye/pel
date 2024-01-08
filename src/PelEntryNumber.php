@@ -252,7 +252,7 @@ abstract class PelEntryNumber extends PelEntry
      */
     public function formatNumber($number, $brief = false)
     {
-        return $number;
+        return (string) $number;
     }
 
     /**

@@ -158,7 +158,7 @@ class PelEntryRational extends PelEntryLong
                 } else {
                     return Pel::fmt('%d sec.', $v[0] / $v[1]);
                 }
-                break;
+
             case PelTag::GPS_LATITUDE:
             case PelTag::GPS_LONGITUDE:
                 $degrees = $v[0] / $v[1];
