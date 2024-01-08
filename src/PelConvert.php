@@ -140,7 +140,7 @@ class PelConvert
          * largest signed integer known to PHP. But luckily base_convert
          * handles such big numbers.
          */
-        $hex = str_pad(base_convert($value, 10, 16), 8, '0', STR_PAD_LEFT);
+        $hex = str_pad(base_convert((string) $value, 10, 16), 8, '0', STR_PAD_LEFT);
         if ($endian == self::LITTLE_ENDIAN) {
             return chr((int) hexdec($hex[6] . $hex[7])) . chr((int) hexdec($hex[4] . $hex[5])) . chr((int) hexdec($hex[2] . $hex[3])) . chr((int) hexdec($hex[0] . $hex[1]));
         } else {

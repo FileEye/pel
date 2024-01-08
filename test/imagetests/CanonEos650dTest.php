@@ -212,7 +212,7 @@ class CanonEos650dTest extends TestCase
 
         $entry = $ifd0_0->getEntry(41990); // SceneCaptureType
         $this->assertInstanceOf('lsolesen\pel\PelEntryShort', $entry);
-        $this->assertEquals(0, $entry->getValue(), 0);
+        $this->assertEquals(0, $entry->getValue());
         $this->assertEquals('Standard', $entry->getText());
 
         /* Sub IFDs of $ifd0_0. */

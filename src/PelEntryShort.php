@@ -365,7 +365,7 @@ class PelEntryShort extends PelEntryNumber
      * PelTag::METERING_MODE} tag, 'Center-Weighted Average' is
      * returned.
      *
-     * @param boolean $brief
+     * @param bool $brief
      *            some values can be returned in a long or more
      *            brief form, and this parameter controls that.
      * @return string the value as text.
@@ -374,6 +374,9 @@ class PelEntryShort extends PelEntryNumber
     {
         if (array_key_exists($this->ifd_type, self::IFD_TYPE_TRANSLATIONS)) {
             if (array_key_exists($this->value[0], self::IFD_TYPE_TRANSLATIONS[$this->ifd_type])) {
+                // @todo this is buggy and not working - it's not passing a string
+                // but an array of strings.
+                // @phpstan-ignore-next-line
                 return Pel::tra(self::IFD_TYPE_TRANSLATIONS[$this->ifd_type][$this->value[0]]);
             } else {
                 return $this->value[0];
