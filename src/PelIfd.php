@@ -1369,7 +1369,7 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
     /**
      * Return the IFD pointed to by this directory.
      *
-     * @return PelIfd the next IFD, following this IFD. If this is the
+     * @return PelIfd|null the next IFD, following this IFD. If this is the
      *         last IFD, null is returned.
      */
     public function getNextIfd()
