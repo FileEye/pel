@@ -57,35 +57,33 @@ class Gh16Test extends TestCase
 
         $this->assertTrue(PelJpeg::isValid($data));
 
-        if (PelJpeg::isValid($data)) {
-            $jpeg = new PelJpeg();
-            $jpeg->load($data);
-            $exif = $jpeg->getExif();
+        $jpeg = new PelJpeg();
+        $jpeg->load($data);
+        $exif = $jpeg->getExif();
 
-            if (null === $exif) {
-                $exif = new PelExif();
-                $jpeg->setExif($exif);
-                $tiff = new PelTiff();
-                $exif->setTiff($tiff);
-            }
-
-            $tiff = $exif->getTiff();
-
-            $ifd0 = $tiff->getIfd();
-            if (null === $ifd0) {
-                $ifd0 = new PelIfd(PelIfd::IFD0);
-                $tiff->setIfd($ifd0);
-            }
-            $ifd0->addEntry(new PelEntryWindowsString(PelTag::XP_SUBJECT, $subject));
-
-            file_put_contents($this->file, $jpeg->getBytes());
-
-            $jpeg = new PelJpeg($this->file);
-            $exif = $jpeg->getExif();
-            $tiff = $exif->getTiff();
-            $ifd0 = $tiff->getIfd();
-            $written_subject = $ifd0->getEntry(PelTag::XP_SUBJECT);
-            $this->assertEquals($subject, $written_subject->getValue());
+        if (null === $exif) {
+            $exif = new PelExif();
+            $jpeg->setExif($exif);
+            $tiff = new PelTiff();
+            $exif->setTiff($tiff);
         }
+
+        $tiff = $exif->getTiff();
+
+        $ifd0 = $tiff->getIfd();
+        if (null === $ifd0) {
+            $ifd0 = new PelIfd(PelIfd::IFD0);
+            $tiff->setIfd($ifd0);
+        }
+        $ifd0->addEntry(new PelEntryWindowsString(PelTag::XP_SUBJECT, $subject));
+
+        file_put_contents($this->file, $jpeg->getBytes());
+
+        $jpeg = new PelJpeg($this->file);
+        $exif = $jpeg->getExif();
+        $tiff = $exif->getTiff();
+        $ifd0 = $tiff->getIfd();
+        $written_subject = $ifd0->getEntry(PelTag::XP_SUBJECT);
+        $this->assertEquals($subject, $written_subject->getValue());
     }
 }

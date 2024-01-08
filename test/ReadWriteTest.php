@@ -229,7 +229,7 @@ class ReadWriteTest extends TestCase
         $this->assertEquals(1, $orientation->getValue());
         $photometric_interpretation = $ifd->getEntry(PelTag::PHOTOMETRIC_INTERPRETATION);
         $this->assertEquals(2, $photometric_interpretation->getValue());
-        /** @var lsolesen\pel\PelEntryShort $bits_per_sample */
+        /** @var \lsolesen\pel\PelEntryShort $bits_per_sample */
         $bits_per_sample = $ifd->getEntry(PelTag::BITS_PER_SAMPLE);
         $this->assertEquals([
             8,

@@ -140,21 +140,18 @@ class PelEntryVersion extends PelEntry
                 } else {
                     return Pel::fmt('Exif Version %s', $v);
                 }
-                break;
             case PelTag::FLASH_PIX_VERSION:
                 if ($brief) {
                     return Pel::fmt('FlashPix %s', $v);
                 } else {
                     return Pel::fmt('FlashPix Version %s', $v);
                 }
-                break;
             case PelTag::INTEROPERABILITY_VERSION:
                 if ($brief) {
                     return Pel::fmt('Interoperability %s', $v);
                 } else {
                     return Pel::fmt('Interoperability Version %s', $v);
                 }
-                break;
         }
 
         if ($brief) {

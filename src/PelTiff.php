@@ -189,7 +189,7 @@ class PelTiff
     /**
      * Return the first IFD.
      *
-     * @return PelIfd the first IFD contained in the TIFF data, if any.
+     * @return PelIfd|null the first IFD contained in the TIFF data, if any.
      *         If there is no IFD null will be returned.
      */
     public function getIfd()

@@ -115,7 +115,6 @@ class PelEntryUndefined extends PelEntry
                     default:
                         return sprintf('0x%02X', ord($this->bytes[0]));
                 }
-                break;
             case PelTag::SCENE_TYPE:
                 // CC (e->components, 1, v);
                 switch (ord($this->bytes[0])) {
@@ -124,7 +123,6 @@ class PelEntryUndefined extends PelEntry
                     default:
                         return sprintf('0x%02X', ord($this->bytes[0]));
                 }
-                break;
             case PelTag::COMPONENTS_CONFIGURATION:
                 // CC (e->components, 4, v);
                 $v = '';
