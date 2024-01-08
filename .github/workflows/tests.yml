@@ -40,7 +40,7 @@ jobs:
           run: composer install --no-progress --ansi
 
         - name: Run tests
-          run: ./vendor/bin/simple-phpunit --color=always --coverage-clover=coverage.xml ./test
+          run: ./vendor/bin/phpunit --color=always --coverage-clover=coverage.xml ./test
 
         - name: Send code coverage report to Codecov.io
           uses: codecov/codecov-action@v3
