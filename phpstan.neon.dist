@@ -5,3 +5,8 @@ parameters:
   paths:
     - src
     - test
+
+  ignoreErrors:
+    -
+       message: "#^Unreachable statement - code above always terminates.$#"
+       path: test/ConvertTest.php
