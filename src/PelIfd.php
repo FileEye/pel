@@ -1059,8 +1059,6 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
                 $this->setThumbnail($d->getClone($offset, $length));
             } catch (PelDataWindowWindowException $e) {
                 Pel::maybeThrow(new PelIfdException('PelDataWindowException: ' . $e->getMessage()));
-            } catch (PelDataWindowOffsetException $e) {
-                Pel::maybeThrow(new PelIfdException('PelDataWindowOffsetException: ' . $e->getMessage()));
             }
         }
     }
@@ -1279,7 +1277,6 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
      * @param mixed $offset
      *            the offset to delete.
      */
-    # [\ReturnTypeWillChange]
     public function offsetUnset($offset): void
     {
         unset($this->entries[$offset]);
