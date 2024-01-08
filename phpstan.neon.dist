@@ -11,7 +11,3 @@ parameters:
        message: "#^Unreachable statement - code above always terminates.$#"
        count: 2
        path: test/ConvertTest.php
-    -
-       message: "#^Cannot assign new offset to .*PelIfd#"
-       count: 2
-       path: test/IfdTest.php

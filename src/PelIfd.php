@@ -1205,9 +1205,9 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
      * // ... do something with the F-number.
      * </code>
      *
-     * @param integer $tag
+     * @param mixed $tag
      *            the offset to check.
-     * @return boolean whether the tag exists.
+     * @return bool whether the tag exists.
      */
     public function offsetExists($tag): bool
     {
@@ -1225,7 +1225,7 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
      * $entry = $ifd[PelTag::FNUMBER];
      * </code>
      *
-     * @param integer $tag
+     * @param mixed $tag
      *            the tag to return. It is an error to ask for a tag
      *            which is not in the IFD, just like asking for a non-existant
      *            array entry.
@@ -1250,7 +1250,7 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
      * Note that the actual array index passed is ignored! Instead the
      * {@link PelTag} from the entry is used.
      *
-     * @param integer $tag
+     * @param mixed $tag
      *            unused parameter
      * @param PelEntry $e
      *            the new value to be set
@@ -1276,7 +1276,7 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
      * unset($ifd[PelTag::EXPOSURE_BIAS_VALUE])
      * </code>
      *
-     * @param integer $offset
+     * @param mixed $offset
      *            the offset to delete.
      */
     # [\ReturnTypeWillChange]
