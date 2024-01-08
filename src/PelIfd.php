@@ -1258,12 +1258,11 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
      */
     public function offsetSet($tag, $e): void
     {
-        if ($e instanceof PelEntry) {
-            $newTag = $e->getTag();
-            $this->entries[$newTag] = $e;
-        } else {
+        if (!$e instanceof PelEntry) {
             throw new PelInvalidArgumentException('Argument "%s" must be a PelEntry.', $e);
         }
+        $newTag = $e->getTag();
+        $this->entries[$newTag] = $e;
     }
 
     /**

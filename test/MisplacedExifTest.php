@@ -77,6 +77,6 @@ class MisplacedExifTest extends TestCase
             $this->assertSame($sections2[$s2idx][0], $sections3[$idx][0]);
             $this->assertSame($sections2[$s2idx][1], $sections3[$idx][1]);
         }
-        $this->assertNotInstanceOf('\lsolesen\pel\PelExif', $jpeg->getExif());
+        $this->assertNull($jpeg->getExif());
     }
 }

@@ -72,7 +72,7 @@ class Bug3017880Test extends TestCase
                 $resave_file = 1;
             }
 
-            if ($resave_file == 1 && ! file_put_contents($filename, $jpeg->getBytes())) {
+            if (! file_put_contents($filename, $jpeg->getBytes())) {
                 // if it was okay to resave the file, but it did not save correctly
             }
         } catch (Exception $e) {
