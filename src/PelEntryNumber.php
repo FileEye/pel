@@ -161,7 +161,7 @@ abstract class PelEntryNumber extends PelEntry
     public function validateNumber($n)
     {
         if ($this->dimension == 1 || is_scalar($n)) {
-            if (is_scalar($n) && ($n < $this->min || $n > $this->max)) {
+            if (is_int($n) && ($n < $this->min || $n > $this->max)) {
                 Pel::maybeThrow(new PelOverflowException((int) $n, $this->min, $this->max));
             }
         } else {
