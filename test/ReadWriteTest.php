@@ -122,7 +122,7 @@ class ReadWriteTest extends TestCase
         unlink('test-output.jpg');
     }
 
-    public function writeEntryProvider()
+    public static function writeEntryProvider()
     {
         return [
             'PEL Byte Read/Write Tests' => [
