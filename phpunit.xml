@@ -10,6 +10,11 @@
 			<directory suffix=".php">./src/</directory>
 		</whitelist>
 	</filter>
+        <source>
+                <include>
+                        <directory>./src/</directory>
+                </include>
+        </source>
 	<testsuites>
 		<testsuite name="Pel Testing Suite">
 			<directory suffix=".php">./test/</directory>
