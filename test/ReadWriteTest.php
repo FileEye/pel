@@ -37,15 +37,12 @@ use lsolesen\pel\PelEntrySShort;
 use lsolesen\pel\PelEntryLong;
 use lsolesen\pel\PelEntrySLong;
 use lsolesen\pel\PelEntryAscii;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ReadWriteTest extends TestCase
 {
 
-    /**
-     *
-     * {@inheritdoc}
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -53,10 +50,10 @@ class ReadWriteTest extends TestCase
     }
 
     /**
-     *
      * @dataProvider writeEntryProvider
      */
-    public function testWriteRead(array $entries)
+    #[DataProvider('writeEntryProvider')]
+    public function testWriteRead(array $entries): void
     {
         $ifd = new PelIfd(PelIfd::IFD0);
         $this->assertTrue($ifd->isLastIfd());
