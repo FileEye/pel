@@ -529,8 +529,6 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
     /**
      * Stores Maker Notes data for an IFD (Probably PelIfd::EXIF only).
      *
-     * @param PelIfd $parent
-     *            the parent PelIfd of the current PelIfd
      * @param PelDataWindow $data
      *            the data window that will provide the data.
      * @param PelIfd $parent
@@ -539,10 +537,9 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
      *            the offset within the window where the directory will
      *            be found.
      */
-    public function setMakerNotes($parent, $data, $components, $offset)
+    protected function setMakerNotes($data, $components, $offset)
     {
         $this->maker_notes = [
-            'parent' => $parent,
             'data' => $data,
             'components' => $components,
             'offset' => $offset
@@ -552,7 +549,7 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
     /**
      * Returns the Maker Notes data for an IFD (Probably PelIfd::EXIF only).
      *
-     * @return array The maker_notes of IDF
+     * @return array The maker_notes of IFD
      */
     public function getMakerNotes()
     {
@@ -664,7 +661,7 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
         } elseif ($tag == PelTag::MAKER_NOTE) {
             // Store maker notes infos, because we need PelTag::MAKE of PelIfd::IFD0 for MakerNotes
             // Thus MakerNotes will be loaded at the end of loading PelIfd::IFD0
-            $this->setMakerNotes($this, $d, $components, $o);
+            $this->setMakerNotes($d, $components, $o);
             $this->loadSingleValue($d, $offset, $i, $tag);
         }
         return $ifdType;
@@ -706,16 +703,17 @@ class PelIfd implements \IteratorAggregate, \ArrayAccess
     {
         if ($this->type == PelIfd::IFD0 && isset($this->sub[PelIfd::EXIF])) {
             // Get MakerNotes from EXIF IFD and check if they are set
-            $mk = $this->sub[PelIfd::EXIF]->getMakerNotes();
+            $subIfd = $this->sub[PelIfd::EXIF];
+            $mk = $subIfd->getMakerNotes();
             if (! empty($mk)) {
                 // get Make tag and load maker notes if tag is valid
                 $manufacturer = $this->getEntry(PelTag::MAKE);
                 if ($manufacturer !== null) {
                     $manufacturer = $manufacturer->getValue();
-                    $mkNotes = PelMakerNotes::createMakerNotesFromManufacturer($manufacturer, $mk['parent'], $mk['data'], $mk['components'], $mk['offset']);
+                    $mkNotes = PelMakerNotes::createMakerNotesFromManufacturer($manufacturer, $subIfd, $mk['data'], $mk['components'], $mk['offset']);
                     if ($mkNotes !== null) {
                         // remove pre-loaded undefined MakerNotes
-                        $mk['parent']->offsetUnset(PelTag::MAKER_NOTE);
+                        $subIfd->offsetUnset(PelTag::MAKER_NOTE);
                         $mkNotes->load();
                     }
                 }
