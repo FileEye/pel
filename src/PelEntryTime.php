@@ -202,6 +202,8 @@ class PelEntryTime extends PelEntryAscii
             for ($i = 0; $i < 6; $i ++) {
                 if (empty($d[$i])) {
                     $d[$i] = 0;
+                } else {
+                    $d[$i] = (int) $d[$i];
                 }
             }
             $this->day_count = $this->convertGregorianToJd($d[0], $d[1], $d[2]);
