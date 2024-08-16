@@ -202,15 +202,10 @@ class PelEntryTime extends PelEntryAscii
             for ($i = 0; $i < 6; $i ++) {
                 if (empty($d[$i])) {
                     $d[$i] = 0;
-                } else {
-                    $d[$i] = (int) $d[$i];
                 }
             }
             $this->day_count = $this->convertGregorianToJd($d[0], $d[1], $d[2]);
-            $aa = (int) $d[3] * 3600;
-            $ab = (int) $d[4] * 60;
-            $ac = (int) $d[5];
-            $this->seconds = $aa + $ab + $ac;
+            $this->seconds = (int) $d[3] * 3600 + (int) $d[4] * 60 + (int) $d[5];
         } elseif ($type === self::JULIAN_DAY_COUNT) {
             if (is_int($timestamp) || is_float($timestamp)) {
                 $this->day_count = (int) floor($timestamp);
