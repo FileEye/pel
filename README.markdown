@@ -2,7 +2,6 @@ This is a fork of the [pel/pel](https://github.com/pel/pel) repository.
 
 # PEL: PHP Exif Library
 
-[![PHP Version Require](http://poser.pugx.org/fileeye/pel/require/php)](https://packagist.org/packages/fileeye/pel)
 [![Tests](https://github.com/FileEye/pel/actions/workflows/tests.yml/badge.svg)](https://github.com/FileEye/pel/actions/workflows/tests.yml)
 [![PHPStan level](https://img.shields.io/badge/PHPStan%20level-5-brightgreen.svg?style=flat)](https://github.com/FileEye/pel/actions/workflows/code-quality.yml)
 [![codecov](https://codecov.io/gh/FileEye/pel/graph/badge.svg?token=XlF4fOHAl1)](https://codecov.io/gh/FileEye/pel)
