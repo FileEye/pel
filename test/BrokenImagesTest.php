@@ -33,25 +33,25 @@ class BrokenImagesTest extends TestCase
     public function testWindowWindowExceptionIsCaught()
     {
         $jpeg = new PelJpeg(dirname(__FILE__) . '/broken_images/gh-10-a.jpg');
-        $this->assertInstanceOf('\lsolesen\pel\PelJpeg', $jpeg);
+        $this->assertNotSame('', $jpeg->getBytes());
     }
 
     public function testWindowOffsetExceptionIsCaught()
     {
         $jpeg = new PelJpeg(dirname(__FILE__) . '/broken_images/gh-10-b.jpg');
-        $this->assertInstanceOf('\lsolesen\pel\PelJpeg', $jpeg);
+        $this->assertNotSame('', $jpeg->getBytes());
     }
 
     public function testParsingNotFailingOnRecursingIfd()
     {
         $jpeg = new PelJpeg(dirname(__FILE__) . '/broken_images/gh-11.jpg');
-        $this->assertInstanceOf('\lsolesen\pel\PelJpeg', $jpeg);
+        $this->assertNotSame('', $jpeg->getBytes());
     }
 
     public function testInvalidIfd()
     {
         $this->expectException(PelIllegalFormatException::class) ;
         $jpeg = new PelJpeg(dirname(__FILE__) . '/broken_images/gh-156.jpg');
-        $this->assertInstanceOf('\lsolesen\pel\PelJpeg', $jpeg);
+        $this->assertNotSame('', $jpeg->getBytes());
     }
 }
