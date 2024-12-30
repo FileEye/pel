@@ -42,7 +42,7 @@ class Bug3017880Test extends TestCase
         try {
             $resave_file = 0;
             $jpeg = new PelJpeg($filename);
-            $this->assertInstanceOf('\lsolesen\pel\PelJpeg', $jpeg);
+            $this->assertNotSame('', $jpeg->getBytes());
 
             // should all exif data on photo be cleared (gd and iu will always strip it anyway, so only
             // force strip if you know the image you're branding is an original)
