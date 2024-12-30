@@ -402,8 +402,14 @@ class PelJpeg
      */
     public function getICC()
     {
-        $icc = $this->getSection(PelJpegMarker::APP2);
-        return $icc;
+        $skip = 0;
+        while ($icc = $this->getSection(PelJpegMarker::APP2, $skip)) {
+            if (str_starts_with($icc->getBytes(), "ICC_PROFILE")) {
+                return $icc;
+            }
+            $skip ++;
+        }
+        return null;
     }
 
     /**
