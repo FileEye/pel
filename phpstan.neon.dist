@@ -6,6 +6,8 @@ parameters:
     - src
     - test
 
+  treatPhpDocTypesAsCertain: false
+
   ignoreErrors:
     -
        message: "#^Unreachable statement - code above always terminates.$#"

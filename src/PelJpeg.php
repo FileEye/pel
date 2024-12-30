@@ -122,7 +122,7 @@ class PelJpeg
             } elseif ($data instanceof PelDataWindow) {
                 Pel::debug('Initializing PelJpeg object from PelDataWindow.');
                 $this->load($data);
-            } elseif ((is_resource($data) && get_resource_type($data) == 'gd') || (PHP_VERSION_ID >= 80000 && is_object($data) && $data instanceof \GDImage)) {
+            } elseif (is_object($data) && $data instanceof \GDImage) {
                 Pel::debug('Initializing PelJpeg object from image resource.');
                 $this->load(new PelDataWindow($data));
             } else {
