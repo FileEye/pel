@@ -35,6 +35,26 @@ jobs:
             coverage: "pcov"
             ini-values: "zend.assertions=1"
 
+        - name: Get Composer Cache Directory 2
+          id: composer-cache
+          run: |
+            echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+        - uses: actions/cache@v4
+          id: actions-cache
+          with:
+            path: ${{ steps.composer-cache.outputs.dir }}
+            key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+            restore-keys: |
+              ${{ runner.os }}-composer-
+
+        - name: Cache PHP dependencies
+          uses: actions/cache@v4
+          id: vendor-cache
+          with:
+            path: vendor
+            key: ${{ runner.os }}-build-${{ hashFiles('**/composer.lock') }}
+
         - name: Install Composer dependencies
           run: composer install --no-progress --ansi
 
@@ -48,9 +68,7 @@ jobs:
             files: coverage.xml
             
         - name: Code style test
-          if: ${{ matrix.php-version == 8.2 }}
-          run: ./vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1
+          run: ./vendor/bin/phpcs
 
         - name: PHPStan code analysis
-          if: ${{ matrix.php-version == 8.2 }}
           run: php vendor/bin/phpstan analyze
