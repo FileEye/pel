@@ -23,5 +23,4 @@ class PelIllegalFormatException extends PelException
     {
         parent::__construct('Unknown format: 0x%X', $type);
     }
-
 }
