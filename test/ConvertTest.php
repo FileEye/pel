@@ -70,55 +70,6 @@ class ConvertTest extends TestCase
         $this->assertEquals(PelConvert::bytesToLong($this->bytes, 12, $o), 0xFFFFFFFF);
     }
 
-    public function testSLongLittle(): void
-    {
-        // TODO: Does not work on 64bit systems!
-        $this->markTestIncomplete('Does not work on 64bit systems!');
-        $o = PelConvert::LITTLE_ENDIAN;
-
-        /*
-         * The easiest way to calculate the numbers to compare with, is to
-         * let PHP do the arithmetic for us. When using the bit-wise
-         * operators PHP will return a proper signed 32 bit integer.
-         */
-
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 0, $o), 0x00 << 24 | 0x00 << 16 | 0x00 << 8 | 0x00);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 1, $o), 0x01 << 24 | 0x00 << 16 | 0x00 << 8 | 0x00);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 2, $o), 0x23 << 24 | 0x01 << 16 | 0x00 << 8 | 0x00);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 3, $o), 0x45 << 24 | 0x23 << 16 | 0x01 << 8 | 0x00);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 4, $o), 0x67 << 24 | 0x45 << 16 | 0x23 << 8 | 0x01);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 5, $o), 0x89 << 24 | 0x67 << 16 | 0x45 << 8 | 0x23);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 6, $o), 0xAB << 24 | 0x89 << 16 | 0x67 << 8 | 0x45);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 7, $o), 0xCD << 24 | 0xAB << 16 | 0x89 << 8 | 0x67);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 8, $o), 0xEF << 24 | 0xCD << 16 | 0xAB << 8 | 0x89);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 9, $o), 0xFF << 24 | 0xEF << 16 | 0xCD << 8 | 0xAB);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 10, $o), 0xFF << 24 | 0xFF << 16 | 0xEF << 8 | 0xCD);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 11, $o), 0xFF << 24 | 0xFF << 16 | 0xFF << 8 | 0xEF);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 12, $o), 0xFF << 24 | 0xFF << 16 | 0xFF << 8 | 0xFF);
-    }
-
-    public function testSLongBig(): void
-    {
-        // TODO: Does not work on 64bit systems
-        $this->markTestIncomplete('Does not work on 64bit systems!');
-
-        $o = PelConvert::BIG_ENDIAN;
-
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 0, $o), 0x00 << 24 | 0x00 << 16 | 0x00 << 8 | 0x00);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 1, $o), 0x00 << 24 | 0x00 << 16 | 0x00 << 8 | 0x01);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 2, $o), 0x00 << 24 | 0x00 << 16 | 0x01 << 8 | 0x23);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 3, $o), 0x00 << 24 | 0x01 << 16 | 0x23 << 8 | 0x45);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 4, $o), 0x01 << 24 | 0x23 << 16 | 0x45 << 8 | 0x67);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 5, $o), 0x23 << 24 | 0x45 << 16 | 0x67 << 8 | 0x89);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 6, $o), 0x45 << 24 | 0x67 << 16 | 0x89 << 8 | 0xAB);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 7, $o), 0x67 << 24 | 0x89 << 16 | 0xAB << 8 | 0xCD);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 8, $o), 0x89 << 24 | 0xAB << 16 | 0xCD << 8 | 0xEF);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 9, $o), 0xAB << 24 | 0xCD << 16 | 0xEF << 8 | 0xFF);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 10, $o), 0xCD << 24 | 0xEF << 16 | 0xFF << 8 | 0xFF);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 11, $o), 0xEF << 24 | 0xFF << 16 | 0xFF << 8 | 0xFF);
-        $this->assertEquals(PelConvert::bytesToSLong($this->bytes, 12, $o), 0xFF << 24 | 0xFF << 16 | 0xFF << 8 | 0xFF);
-    }
-
     public function testShortLittle(): void
     {
         $o = PelConvert::LITTLE_ENDIAN;

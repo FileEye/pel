@@ -454,9 +454,9 @@ class PelIfd implements IteratorAggregate, ArrayAccess
      * Stores information of the MakerNotes IFD.
      * Available and required keys are: parent, data, components and offset
      *
-     * @var array<string, mixed>
+     * @var array{parent: PelIfd, data: PelDataWindow, components: int, offset: int}|null
      */
-    private array $maker_notes = [];
+    private ?array $maker_notes = null;
 
     /**
      * The entries held by this directory.
@@ -560,9 +560,9 @@ class PelIfd implements IteratorAggregate, ArrayAccess
     /**
      * Returns the Maker Notes data for an IFD (Probably PelIfd::EXIF only).
      *
-     * @return array{parent: PelIfd, data: PelDataWindow, components: int, offset: int} The maker_notes of IDF
+     * @return array{parent: PelIfd, data: PelDataWindow, components: int, offset: int}|null The maker_notes of IDF
      */
-    public function getMakerNotes(): array
+    public function getMakerNotes(): ?array
     {
         return $this->maker_notes;
     }
@@ -1259,7 +1259,7 @@ class PelIfd implements IteratorAggregate, ArrayAccess
      *
      * @param mixed $tag
      *            unused parameter
-     * @param PelEntry $e
+     * @param mixed $e
      *            the new value to be set
      * @throws PelInvalidArgumentException
      */

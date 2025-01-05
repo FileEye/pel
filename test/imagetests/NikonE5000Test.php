@@ -307,7 +307,7 @@ class NikonE5000Test extends TestCase
         /* End of IFD $ifd1. */
 
         $exceptions = Pel::getExceptions();
-        $this->assertInstanceOf('lsolesen\pel\PelException', $exceptions[0]);
+        $this->assertTrue(count(Pel::getExceptions()) == 1);
         $this->assertEquals($exceptions[0]->getMessage(), 'Found trailing content after EOI: 1396 bytes');
     }
 }
