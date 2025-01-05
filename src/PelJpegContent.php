@@ -49,17 +49,11 @@ namespace lsolesen\pel;
 
 class PelJpegContent
 {
-    private ?PelDataWindow $data = null;
-
     /**
      * Make a new piece of JPEG content.
-     *
-     * @param PelDataWindow $data
-     *            the content.
      */
-    public function __construct(PelDataWindow $data)
+    public function __construct(private readonly ?PelDataWindow $data)
     {
-        $this->data = $data;
     }
 
     /**

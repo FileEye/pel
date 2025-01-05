@@ -2465,11 +2465,7 @@ class PelTag
      */
     public static function getValue(array $container, int $tag): string
     {
-        if (isset($container[$tag])) {
-            return $container[$tag];
-        }
-
-        return self::unknownTag($tag);
+        return $container[$tag] ?? self::unknownTag($tag);
     }
 
     /**
@@ -2547,29 +2543,17 @@ class PelTag
      */
     public static function getName(int $type, int $tag): string
     {
-        switch ($type) {
-            case PelIfd::IFD0:
-            case PelIfd::IFD1:
-            case PelIfd::EXIF:
-            case PelIfd::INTEROPERABILITY:
-                return self::getValue(self::$exifTagsShort, $tag);
-            case PelIfd::GPS:
-                return self::getValue(self::$gpsTagsShort, $tag);
-            case PelIfd::CANON_MAKER_NOTES:
-                return self::getValue(self::$canonTagsShort, $tag);
-            case PelIfd::CANON_CAMERA_SETTINGS:
-                return self::getValue(self::$canonCsTagsShort, $tag);
-            case PelIfd::CANON_SHOT_INFO:
-                return self::getValue(self::$canonSiTagsShort, $tag);
-            case PelIfd::CANON_PANORAMA:
-                return self::getValue(self::$canonPaTagsShort, $tag);
-            case PelIfd::CANON_PICTURE_INFO:
-                return self::getValue(self::$canonPiTagsShort, $tag);
-            case PelIfd::CANON_FILE_INFO:
-                return self::getValue(self::$canonFiTagsShort, $tag);
-        }
-
-        return self::unknownTag($tag);
+        return match ($type) {
+            PelIfd::IFD0, PelIfd::IFD1, PelIfd::EXIF, PelIfd::INTEROPERABILITY => self::getValue(self::$exifTagsShort, $tag),
+            PelIfd::GPS => self::getValue(self::$gpsTagsShort, $tag),
+            PelIfd::CANON_MAKER_NOTES => self::getValue(self::$canonTagsShort, $tag),
+            PelIfd::CANON_CAMERA_SETTINGS => self::getValue(self::$canonCsTagsShort, $tag),
+            PelIfd::CANON_SHOT_INFO => self::getValue(self::$canonSiTagsShort, $tag),
+            PelIfd::CANON_PANORAMA => self::getValue(self::$canonPaTagsShort, $tag),
+            PelIfd::CANON_PICTURE_INFO => self::getValue(self::$canonPiTagsShort, $tag),
+            PelIfd::CANON_FILE_INFO => self::getValue(self::$canonFiTagsShort, $tag),
+            default => self::unknownTag($tag),
+        };
     }
 
     /**
@@ -2588,28 +2572,16 @@ class PelTag
      */
     public function getTitle(int $type, int $tag): string
     {
-        switch ($type) {
-            case PelIfd::IFD0:
-            case PelIfd::IFD1:
-            case PelIfd::EXIF:
-            case PelIfd::INTEROPERABILITY:
-                return Pel::tra(self::getValue(self::$exifTagsTitle, $tag));
-            case PelIfd::GPS:
-                return Pel::tra(self::getValue(self::$gpsTagsShort, $tag));
-            case PelIfd::CANON_MAKER_NOTES:
-                return Pel::tra(self::getValue(self::$canonTagsTitle, $tag));
-            case PelIfd::CANON_CAMERA_SETTINGS:
-                return self::getValue(self::$canonCsTagsTitle, $tag);
-            case PelIfd::CANON_SHOT_INFO:
-                return self::getValue(self::$canonSiTagsTitle, $tag);
-            case PelIfd::CANON_PANORAMA:
-                return self::getValue(self::$canonPaTagsTitle, $tag);
-            case PelIfd::CANON_PICTURE_INFO:
-                return self::getValue(self::$canonPiTagsTitle, $tag);
-            case PelIfd::CANON_FILE_INFO:
-                return self::getValue(self::$canonFiTagsTitle, $tag);
-        }
-
-        return self::unknownTag($tag);
+        return match ($type) {
+            PelIfd::IFD0, PelIfd::IFD1, PelIfd::EXIF, PelIfd::INTEROPERABILITY => Pel::tra(self::getValue(self::$exifTagsTitle, $tag)),
+            PelIfd::GPS => Pel::tra(self::getValue(self::$gpsTagsShort, $tag)),
+            PelIfd::CANON_MAKER_NOTES => Pel::tra(self::getValue(self::$canonTagsTitle, $tag)),
+            PelIfd::CANON_CAMERA_SETTINGS => self::getValue(self::$canonCsTagsTitle, $tag),
+            PelIfd::CANON_SHOT_INFO => self::getValue(self::$canonSiTagsTitle, $tag),
+            PelIfd::CANON_PANORAMA => self::getValue(self::$canonPaTagsTitle, $tag),
+            PelIfd::CANON_PICTURE_INFO => self::getValue(self::$canonPiTagsTitle, $tag),
+            PelIfd::CANON_FILE_INFO => self::getValue(self::$canonFiTagsTitle, $tag),
+            default => self::unknownTag($tag),
+        };
     }
 }

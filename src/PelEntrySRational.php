@@ -130,27 +130,11 @@ class PelEntrySRational extends PelEntrySLong
             return parent::getText($brief);
         }
 
-        switch ($this->tag) {
-            case PelTag::SHUTTER_SPEED_VALUE:
-                // CC (e->components, 1, v);
-                // if (!v_srat.denominator) return (NULL);
-                return Pel::fmt('%.0f/%.0f sec. (APEX: %d)', $v[0], $v[1], pow(sqrt(2), $v[0] / $v[1]));
-
-            case PelTag::BRIGHTNESS_VALUE:
-                // CC (e->components, 1, v);
-                //
-                // TODO: figure out the APEX thing, or remove this so that it is
-                // handled by the default clause at the bottom.
-                return sprintf('%d/%d', $v[0], $v[1]);
-            // FIXME: How do I calculate the APEX value?
-
-            case PelTag::EXPOSURE_BIAS_VALUE:
-                // CC (e->components, 1, v);
-                // if (!v_srat.denominator) return (NULL);
-                return sprintf('%s%.01f', $v[0] * $v[1] > 0 ? '+' : '', $v[0] / $v[1]);
-
-            default:
-                return parent::getText($brief);
-        }
+        return match ($this->tag) {
+            PelTag::SHUTTER_SPEED_VALUE => Pel::fmt('%.0f/%.0f sec. (APEX: %d)', $v[0], $v[1], sqrt(2) ** ($v[0] / $v[1])),
+            PelTag::BRIGHTNESS_VALUE => sprintf('%d/%d', $v[0], $v[1]),
+            PelTag::EXPOSURE_BIAS_VALUE => sprintf('%s%.01f', $v[0] * $v[1] > 0 ? '+' : '', $v[0] / $v[1]),
+            default => parent::getText($brief),
+        };
     }
 }

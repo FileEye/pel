@@ -44,7 +44,7 @@ jobs:
           id: actions-cache
           with:
             path: ${{ steps.composer-cache.outputs.dir }}
-            key: ${{ runner.os }}-composer-${{ matrix.php-version }}
+            key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
             restore-keys: |
               ${{ runner.os }}-composer-
 
@@ -53,7 +53,7 @@ jobs:
           id: vendor-cache
           with:
             path: vendor
-            key: ${{ runner.os }}-build-${{ matrix.php-version }}
+            key: ${{ runner.os }}-build-${{ hashFiles('**/composer.lock') }}
 
         - name: Install Composer dependencies
           run: composer install --no-progress --ansi
@@ -63,6 +63,9 @@ jobs:
 
         - name: PHPStan code analysis
           run: php vendor/bin/phpstan analyze
+
+        - name: Execute Rector
+          run: vendor/bin/rector --dry-run
 
         - name: Run tests
           run: ./vendor/bin/phpunit --color=always --coverage-clover=coverage.xml ./test

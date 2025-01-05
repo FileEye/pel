@@ -64,8 +64,9 @@
 namespace lsolesen\pel;
 
 use lsolesen\pel\PelIfd;
+use Stringable;
 
-abstract class PelEntry
+abstract class PelEntry implements Stringable
 {
 
     /**

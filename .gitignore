@@ -6,5 +6,4 @@ ChangeLog
 build-base*
 /.phpcs-cache
 /.phpunit.result.cache
-/composer.lock
 /.settings/

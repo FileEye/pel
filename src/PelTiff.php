@@ -23,6 +23,10 @@
  * Boston, MA 02110-1301 USA
  */
 
+namespace lsolesen\pel;
+
+use Stringable;
+
 /**
  * Classes for dealing with TIFF data.
  *
@@ -58,9 +62,8 @@
  * @author Martin Geisler <mgeisler@users.sourceforge.net>
  * @package PEL
  */
-namespace lsolesen\pel;
 
-class PelTiff
+class PelTiff implements Stringable
 {
 
     /**

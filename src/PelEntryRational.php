@@ -138,7 +138,7 @@ class PelEntryRational extends PelEntryLong
             case PelTag::APERTURE_VALUE:
                 // CC (e->components, 1, v);
                 // if (!v_rat.denominator) return (NULL);
-                return Pel::fmt('f/%.01f', pow(2, $v[0] / $v[1] / 2));
+                return Pel::fmt('f/%.01f', 2 ** ($v[0] / $v[1] / 2));
 
             case PelTag::FOCAL_LENGTH:
                 // CC (e->components, 1, v);

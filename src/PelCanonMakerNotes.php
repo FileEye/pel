@@ -183,25 +183,13 @@ class PelCanonMakerNotes extends PelMakerNotes
             if (in_array($tag, $this->undefinedMakerNotesTags)) {
                 continue;
             }
-            switch ($tag) {
-                case PelTag::CANON_CAMERA_SETTINGS:
-                    $this->parseCameraSettings($mkNotesIfd, $this->data, $data, $components);
-                    break;
-                case PelTag::CANON_SHOT_INFO:
-                    $this->parseShotInfo($mkNotesIfd, $this->data, $data, $components);
-                    break;
-                case PelTag::CANON_PANORAMA:
-                    $this->parsePanorama($mkNotesIfd, $this->data, $data, $components);
-                    break;
-                case PelTag::CANON_FILE_INFO:
-                    $this->parseFileInfo($mkNotesIfd, $this->data, $data, $components);
-                    break;
-                case PelTag::CANON_CUSTOM_FUNCTIONS:
-                // TODO
-                default:
-                    $mkNotesIfd->loadSingleValue($this->data, $this->offset, $i, $tag);
-                    break;
-            }
+            match ($tag) {
+                PelTag::CANON_CAMERA_SETTINGS => $this->parseCameraSettings($mkNotesIfd, $this->data, $data, $components),
+                PelTag::CANON_SHOT_INFO => $this->parseShotInfo($mkNotesIfd, $this->data, $data, $components),
+                PelTag::CANON_PANORAMA => $this->parsePanorama($mkNotesIfd, $this->data, $data, $components),
+                PelTag::CANON_FILE_INFO => $this->parseFileInfo($mkNotesIfd, $this->data, $data, $components),
+                default => $mkNotesIfd->loadSingleValue($this->data, $this->offset, $i, $tag),
+            };
         }
         $this->parent->addSubIfd($mkNotesIfd);
     }

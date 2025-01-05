@@ -109,50 +109,30 @@ class PelEntryUndefined extends PelEntry
         switch ($this->tag) {
             case PelTag::FILE_SOURCE:
                 // CC (e->components, 1, v);
-                switch (ord($this->bytes[0])) {
-                    case 0x03:
-                        return 'DSC';
-                    default:
-                        return sprintf('0x%02X', ord($this->bytes[0]));
-                }
+                return match (ord($this->bytes[0])) {
+                    0x03 => 'DSC',
+                    default => sprintf('0x%02X', ord($this->bytes[0])),
+                };
             case PelTag::SCENE_TYPE:
                 // CC (e->components, 1, v);
-                switch (ord($this->bytes[0])) {
-                    case 0x01:
-                        return 'Directly photographed';
-                    default:
-                        return sprintf('0x%02X', ord($this->bytes[0]));
-                }
+                return match (ord($this->bytes[0])) {
+                    0x01 => 'Directly photographed',
+                    default => sprintf('0x%02X', ord($this->bytes[0])),
+                };
             case PelTag::COMPONENTS_CONFIGURATION:
                 // CC (e->components, 4, v);
                 $v = '';
                 for ($i = 0; $i < 4; $i ++) {
-                    switch (ord($this->bytes[$i])) {
-                        case 0:
-                            $v .= '-';
-                            break;
-                        case 1:
-                            $v .= 'Y';
-                            break;
-                        case 2:
-                            $v .= 'Cb';
-                            break;
-                        case 3:
-                            $v .= 'Cr';
-                            break;
-                        case 4:
-                            $v .= 'R';
-                            break;
-                        case 5:
-                            $v .= 'G';
-                            break;
-                        case 6:
-                            $v .= 'B';
-                            break;
-                        default:
-                            $v .= 'reserved';
-                            break;
-                    }
+                    match (ord($this->bytes[$i])) {
+                        0 => $v .= '-',
+                        1 => $v .= 'Y',
+                        2 => $v .= 'Cb',
+                        3 => $v .= 'Cr',
+                        4 => $v .= 'R',
+                        5 => $v .= 'G',
+                        6 => $v .= 'B',
+                        default => $v .= 'reserved',
+                    };
                     if ($i < 3) {
                         $v .= ' ';
                     }

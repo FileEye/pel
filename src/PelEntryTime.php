@@ -150,7 +150,7 @@ class PelEntryTime extends PelEntryAscii
                     return (string) ($seconds + $this->seconds);
                 }
             case self::EXIF_STRING:
-                list ($year, $month, $day) = $this->convertJdToGregorian($this->day_count);
+                [$year, $month, $day] = $this->convertJdToGregorian($this->day_count);
                 $hours = (int) ($this->seconds / 3600);
                 $minutes = (int) ($this->seconds % 3600 / 60);
                 $seconds = $this->seconds % 60;

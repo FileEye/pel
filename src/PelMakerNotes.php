@@ -47,34 +47,20 @@ abstract class PelMakerNotes
 
     protected ?int $type = null;
 
-    protected PelIfd $parent;
-
-    protected PelDataWindow $data;
-
-    protected int $size;
-
     protected int $components;
-
-    protected int $offset;
 
     public static function createMakerNotesFromManufacturer(string $manufacturer, PelIfd $parent, PelDataWindow $data, int $size, int $offset): ?PelCanonMakerNotes
     {
-        switch ($manufacturer) {
-            case 'Canon':
-                return new PelCanonMakerNotes($parent, $data, $size, $offset);
-            default:
-                return null;
-        }
+        return match ($manufacturer) {
+            'Canon' => new PelCanonMakerNotes($parent, $data, $size, $offset),
+            default => null,
+        };
     }
 
-    public function __construct(PelIfd $parent, PelDataWindow $data, int $size, int $offset)
+    public function __construct(protected PelIfd $parent, protected PelDataWindow $data, protected int $size, protected int $offset)
     {
-        $this->parent = $parent;
-        $this->data = $data;
-        $this->size = $size;
-        $this->offset = $offset;
         $this->components = 0;
-        Pel::debug('Creating MakerNotes with %d bytes at offset %d.', $size, $offset);
+        Pel::debug('Creating MakerNotes with %d bytes at offset %d.', $this->size, $this->offset);
     }
 
     abstract public function load(): void;

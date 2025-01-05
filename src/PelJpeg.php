@@ -60,7 +60,7 @@
  */
 namespace lsolesen\pel;
 
-class PelJpeg
+class PelJpeg implements \Stringable
 {
 
     /**
@@ -180,7 +180,7 @@ class PelJpeg
          * no data left in the window.
          */
         while ($d->getSize() > 0) {
-            $i = $this->getJpgSectionStart($d);
+            $i = static::getJpgSectionStart($d);
 
             $marker = $d->getByte($i);
 
@@ -213,7 +213,7 @@ class PelJpeg
                     try {
                         $content = new PelExif();
                         $content->load($d->getClone(0, $len));
-                    } catch (PelInvalidDataException $e) {
+                    } catch (PelInvalidDataException) {
                         /*
                          * We store the data as normal JPEG content if it could
                          * not be parsed as Exif data.
@@ -570,7 +570,7 @@ class PelJpeg
             }
 
             $data = $c->getBytes();
-            $size = strlen($data) + 2;
+            $size = strlen((string) $data) + 2;
 
             $bytes .= PelConvert::shortToBytes($size, PelConvert::BIG_ENDIAN);
             $bytes .= $data;

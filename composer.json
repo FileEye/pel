@@ -30,7 +30,8 @@
         "phpunit/phpunit" : "^10 || ^11 ",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2",
-        "phpstan/phpstan-phpunit": "^2"
+        "phpstan/phpstan-phpunit": "^2",
+        "rector/rector": "^2"
     },
     "config": {
         "allow-plugins": {

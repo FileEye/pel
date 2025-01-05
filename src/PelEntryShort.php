@@ -390,16 +390,12 @@ class PelEntryShort extends PelEntryNumber
             }
             return $this->value[0] . ', ' . $this->value[1];
         } elseif ($this->tag === PelTag::SUBJECT_AREA) {
-            switch ($this->components) {
-                case 2:
-                    return Pel::fmt('(x,y) = (%d,%d)', $this->value[0], $this->value[1]);
-                case 3:
-                    return Pel::fmt('Within distance %d of (x,y) = (%d,%d)', $this->value[0], $this->value[1], $this->value[2]);
-                case 4:
-                    return Pel::fmt('Within rectangle (width %d, height %d) around (x,y) = (%d,%d)', $this->value[0], $this->value[1], $this->value[2], $this->value[3]);
-                default:
-                    return Pel::fmt('Unexpected number of components (%d, expected 2, 3, or 4).', $this->components);
-            }
+            return match ($this->components) {
+                2 => Pel::fmt('(x,y) = (%d,%d)', $this->value[0], $this->value[1]),
+                3 => Pel::fmt('Within distance %d of (x,y) = (%d,%d)', $this->value[0], $this->value[1], $this->value[2]),
+                4 => Pel::fmt('Within rectangle (width %d, height %d) around (x,y) = (%d,%d)', $this->value[0], $this->value[1], $this->value[2], $this->value[3]),
+                default => Pel::fmt('Unexpected number of components (%d, expected 2, 3, or 4).', $this->components),
+            };
         } elseif (array_key_exists($this->tag, self::PEL_TAG_TRANSLATIONS)) {
             if (array_key_exists($this->value[0], self::PEL_TAG_TRANSLATIONS[$this->tag])) {
                 return Pel::tra(self::PEL_TAG_TRANSLATIONS[$this->tag][$this->value[0]]);

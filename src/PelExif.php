@@ -40,7 +40,7 @@
  */
 namespace lsolesen\pel;
 
-class PelExif extends PelJpegContent
+class PelExif extends PelJpegContent implements \Stringable
 {
 
     /**

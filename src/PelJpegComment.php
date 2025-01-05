@@ -23,6 +23,10 @@
  * Boston, MA 02110-1301 USA
  */
 
+namespace lsolesen\pel;
+
+use Stringable;
+
 /**
  * Class for dealing with JPEG comments.
  *
@@ -38,17 +42,8 @@
  * @author Martin Geisler <mgeisler@users.sourceforge.net>
  * @package PEL
  */
-namespace lsolesen\pel;
-
-class PelJpegComment extends PelJpegContent
+class PelJpegComment extends PelJpegContent implements Stringable
 {
-
-    /**
-     * The comment.
-     *
-     * @var string
-     */
-    private string $comment = '';
 
     /**
      * Construct a new JPEG comment.
@@ -57,9 +52,8 @@ class PelJpegComment extends PelJpegContent
      *
      * @param string $comment
      */
-    public function __construct(string $comment = '')
+    public function __construct(private string $comment = '')
     {
-        $this->comment = $comment;
     }
 
     /**

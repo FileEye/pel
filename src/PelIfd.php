@@ -27,6 +27,7 @@ namespace lsolesen\pel;
 use ArrayAccess;
 use ArrayIterator;
 use IteratorAggregate;
+use Stringable;
 use lsolesen\pel\PelEntry;
 
 /**
@@ -51,7 +52,7 @@ use lsolesen\pel\PelEntry;
  * @implements IteratorAggregate<int, PelEntry>
  * @implements ArrayAccess<int, PelEntry>
  */
-class PelIfd implements IteratorAggregate, ArrayAccess
+class PelIfd implements IteratorAggregate, ArrayAccess, Stringable
 {
 
     /**
@@ -477,7 +478,7 @@ class PelIfd implements IteratorAggregate, ArrayAccess
      *
      * @var int
      */
-    private int $type;
+    private readonly int $type;
 
     /**
      * The next directory.
@@ -1176,7 +1177,7 @@ class PelIfd implements IteratorAggregate, ArrayAccess
      */
     public function getName(): string
     {
-        return $this->getTypeName($this->type);
+        return static::getTypeName($this->type);
     }
 
     /**

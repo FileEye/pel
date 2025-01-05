@@ -33,7 +33,7 @@ use lsolesen\pel\PelConvert;
  *
  * @package PEL
  */
-class PelDataWindow
+class PelDataWindow implements \Stringable
 {
 
     /**
@@ -44,18 +44,6 @@ class PelDataWindow
      * @var string
      */
     private string $data = '';
-
-    /**
-     * The byte order currently in use.
-     *
-     * This will be the byte order used when data is read using the for
-     * example the {@link getShort} function. It must be one of {@link
-     * PelConvert::LITTLE_ENDIAN} and {@link PelConvert::BIG_ENDIAN}.
-     *
-     * @var boolean
-     * @see PelDataWindow::setByteOrder, getByteOrder
-     */
-    private bool $order = PelConvert::LITTLE_ENDIAN;
 
     /**
      * The start of the current window.
@@ -89,7 +77,7 @@ class PelDataWindow
      *            either be given as a string (interpreted litteraly as a sequence
      *            of bytes) or a PHP image resource handle. The data will be copied
      *            into the new data window.
-     * @param boolean $endianess
+     * @param boolean $order
      *            the initial byte order of the window. This must
      *            be either {@link PelConvert::LITTLE_ENDIAN} or {@link
      *            PelConvert::BIG_ENDIAN}. This will be used when integers are
@@ -97,7 +85,7 @@ class PelDataWindow
      *            setByteOrder()}.
      * @throws PelInvalidArgumentException if $data was of invalid type
      */
-    public function __construct(string|GdImage $data = '', bool $endianess = PelConvert::LITTLE_ENDIAN)
+    public function __construct(string|GdImage $data = '', private bool $order = PelConvert::LITTLE_ENDIAN)
     {
         if (is_string($data)) {
             $this->data = $data;
@@ -117,8 +105,6 @@ class PelDataWindow
 
             $this->data = $dataBytes;
         }
-
-        $this->order = $endianess;
         $this->size = strlen($this->data);
     }
 
