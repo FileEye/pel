@@ -58,6 +58,12 @@ jobs:
         - name: Install Composer dependencies
           run: composer install --no-progress --ansi
 
+        - name: Code style test
+          run: ./vendor/bin/phpcs
+
+        - name: PHPStan code analysis
+          run: php vendor/bin/phpstan analyze
+
         - name: Run tests
           run: ./vendor/bin/phpunit --color=always --coverage-clover=coverage.xml ./test
 
@@ -66,9 +72,3 @@ jobs:
           with:
             token: ${{ secrets.CODECOV_TOKEN }}
             files: coverage.xml
-            
-        - name: Code style test
-          run: ./vendor/bin/phpcs
-
-        - name: PHPStan code analysis
-          run: php vendor/bin/phpstan analyze
