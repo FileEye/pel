@@ -12,7 +12,6 @@ namespace lsolesen\pel;
  */
 class PelIllegalFormatException extends PelException
 {
-
     /**
      * Construct a new exception indicating an illegal format.
      *

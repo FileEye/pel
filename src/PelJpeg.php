@@ -12,7 +12,7 @@ namespace lsolesen\pel;
  * sections containing some {@link PelJpegContent content} identified
  * by a {@link PelJpegMarker marker}.
  *
- * The {@link getExif()} method is used get hold of the {@link * PelJpegMarker::APP1 APP1} section which stores Exif data. So if
+ * The {@link getExif()} method is used get hold of the {@link PelJpegMarker::APP1 APP1} section which stores Exif data. So if
  * the name of the JPEG file is stored in $filename, then one would
  * get hold of the Exif data by saying:
  *
@@ -29,7 +29,8 @@ namespace lsolesen\pel;
  * {@link PelIfd Image File Directories}, in which the data is stored
  * under the keys found in {@link PelTag}.
  *
- * Should one have some image data (in the form of a {@link * PelDataWindow}) of an unknown type, then the {@link * PelJpeg::isValid()} function is handy: it will quickly test if the
+ * Should one have some image data (in the form of a {@link PelDataWindow}) of an unknown type,
+ * then the {@link PelJpeg::isValid()} function is handy: it will quickly test if the
  * data could be valid JPEG data. The {@link PelTiff::isValid()}
  * function does the same for TIFF images.
  */
@@ -40,8 +41,8 @@ class PelJpeg implements \Stringable
      *
      * A JPEG file is built up as a sequence of sections, each section
      * is identified with a {@link PelJpegMarker}. Some sections can
-     * occur more than once in the JPEG stream (the {@link * PelJpegMarker::DQT DQT} and {@link PelJpegMarker::DHT DTH}
-     * markers for example) and so this is an array of ({@link * PelJpegMarker}, {@link PelJpegContent}) pairs.
+     * occur more than once in the JPEG stream (the {@link PelJpegMarker::DQT DQT} and {@link PelJpegMarker::DHT DTH}
+     * markers for example) and so this is an array of ({@link PelJpegMarker}, {@link PelJpegContent}) pairs.
      *
      * The content can be either generic {@link PelJpegContent JPEG
      * content} or {@link PelExif Exif data}.
@@ -242,7 +243,7 @@ class PelJpeg implements \Stringable
 
                         /* Now check to see if there are any trailing data. */
                         if ($length !== $d->getSize()) {
-                            Pel::maybeThrow(new PelException('Found trailing content ' . 'after EOI: %d bytes', $d->getSize() - $length));
+                            Pel::maybeThrow(new PelException('Found trailing content after EOI: %d bytes', $d->getSize() - $length));
                             $content = new PelJpegContent($d->getClone($length));
                             /*
                              * We don't have a proper JPEG marker for trailing
@@ -293,7 +294,7 @@ class PelJpeg implements \Stringable
         /* Search through all sections looking for APP0 or APP1. */
         $sections_count = count($this->sections);
         for ($i = 0; $i < $sections_count; $i++) {
-            if (! empty($this->sections[$i][0])) {
+            if (isset($this->sections[$i][0])) {
                 $section = $this->sections[$i];
                 if ($section[0] === PelJpegMarker::APP0) {
                     $app0_offset = $i;
@@ -333,7 +334,7 @@ class PelJpeg implements \Stringable
         /* Search through all sections looking for APP0 or APP1. */
         $count_sections = count($this->sections);
         for ($i = 0; $i < $count_sections; $i++) {
-            if (! empty($this->sections[$i][0])) {
+            if (isset($this->sections[$i][0])) {
                 if ($this->sections[$i][0] === PelJpegMarker::APP1) {
                     $app1_offset = $i;
                 } elseif ($this->sections[$i][0] === PelJpegMarker::APP2) {
@@ -463,7 +464,7 @@ class PelJpeg implements \Stringable
      * Please use the {@link getExif()} if you just need the Exif data.
      *
      * This will search through the sections of this JPEG object,
-     * looking for a section identified with the specified {@link * PelJpegMarker marker}. The {@link PelJpegContent content} will
+     * looking for a section identified with the specified {@link PelJpegMarker marker}. The {@link PelJpegContent content} will
      * then be returned. The optional argument can be used to skip over
      * some of the sections. So if one is looking for the, say, third
      * {@link PelJpegMarker::DHT DHT} section one would do:
@@ -499,7 +500,9 @@ class PelJpeg implements \Stringable
     /**
      * Get all sections.
      *
-     * @return array<int, mixed> an array of ({@link PelJpegMarker}, {@link *         PelJpegContent}) pairs. Each pair is an array with the {@link *         PelJpegMarker} as the first element and the {@link *         PelJpegContent} as the second element, so the return type is an
+     * @return array<int, mixed> an array of ({@link PelJpegMarker}, {@link PelJpegContent}) pairs.
+     *         Each pair is an array with the {@link PelJpegMarker} as the first element and
+     *         the {@link PelJpegContent} as the second element, so the return type is an
      *         array of arrays.
      *         So to loop through all the sections in a given JPEG image do
      *         this:

@@ -22,7 +22,6 @@ namespace lsolesen\pel;
  */
 class PelEntryLong extends PelEntryNumber
 {
-
     /**
      * Make a new entry that can hold an unsigned long.
      *
@@ -51,8 +50,7 @@ class PelEntryLong extends PelEntryNumber
      *            represent or an array of longs. The argument passed must obey
      *            the same rules as the argument to {@link setValue}, namely that
      *            it should be within range of an unsigned long (32 bit), that is
-     *            between 0 and 4294967295 (inclusive). If not, then a {@link
-     *            PelExifOverflowException} will be thrown.
+     *            between 0 and 4294967295 (inclusive). If not, then a {@link PelExifOverflowException} will be thrown.
      */
     public function __construct(int $tag, int ...$value)
     {
@@ -71,9 +69,10 @@ class PelEntryLong extends PelEntryNumber
      *
      * @param int $number
      *            the number that should be converted.
-     * @param boolean $order
+     * @param bool $order
      *            one of {@link PelConvert::LITTLE_ENDIAN} and
      *            {@link PelConvert::BIG_ENDIAN}, specifying the target byte order.
+     *
      * @return string bytes representing the number given.
      */
     public function numberToBytes(int $number, bool $order): string

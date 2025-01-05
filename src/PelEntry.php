@@ -23,7 +23,7 @@ use Stringable;
  * If you instead want to have an entry for some data which take the
  * form of an integer, a string, a byte, or some other PHP type, then
  * don't use this class. You should instead create an object of the
- * right subclass ({@link PelEntryShort} for short integers, {@link * PelEntryAscii} for strings, and so on) directly.
+ * right subclass ({@link PelEntryShort} for short integers, {@link PelEntryAscii} for strings, and so on) directly.
  */
 abstract class PelEntry implements Stringable
 {
@@ -33,7 +33,7 @@ abstract class PelEntry implements Stringable
      * This must be one of the constants defined in {@link PelIfd}:
      * {@link PelIfd::IFD0} for the main image IFD, {@link PelIfd::IFD1}
      * for the thumbnail image IFD, {@link PelIfd::EXIF} for the Exif
-     * sub-IFD, {@link PelIfd::GPS} for the GPS sub-IFD, or {@link * PelIfd::INTEROPERABILITY} for the interoperability sub-IFD.
+     * sub-IFD, {@link PelIfd::GPS} for the GPS sub-IFD, or {@link PelIfd::INTEROPERABILITY} for the interoperability sub-IFD.
      */
     protected int $ifd_type = PelIfd::IFD0;
 
@@ -95,7 +95,7 @@ abstract class PelEntry implements Stringable
      * @return int one of the constants defined in {@link PelIfd}:
      *         {@link PelIfd::IFD0} for the main image IFD, {@link PelIfd::IFD1}
      *         for the thumbnail image IFD, {@link PelIfd::EXIF} for the Exif
-     *         sub-IFD, {@link PelIfd::GPS} for the GPS sub-IFD, or {@link *         PelIfd::INTEROPERABILITY} for the interoperability sub-IFD.
+     *         sub-IFD, {@link PelIfd::GPS} for the GPS sub-IFD, or {@link PelIfd::INTEROPERABILITY} for the interoperability sub-IFD.
      */
     public function getIfdType(): int
     {
@@ -106,7 +106,7 @@ abstract class PelEntry implements Stringable
      * Update the IFD type.
      *
      * @param int $type
-     *            must be one of the constants defined in {@link *            PelIfd}: {@link PelIfd::IFD0} for the main image IFD, {@link *            PelIfd::IFD1} for the thumbnail image IFD, {@link PelIfd::EXIF}
+     *            must be one of the constants defined in {@link PelIfd}: {@link PelIfd::IFD0} for the main image IFD, {@link PelIfd::IFD1} for the thumbnail image IFD, {@link PelIfd::EXIF}
      *            for the Exif sub-IFD, {@link PelIfd::GPS} for the GPS sub-IFD, or
      *            {@link PelIfd::INTEROPERABILITY} for the interoperability
      *            sub-IFD.

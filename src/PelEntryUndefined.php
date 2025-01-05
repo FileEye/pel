@@ -17,7 +17,7 @@ class PelEntryUndefined extends PelEntry
      * @param int $tag
      *            which this entry represents. This
      *            should be one of the constants defined in {@link PelTag},
-     *            e.g., {@link PelTag::SCENE_TYPE}, {@link *            PelTag::MAKER_NOTE} or any other tag with format {@link *            PelFormat::UNDEFINED}.
+     *            e.g., {@link PelTag::SCENE_TYPE}, {@link PelTag::MAKER_NOTE} or any other tag with format {@link PelFormat::UNDEFINED}.
      * @param string $data
      *            the data that this entry will be holding. Since
      *            the format is undefined, no checking will be done on the data. If no data are given, a empty string will be stored

@@ -6,9 +6,6 @@ namespace lsolesen\pel;
 
 use GdImage;
 
-use lsolesen\pel\Pel;
-use lsolesen\pel\PelConvert;
-
 /**
  * The window.
  *
@@ -50,12 +47,12 @@ class PelDataWindow implements \Stringable
      *
      * @param string|GdImage $data
      *            the data that this window will contain. This can
-     *            either be given as a string (interpreted litteraly as a sequence
+     *            either be given as a string (interpreted literally as a sequence
      *            of bytes) or a PHP image resource handle. The data will be copied
      *            into the new data window.
      * @param bool $order
      *            the initial byte order of the window. This must
-     *            be either {@link PelConvert::LITTLE_ENDIAN} or {@link *            PelConvert::BIG_ENDIAN}. This will be used when integers are
+     *            be either {@link PelConvert::LITTLE_ENDIAN} or {@link PelConvert::BIG_ENDIAN}. This will be used when integers are
      *            read from the data, and it can be changed later with {@link setByteOrder()}.
      *
      * @throws PelInvalidArgumentException if $data was of invalid type
@@ -113,7 +110,7 @@ class PelDataWindow implements \Stringable
      *
      * @param bool $order
      *            the new byte order. This must be either
-     *            {@link PelConvert::LITTLE_ENDIAN} or {@link *            PelConvert::BIG_ENDIAN}.
+     *            {@link PelConvert::LITTLE_ENDIAN} or {@link PelConvert::BIG_ENDIAN}.
      */
     public function setByteOrder(bool $order): void
     {
@@ -123,7 +120,7 @@ class PelDataWindow implements \Stringable
     /**
      * Get the currently used byte order.
      *
-     * @return bool this will be either {@link *         PelConvert::LITTLE_ENDIAN} or {@link PelConvert::BIG_ENDIAN}.
+     * @return bool this will be either {@link PelConvert::LITTLE_ENDIAN} or {@link PelConvert::BIG_ENDIAN}.
      */
     public function getByteOrder(): bool
     {
@@ -143,7 +140,7 @@ class PelDataWindow implements \Stringable
     public function setWindowStart(int $start): void
     {
         if ($start < 0 || $start > $this->size) {
-            throw new PelDataWindowWindowException('Window [%d, %d] does ' . 'not fit in window [0, %d]', $start, $this->size, $this->size);
+            throw new PelDataWindowWindowException('Window [%d, %d] does not fit in window [0, %d]', $start, $this->size, $this->size);
         }
         $this->start += $start;
         $this->size -= $start;
@@ -165,7 +162,7 @@ class PelDataWindow implements \Stringable
             $size += $this->size;
         }
         if ($size < 0 || $size > $this->size) {
-            throw new PelDataWindowWindowException('Window [0, %d] ' . 'does not fit in window [0, %d]', $size, $this->size);
+            throw new PelDataWindowWindowException('Window [0, %d] does not fit in window [0, %d]', $size, $this->size);
         }
         $this->size = $size;
     }
@@ -211,7 +208,7 @@ class PelDataWindow implements \Stringable
      * @param int|null $start
      *            the offset to the first byte returned. If a negative
      *            number is given, then the counting will be from the end of the
-     *            window. Invalid offsets will result in a {@link *            PelDataWindowOffsetException} being thrown.
+     *            window. Invalid offsets will result in a {@link PelDataWindowOffsetException} being thrown.
      * @param int|null $size
      *            the size of the sub-window. If a negative number is
      *            given, then that many bytes will be omitted from the result.
@@ -431,7 +428,7 @@ class PelDataWindow implements \Stringable
      *            the offset into the data. An offset of zero will
      *            return the first rational available in the current allowed
      *            window. The last valid offset is equal to {@link getSize()}-8.
-     *            Invalid offsets will result in a {@link *            PelDataWindowOffsetException} being thrown.
+     *            Invalid offsets will result in a {@link PelDataWindowOffsetException} being thrown.
      *
      * @return array<int, int> the unsigned rational found at offset. A rational
      *         number is represented as an array of two numbers: the enumerator
@@ -454,7 +451,7 @@ class PelDataWindow implements \Stringable
      *            the offset into the data. An offset of zero will
      *            return the first rational available in the current allowed
      *            window. The last valid offset is equal to {@link getSize()}-8.
-     *            Invalid offsets will result in a {@link *            PelDataWindowOffsetException} being thrown.
+     *            Invalid offsets will result in a {@link PelDataWindowOffsetException} being thrown.
      *
      * @return array<int, int> the signed rational found at offset. A rational
      *         number is represented as an array of two numbers: the enumerator

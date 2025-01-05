@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace lsolesen\pel;
 
-use lsolesen\pel\PelTag;
-
 /**
  * Exception indicating that an unexpected number of components was
  * found.
@@ -17,7 +15,6 @@ use lsolesen\pel\PelTag;
  */
 class PelWrongComponentCountException extends \lsolesen\pel\PelEntryException
 {
-
     /**
      * Construct a new exception indicating a wrong number of
      * components.
@@ -33,7 +30,7 @@ class PelWrongComponentCountException extends \lsolesen\pel\PelEntryException
      */
     public function __construct(int $type, int $tag, int $found, int $expected)
     {
-        parent::__construct('Wrong number of components found for %s tag: %d. ' . 'Expected %d.', PelTag::getName($type, $tag), $found, $expected);
+        parent::__construct('Wrong number of components found for %s tag: %d. Expected %d.', PelTag::getName($type, $tag), $found, $expected);
         $this->tag = $tag;
         $this->type = $type;
     }

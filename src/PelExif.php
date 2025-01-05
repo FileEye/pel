@@ -18,19 +18,16 @@ namespace lsolesen\pel;
  */
 class PelExif extends PelJpegContent implements \Stringable
 {
-
     /**
      * Exif header.
      *
      * The Exif data must start with these six bytes to be considered
      * valid.
      */
-    const EXIF_HEADER = "Exif\0\0";
+    public const EXIF_HEADER = "Exif\0\0";
 
     /**
      * The PelTiff object contained within.
-     *
-     * @var PelTiff
      */
     private ?PelTiff $tiff = null;
 
@@ -48,13 +45,22 @@ class PelExif extends PelJpegContent implements \Stringable
     }
 
     /**
+     * Return a string representation of this object.
+     *
+     * @return string a string describing this object. This is mostly
+     *         useful for debugging.
+     */
+    public function __toString(): string
+    {
+        return Pel::tra("Dumping Exif data...\n") . $this->tiff?->__toString();
+    }
+
+    /**
      * Load and parse Exif data.
      *
      * This will populate the object with Exif data, contained as a
      * {@link PelTiff} object. This TIFF object can be accessed with
      * the {@link getTiff()} method.
-     *
-     * @param PelDataWindow $d
      */
     public function load(PelDataWindow $d): void
     {
@@ -62,7 +68,7 @@ class PelExif extends PelJpegContent implements \Stringable
 
         /* There must be at least 6 bytes for the Exif header. */
         if ($d->getSize() < 6) {
-            throw new PelInvalidDataException('Expected at least 6 bytes of Exif ' . 'data, found just %d bytes.', $d->getSize());
+            throw new PelInvalidDataException('Expected at least 6 bytes of Exif data, found just %d bytes.', $d->getSize());
         }
         /* Verify the Exif header */
         if ($d->strcmp(0, self::EXIF_HEADER)) {
@@ -112,16 +118,5 @@ class PelExif extends PelJpegContent implements \Stringable
     public function getBytes(): string
     {
         return self::EXIF_HEADER . $this->tiff?->getBytes();
-    }
-
-    /**
-     * Return a string representation of this object.
-     *
-     * @return string a string describing this object. This is mostly
-     *         useful for debugging.
-     */
-    public function __toString(): string
-    {
-        return Pel::tra("Dumping Exif data...\n") . $this->tiff?->__toString();
     }
 }

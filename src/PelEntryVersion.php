@@ -8,7 +8,7 @@ namespace lsolesen\pel;
  * Class to hold version information.
  *
  * There are three Exif entries that hold version information: the
- * {@link PelTag::EXIF_VERSION}, {@link * PelTag::FLASH_PIX_VERSION}, and {@link * PelTag::INTEROPERABILITY_VERSION} tags. This class manages
+ * {@link PelTag::EXIF_VERSION}, {@link PelTag::FLASH_PIX_VERSION}, and {@link PelTag::INTEROPERABILITY_VERSION} tags. This class manages
  * those tags.
  *
  * The class is used in a very straight-forward way:
@@ -36,7 +36,7 @@ class PelEntryVersion extends PelEntry
      * Make a new entry for holding a version.
      *
      * @param int $tag
-     *            This should be one of {@link *            PelTag::EXIF_VERSION}, {@link PelTag::FLASH_PIX_VERSION},
+     *            This should be one of {@link PelTag::EXIF_VERSION}, {@link PelTag::FLASH_PIX_VERSION},
      *            or {@link PelTag::INTEROPERABILITY_VERSION}.
      * @param float $version
      *            The size of the entries leave room for

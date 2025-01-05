@@ -116,7 +116,7 @@ abstract class PelEntryNumber extends PelEntry
      * @param int|array<int, mixed> $n
      *            the number in question.
      *
-     * @return void nothing, but will throw a {@link *         PelOverflowException} if the number is found to be outside the
+     * @return void nothing, but will throw a {@link PelOverflowException} if the number is found to be outside the
      *         legal range and {@link Pel::$strict} is true.
      */
     public function validateNumber(int|array $n): void
@@ -176,7 +176,7 @@ abstract class PelEntryNumber extends PelEntry
      *
      * @param bool $o
      *            the desired byte order, which must be either
-     *            {@link PelConvert::LITTLE_ENDIAN} or {@link *            PelConvert::BIG_ENDIAN}.
+     *            {@link PelConvert::LITTLE_ENDIAN} or {@link PelConvert::BIG_ENDIAN}.
      *
      * @return string bytes representing this entry.
      */

@@ -12,7 +12,6 @@ namespace lsolesen\pel;
  */
 class PelUnexpectedFormatException extends PelEntryException
 {
-
     /**
      * Construct a new exception indicating an invalid format.
      *

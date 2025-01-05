@@ -17,7 +17,6 @@ namespace lsolesen\pel;
  */
 class PelFormat
 {
-
     /**
      * Unsigned byte.
      *
@@ -26,7 +25,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntryByte} class.
      */
-    const BYTE = 1;
+    public const BYTE = 1;
 
     /**
      * ASCII string.
@@ -35,7 +34,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntryAscii} class.
      */
-    const ASCII = 2;
+    public const ASCII = 2;
 
     /**
      * Unsigned short.
@@ -45,7 +44,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntryShort} class.
      */
-    const SHORT = 3;
+    public const SHORT = 3;
 
     /**
      * Unsigned long.
@@ -55,7 +54,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntryLong} class.
      */
-    const LONG = 4;
+    public const LONG = 4;
 
     /**
      * Unsigned rational number.
@@ -66,7 +65,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntryRational} class.
      */
-    const RATIONAL = 5;
+    public const RATIONAL = 5;
 
     /**
      * Signed byte.
@@ -76,7 +75,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntrySByte} class.
      */
-    const SBYTE = 6;
+    public const SBYTE = 6;
 
     /**
      * Undefined byte.
@@ -85,7 +84,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntryUndefined} class.
      */
-    const UNDEFINED = 7;
+    public const UNDEFINED = 7;
 
     /**
      * Signed short.
@@ -95,7 +94,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntrySShort} class.
      */
-    const SSHORT = 8;
+    public const SSHORT = 8;
 
     /**
      * Signed long.
@@ -105,7 +104,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntrySLong} class.
      */
-    const SLONG = 9;
+    public const SLONG = 9;
 
     /**
      * Signed rational number.
@@ -116,21 +115,21 @@ class PelFormat
      *
      * Modelled with the {@link PelEntrySRational} class.
      */
-    const SRATIONAL = 10;
+    public const SRATIONAL = 10;
 
     /**
      * Floating point number.
      *
      * Entries with this format are not currently implemented.
      */
-    const FLOAT = 11;
+    public const FLOAT = 11;
 
     /**
      * Double precision floating point number.
      *
      * Entries with this format are not currently implemented.
      */
-    const DOUBLE = 12;
+    public const DOUBLE = 12;
 
     /**
      * Values for format's short names
@@ -149,7 +148,7 @@ class PelFormat
         self::SRATIONAL => 'SRational',
         self::FLOAT => 'Float',
         self::DOUBLE => 'Double',
-        self::UNDEFINED => 'Undefined'
+        self::UNDEFINED => 'Undefined',
     ];
 
     /**
@@ -167,15 +166,14 @@ class PelFormat
         self::SRATIONAL => 8,
         self::FLOAT => 4,
         self::DOUBLE => 8,
-        self::UNDEFINED => 1
+        self::UNDEFINED => 1,
     ];
 
     /**
      * Returns the name of a format like 'Ascii' for the {@link ASCII} format
      *
-     * @param integer $type
+     * @param int $type
      *            as defined in {@link PelFormat}
-     * @return string
      */
     public static function getName(int $type): string
     {
@@ -189,9 +187,8 @@ class PelFormat
      * Return the size of components in a given format in bytes needed to store one component with the
      * given format.
      *
-     * @param integer $type
+     * @param int $type
      *            as defined in {@link PelFormat}
-     * @return integer
      */
     public static function getSize(int $type): int
     {

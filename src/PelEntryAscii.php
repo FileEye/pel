@@ -30,11 +30,11 @@ class PelEntryAscii extends PelEntry
      *
      * @param int $tag
      *            the tag which this entry represents. This should be
-     *            one of the constants defined in {@link PelTag}, e.g., {@link *            PelTag::IMAGE_DESCRIPTION}, {@link PelTag::MODEL}, or any other
+     *            one of the constants defined in {@link PelTag}, e.g., {@link PelTag::IMAGE_DESCRIPTION}, {@link PelTag::MODEL}, or any other
      *            tag with format {@link PelFormat::ASCII}.
      * @param string $str
      *            the string that this entry will represent. The
-     *            string must obey the same rules as the string argument to {@link *            setValue}, namely that it should be given without any trailing
+     *            string must obey the same rules as the string argument to {@link setValue}, namely that it should be given without any trailing
      *            NULL character and that it must be plain 7-bit ASCII.
      */
     public function __construct(int $tag, string $str = '')

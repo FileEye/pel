@@ -24,7 +24,6 @@ namespace lsolesen\pel;
  */
 class PelEntryShort extends PelEntryNumber
 {
-
     private const IFD_TYPE_TRANSLATIONS = [
         PelIfd::CANON_SHOT_INFO => [
             PelTag::CANON_SI_WHITE_BALANCE => [
@@ -49,13 +48,13 @@ class PelEntryShort extends PelEntryNumber
                 19 => 'Custom 4',
                 20 => 'PC Set4',
                 21 => 'PC Set5',
-                23 => 'Auto (ambience priority)'
+                23 => 'Auto (ambience priority)',
             ],
             PelTag::CANON_SI_SLOW_SHUTTER => [
                 0 => 'Off',
                 1 => 'Night Scene',
                 2 => 'On',
-                3 => 'None'
+                3 => 'None',
             ],
             PelTag::CANON_SI_AF_POINT_USED => [
                 0x3000 => 'None (MF)',
@@ -65,31 +64,31 @@ class PelEntryShort extends PelEntryNumber
                 0x3004 => 'Left',
                 0x3005 => 'Left+Right',
                 0x3006 => 'Left+Center',
-                0x3007 => 'All'
+                0x3007 => 'All',
             ],
             PelTag::CANON_SI_AUTO_EXPOSURE_BRACKETING => [
                 - 1 => 'On',
                 0 => 'Off',
                 1 => 'On (shot 1)',
                 2 => 'On (shot 2)',
-                3 => 'On (shot 3)'
+                3 => 'On (shot 3)',
             ],
             PelTag::CANON_SI_CAMERA_TYPE => [
                 248 => 'EOS High-end',
                 250 => 'Compact',
                 252 => 'EOS Mid-range',
-                255 => 'DV Camera'
+                255 => 'DV Camera',
             ],
             PelTag::CANON_SI_AUTO_ROTATE => [
                 0 => 'None',
                 1 => 'Rotate 90 CW',
                 2 => 'Rotate 180',
-                3 => 'Rotate 270 CW'
+                3 => 'Rotate 270 CW',
             ],
             PelTag::CANON_SI_ND_FILTER => [
                 0 => 'Off',
-                1 => 'On'
-            ]
+                1 => 'On',
+            ],
         ],
         PelIfd::CANON_PANORAMA => [
             PelTag::CANON_PA_PANORAMA_DIRECTION => [
@@ -97,9 +96,9 @@ class PelEntryShort extends PelEntryNumber
                 1 => 'Right to Left',
                 2 => 'Bottom to Top',
                 3 => 'Top to Bottom',
-                4 => '2x2 Matrix (Clockwise)'
-            ]
-        ]
+                4 => '2x2 Matrix (Clockwise)',
+            ],
+        ],
     ];
 
     private const PEL_TAG_TRANSLATIONS = [
@@ -111,15 +110,15 @@ class PelEntryShort extends PelEntryNumber
             4 => 'Multi Spot',
             5 => 'Pattern',
             6 => 'Partial',
-            255 => 'Other'
+            255 => 'Other',
         ],
         PelTag::COMPRESSION => [
             1 => 'Uncompressed',
-            6 => 'JPEG compression'
+            6 => 'JPEG compression',
         ],
         PelTag::PLANAR_CONFIGURATION => [
             1 => 'chunky format',
-            2 => 'planar format'
+            2 => 'planar format',
         ],
         PelTag::SENSING_METHOD => [
             1 => 'Not defined',
@@ -128,7 +127,7 @@ class PelEntryShort extends PelEntryNumber
             4 => 'Three-chip color area sensor',
             5 => 'Color sequential area sensor',
             7 => 'Trilinear sensor',
-            8 => 'Color sequential linear sensor'
+            8 => 'Color sequential linear sensor',
         ],
         PelTag::LIGHT_SOURCE => [
             0 => 'Unknown',
@@ -150,15 +149,15 @@ class PelEntryShort extends PelEntryNumber
             21 => 'D65',
             22 => 'D75',
             24 => 'ISO studio tungsten',
-            255 => 'Other'
+            255 => 'Other',
         ],
         PelTag::FOCAL_PLANE_RESOLUTION_UNIT => [
             2 => 'Inch',
-            3 => 'Centimeter'
+            3 => 'Centimeter',
         ],
         PelTag::RESOLUTION_UNIT => [
             2 => 'Inch',
-            3 => 'Centimeter'
+            3 => 'Centimeter',
         ],
         PelTag::EXPOSURE_PROGRAM => [
             0 => 'Not defined',
@@ -169,7 +168,7 @@ class PelEntryShort extends PelEntryNumber
             5 => 'Creative program (biased toward depth of field)',
             6 => 'Action program (biased toward fast shutter speed)',
             7 => 'Portrait mode (for closeup photos with the background out of focus',
-            8 => 'Landscape mode (for landscape photos with the background in focus'
+            8 => 'Landscape mode (for landscape photos with the background in focus',
         ],
         PelTag::ORIENTATION => [
             1 => 'top - left',
@@ -179,20 +178,20 @@ class PelEntryShort extends PelEntryNumber
             5 => 'left - top',
             6 => 'right - top',
             7 => 'right - bottom',
-            8 => 'left - bottom'
+            8 => 'left - bottom',
         ],
         PelTag::YCBCR_POSITIONING => [
             1 => 'centered',
-            2 => 'co-sited'
+            2 => 'co-sited',
         ],
         PelTag::PHOTOMETRIC_INTERPRETATION => [
             2 => 'RGB',
-            6 => 'YCbCr'
+            6 => 'YCbCr',
         ],
         PelTag::COLOR_SPACE => [
             1 => 'sRGB',
             2 => 'Adobe RGB',
-            0xffff => 'Uncalibrated'
+            0xffff => 'Uncalibrated',
         ],
         PelTag::FLASH => [
             0x0000 => 'Flash did not fire.',
@@ -217,62 +216,61 @@ class PelEntryShort extends PelEntryNumber
             0x0058 => 'Flash did not fire, auto mode, red-eye reduction mode.',
             0x0059 => 'Flash fired, auto mode, red-eye reduction mode.',
             0x005d => 'Flash fired, auto mode, return light not detected, red-eye reduction mode.',
-            0x005f => 'Flash fired, auto mode, return light detected, red-eye reduction mode.'
+            0x005f => 'Flash fired, auto mode, return light detected, red-eye reduction mode.',
         ],
         PelTag::CUSTOM_RENDERED => [
             0 => 'Normal process',
-            1 => 'Custom process'
+            1 => 'Custom process',
         ],
         PelTag::EXPOSURE_MODE => [
             0 => 'Auto exposure',
             1 => 'Manual exposure',
-            2 => 'Auto bracket'
+            2 => 'Auto bracket',
         ],
         PelTag::WHITE_BALANCE => [
             0 => 'Auto white balance',
-            1 => 'Manual white balance'
+            1 => 'Manual white balance',
         ],
         PelTag::SCENE_CAPTURE_TYPE => [
             0 => 'Standard',
             1 => 'Landscape',
             2 => 'Portrait',
-            3 => 'Night scene'
+            3 => 'Night scene',
         ],
         PelTag::GAIN_CONTROL => [
             0 => 'Normal',
             1 => 'Low gain up',
             2 => 'High gain up',
             3 => 'Low gain down',
-            4 => 'High gain down'
+            4 => 'High gain down',
         ],
         PelTag::SATURATION => [
             0 => 'Normal',
             1 => 'Low saturation',
-            2 => 'High saturation'
+            2 => 'High saturation',
         ],
         PelTag::CONTRAST => [
             0 => 'Normal',
             1 => 'Soft',
-            2 => 'Hard'
+            2 => 'Hard',
         ],
         PelTag::SHARPNESS => [
             0 => 'Normal',
             1 => 'Soft',
-            2 => 'Hard'
+            2 => 'Hard',
         ],
         PelTag::SUBJECT_DISTANCE_RANGE => [
             0 => 'Unknown',
             1 => 'Macro',
             2 => 'Close view',
-            3 => 'Distant view'
-        ]
+            3 => 'Distant view',
+        ],
     ];
 
     /**
      * Make a new entry that can hold an unsigned short.
      *
-     * The method accept several integer arguments. The {@link
-     * getValue} method will always return an array except for when a
+     * The method accept several integer arguments. The {@link getValue} method will always return an array except for when a
      * single integer argument is given here.
      *
      * This means that one can conveniently use objects like this:
@@ -284,12 +282,11 @@ class PelEntryShort extends PelEntryNumber
      * instead of an array with one integer element, which would then
      * have to be extracted.
      *
-     * @param integer $tag
+     * @param int $tag
      *            the tag which this entry represents. This should be
-     *            one of the constants defined in {@link PelTag}, e.g., {@link
-     *            PelTag::IMAGE_WIDTH}, {@link PelTag::ISO_SPEED_RATINGS},
+     *            one of the constants defined in {@link PelTag}, e.g., {@link PelTag::IMAGE_WIDTH}, {@link PelTag::ISO_SPEED_RATINGS},
      *            or any other tag with format {@link PelFormat::SHORT}.
-     * @param integer $value...
+     * @param int $value...
      *            the short(s) that this entry will
      *            represent. The argument passed must obey the same rules as the
      *            argument to {@link setValue}, namely that it should be within
@@ -312,11 +309,12 @@ class PelEntryShort extends PelEntryNumber
     /**
      * Convert a number into bytes.
      *
-     * @param integer $number
+     * @param int $number
      *            the number that should be converted.
-     * @param boolean $order
+     * @param bool $order
      *            one of {@link PelConvert::LITTLE_ENDIAN} and
      *            {@link PelConvert::BIG_ENDIAN}, specifying the target byte order.
+     *
      * @return string bytes representing the number given.
      */
     public function numberToBytes(int $number, bool $order): string
@@ -328,13 +326,13 @@ class PelEntryShort extends PelEntryNumber
      * Get the value of an entry as text.
      *
      * The value will be returned in a format suitable for presentation,
-     * e.g., instead of returning '2' for a {@link
-     * PelTag::METERING_MODE} tag, 'Center-Weighted Average' is
+     * e.g., instead of returning '2' for a {@link PelTag::METERING_MODE} tag, 'Center-Weighted Average' is
      * returned.
      *
      * @param bool $brief
      *            some values can be returned in a long or more
      *            brief form, and this parameter controls that.
+     *
      * @return string the value as text.
      */
     public function getText(bool $brief = false): string
@@ -345,10 +343,10 @@ class PelEntryShort extends PelEntryNumber
                 // but an array of strings.
                 // @phpstan-ignore-next-line
                 return Pel::tra(self::IFD_TYPE_TRANSLATIONS[$this->ifd_type][$this->value[0]]);
-            } else {
-                return (string) $this->value[0];
             }
-        } elseif ($this->tag === PelTag::YCBCR_SUB_SAMPLING) {
+            return (string) $this->value[0];
+        }
+        if ($this->tag === PelTag::YCBCR_SUB_SAMPLING) {
             if ($this->value[0] === 2 && $this->value[1] === 1) {
                 return 'YCbCr4:2:2';
             }
@@ -356,19 +354,20 @@ class PelEntryShort extends PelEntryNumber
                 return 'YCbCr4:2:0';
             }
             return $this->value[0] . ', ' . $this->value[1];
-        } elseif ($this->tag === PelTag::SUBJECT_AREA) {
+        }
+        if ($this->tag === PelTag::SUBJECT_AREA) {
             return match ($this->components) {
                 2 => Pel::fmt('(x,y) = (%d,%d)', $this->value[0], $this->value[1]),
                 3 => Pel::fmt('Within distance %d of (x,y) = (%d,%d)', $this->value[0], $this->value[1], $this->value[2]),
                 4 => Pel::fmt('Within rectangle (width %d, height %d) around (x,y) = (%d,%d)', $this->value[0], $this->value[1], $this->value[2], $this->value[3]),
                 default => Pel::fmt('Unexpected number of components (%d, expected 2, 3, or 4).', $this->components),
             };
-        } elseif (array_key_exists($this->tag, self::PEL_TAG_TRANSLATIONS)) {
+        }
+        if (array_key_exists($this->tag, self::PEL_TAG_TRANSLATIONS)) {
             if (array_key_exists($this->value[0], self::PEL_TAG_TRANSLATIONS[$this->tag])) {
                 return Pel::tra(self::PEL_TAG_TRANSLATIONS[$this->tag][$this->value[0]]);
-            } else {
-                return (string) $this->value[0];
             }
+            return (string) $this->value[0];
         }
         return parent::getText($brief);
     }

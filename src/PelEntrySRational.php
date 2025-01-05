@@ -18,14 +18,12 @@ namespace lsolesen\pel;
  */
 class PelEntrySRational extends PelEntrySLong
 {
-
     /**
      * Make a new entry that can hold a signed rational.
      *
      * @param int $tag
      *            the tag which this entry represents. This should
-     *            be one of the constants defined in {@link PelTag}, e.g., {@link
-     *            PelTag::SHUTTER_SPEED_VALUE}, or any other tag which can have
+     *            be one of the constants defined in {@link PelTag}, e.g., {@link PelTag::SHUTTER_SPEED_VALUE}, or any other tag which can have
      *            format {@link PelFormat::SRATIONAL}.
      * @param array<int, mixed> $value
      *            the rational(s) that this entry will
@@ -33,8 +31,7 @@ class PelEntrySRational extends PelEntrySLong
      *            argument to {@link setValue}, namely that each argument should be
      *            an array with two entries, both of which must be within range of
      *            a signed long (32 bit), that is between -2147483648 and
-     *            2147483647 (inclusive). If not, then a {@link
-     *            PelOverflowException} will be thrown.
+     *            2147483647 (inclusive). If not, then a {@link PelOverflowException} will be thrown.
      */
     public function __construct(int $tag, array ...$value)
     {
@@ -58,8 +55,9 @@ class PelEntrySRational extends PelEntrySLong
      *
      * @param int|array<int, mixed> $number
      *            the rational which will be formatted.
-     * @param boolean $brief
+     * @param bool $brief
      *            not used.
+     *
      * @return string the rational formatted as a string suitable for
      *         display.
      */
@@ -72,9 +70,8 @@ class PelEntrySRational extends PelEntrySLong
         if ($number[1] < 0) {
             /* Turn output like 1/-2 into -1/2. */
             return (- $number[0]) . '/' . (- $number[1]);
-        } else {
-            return $number[0] . '/' . $number[1];
         }
+        return $number[0] . '/' . $number[1];
     }
 
     /**
@@ -84,9 +81,10 @@ class PelEntrySRational extends PelEntrySLong
      * e.g., rationals will be returned as 'x/y', ASCII strings will be
      * returned as themselves etc.
      *
-     * @param boolean $brief
+     * @param bool $brief
      *            some values can be returned in a long or more
      *            brief form, and this parameter controls that.
+     *
      * @return string the value as text.
      */
     public function getText(bool $brief = false): string

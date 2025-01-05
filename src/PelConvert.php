@@ -8,8 +8,8 @@ namespace lsolesen\pel;
  * Conversion functions to and from bytes and integers.
  *
  * The functions found in this class are used to convert bytes into
- * integers of several sizes ({@link bytesToShort}, {@link * bytesToLong}, and {@link bytesToRational}) and convert integers of
- * several sizes into bytes ({@link shortToBytes} and {@link * longToBytes}).
+ * integers of several sizes ({@link bytesToShort}, {@link bytesToLong}, and {@link bytesToRational}) and convert integers of
+ * several sizes into bytes ({@link shortToBytes} and {@link longToBytes}).
  *
  * All the methods are static and they all rely on an argument that
  * specifies the byte order to be used, this must be one of the class
@@ -44,7 +44,7 @@ class PelConvert
      *            the unsigned short that will be converted. The lower
      *            two bytes will be extracted regardless of the actual size passed.
      * @param bool $endian
-     *            one of {@link LITTLE_ENDIAN} and {@link *            BIG_ENDIAN}.
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
      *
      * @return string the bytes representing the unsigned short.
      */
@@ -63,7 +63,7 @@ class PelConvert
      *            the signed short that will be converted. The lower
      *            two bytes will be extracted regardless of the actual size passed.
      * @param bool $endian
-     *            one of {@link LITTLE_ENDIAN} and {@link *            BIG_ENDIAN}.
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
      *
      * @return string the bytes representing the signed short.
      */
@@ -91,7 +91,7 @@ class PelConvert
      *            unsigned integer means that the absolute value will be used. Use
      *            {@link sLongToBytes} to convert signed integers.
      * @param bool $endian
-     *            one of {@link LITTLE_ENDIAN} and {@link *            BIG_ENDIAN}.
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
      *
      * @return string the bytes representing the unsigned long.
      */
@@ -119,7 +119,7 @@ class PelConvert
      *            will be treated as a signed 32 bit integer, from which the lower
      *            four bytes will be extracted.
      * @param bool $endian
-     *            one of {@link LITTLE_ENDIAN} and {@link *            BIG_ENDIAN}.
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
      *
      * @return string the bytes representing the signed long.
      */
@@ -187,7 +187,7 @@ class PelConvert
      *            returned as an integer. There must be at least two bytes
      *            available beginning at the offset given.
      * @param bool $endian
-     *            one of {@link LITTLE_ENDIAN} and {@link *            BIG_ENDIAN}.
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
      *
      * @return int the unsigned short found at offset, e.g., an integer
      *         in the range 0 to 65535.
@@ -208,7 +208,7 @@ class PelConvert
      *            as an integer. There must be at least two bytes available
      *            beginning at the offset given.
      * @param bool $endian
-     *            one of {@link LITTLE_ENDIAN} and {@link *            BIG_ENDIAN}.
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
      *
      * @return int the signed byte found at offset, e.g., an integer in
      *         the range -32768 to 32767.
@@ -230,7 +230,7 @@ class PelConvert
      *            as an integer. There must be at least four bytes available
      *            beginning at the offset given.
      * @param bool $endian
-     *            one of {@link LITTLE_ENDIAN} and {@link *            BIG_ENDIAN}.
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
      *
      * @return int the unsigned long found at offset, e.g., an integer
      *         in the range 0 to 4294967295.
@@ -251,7 +251,7 @@ class PelConvert
      *            as an integer. There must be at least four bytes available
      *            beginning at the offset given.
      * @param bool $endian
-     *            one of {@link LITTLE_ENDIAN} and {@link *            BIG_ENDIAN}. *
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
      *
      * @return int the signed long found at offset, e.g., an integer in
      *         the range -2147483648 to 2147483647.
@@ -273,7 +273,7 @@ class PelConvert
      *            returned as an array. There must be at least eight bytes
      *            available beginning at the offset given.
      * @param bool $endian
-     *            one of {@link LITTLE_ENDIAN} and {@link *            BIG_ENDIAN}. *
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
      *
      * @return array<int, int> the unsigned rational found at offset, e.g., an
      *         array with two integers in the range 0 to 4294967295.
@@ -294,7 +294,7 @@ class PelConvert
      *            returned as an array. There must be at least eight bytes
      *            available beginning at the offset given.
      * @param bool $endian
-     *            one of {@link LITTLE_ENDIAN} and {@link *            BIG_ENDIAN}.
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
      *
      * @return array<int, int> the signed rational found at offset, e.g., an array
      *         with two integers in the range -2147483648 to 2147483647.

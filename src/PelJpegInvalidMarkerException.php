@@ -7,7 +7,7 @@ namespace lsolesen\pel;
 /**
  * Exception thrown when an invalid marker is found.
  *
- * This exception is thrown when PEL expects to find a {@link * PelJpegMarker} and instead finds a byte that isn't a known marker.
+ * This exception is thrown when PEL expects to find a {@link PelJpegMarker} and instead finds a byte that isn't a known marker.
  */
 class PelJpegInvalidMarkerException extends PelException
 {

@@ -24,7 +24,8 @@ use Stringable;
  * $ifd1 = $ifd0->getNextIfd();
  * </code>
  *
- * Should one have some image data of an unknown type, then the {@link * PelTiff::isValid()} function is handy: it will quickly test if the
+ * Should one have some image data of an unknown type, then the
+ * {@link PelTiff::isValid()} function is handy: it will quickly test if the
  * data could be valid TIFF data. The {@link PelJpeg::isValid()}
  * function does the same for JPEG images.
  */
@@ -92,7 +93,8 @@ class PelTiff implements Stringable
      * Load TIFF data.
      *
      * The data given will be parsed and an internal tree representation
-     * will be built. If the data cannot be parsed correctly, a {@link * PelInvalidDataException} is thrown, explaining the problem.
+     * will be built. If the data cannot be parsed correctly, a
+     * {@link PelInvalidDataException} is thrown, explaining the problem.
      *
      * @param PelDataWindow $d
      *            the data from which the object will be
@@ -109,7 +111,7 @@ class PelTiff implements Stringable
          * to the first IFD.
          */
         if ($d->getSize() < 8) {
-            throw new PelInvalidDataException('Expected at least 8 bytes of TIFF ' . 'data, found just %d bytes.', $d->getSize());
+            throw new PelInvalidDataException('Expected at least 8 bytes of TIFF data, found just %d bytes.', $d->getSize());
         }
         /* Byte order */
         if ($d->strcmp(0, 'II')) {
@@ -119,7 +121,7 @@ class PelTiff implements Stringable
             Pel::debug('Found Motorola byte order');
             $d->setByteOrder(PelConvert::BIG_ENDIAN);
         } else {
-            throw new PelInvalidDataException('Unknown byte order found in TIFF ' . 'data: 0x%2X%2X', $d->getByte(0), $d->getByte(1));
+            throw new PelInvalidDataException('Unknown byte order found in TIFF data: 0x%2X%2X', $d->getByte(0), $d->getByte(1));
         }
 
         /* Verify the TIFF header */
@@ -161,7 +163,7 @@ class PelTiff implements Stringable
      * Set the first IFD.
      *
      * @param PelIfd $ifd
-     *            the new first IFD, which must be of type {@link *            PelIfd::IFD0}.
+     *            the new first IFD, which must be of type {@link PelIfd::IFD0}.
      */
     public function setIfd(PelIfd $ifd): void
     {
@@ -191,7 +193,7 @@ class PelTiff implements Stringable
      *
      * @param bool $order
      *            the desired byte order of the TIFF data.
-     *            This should be one of {@link PelConvert::LITTLE_ENDIAN} or {@link *            PelConvert::BIG_ENDIAN}.
+     *            This should be one of {@link PelConvert::LITTLE_ENDIAN} or {@link PelConvert::BIG_ENDIAN}.
      *
      * @return string the bytes representing this object.
      */

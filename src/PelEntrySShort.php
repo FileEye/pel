@@ -13,7 +13,6 @@ namespace lsolesen\pel;
  */
 class PelEntrySShort extends PelEntryNumber
 {
-
     private const TRANSLATIONS = [
         PelIfd::CANON_FILE_INFO => [
             PelTag::CANON_FI_BRACKET_MODE => [
@@ -21,7 +20,7 @@ class PelEntrySShort extends PelEntryNumber
                 1 => 'AEB',
                 2 => 'FEB',
                 3 => 'ISO',
-                4 => 'WB'
+                4 => 'WB',
             ],
             PelTag::CANON_FI_RAW_JPG_QUALITY => [
                 1 => 'Economy',
@@ -30,7 +29,7 @@ class PelEntrySShort extends PelEntryNumber
                 4 => 'RAW',
                 5 => 'Superfine',
                 130 => 'Normal Movie',
-                131 => 'Movie (2)'
+                131 => 'Movie (2)',
             ],
             PelTag::CANON_FI_RAW_JPG_SIZE => [
                 0 => 'Large',
@@ -49,46 +48,46 @@ class PelEntrySShort extends PelEntryNumber
                 129 => 'Medium Movie',
                 130 => 'Small Movie',
                 137 => '1280x720 Movie',
-                142 => '1920x1080 Movie'
+                142 => '1920x1080 Movie',
             ],
             PelTag::CANON_FI_NOISE_REDUCTION => [
                 0 => 'Off',
                 1 => 'On (1D)',
                 3 => 'On',
-                4 => 'Auto'
+                4 => 'Auto',
             ],
             PelTag::CANON_FI_WB_BRACKET_MODE => [
                 0 => 'Off',
                 1 => 'On (shift AB)',
-                2 => 'On (shift GM)'
+                2 => 'On (shift GM)',
             ],
             PelTag::CANON_FI_FILTER_EFFECT => [
                 0 => 'None',
                 1 => 'Yellow',
                 2 => 'Orange',
                 3 => 'Red',
-                4 => 'Green'
+                4 => 'Green',
             ],
             PelTag::CANON_FI_TONING_EFFECT => [
                 0 => 'None',
                 1 => 'Sepia',
                 2 => 'Blue',
                 3 => 'Purple',
-                4 => 'Green'
+                4 => 'Green',
             ],
             PelTag::CANON_FI_LIVE_VIEW_SHOOTING => [
                 0 => 'Off',
-                1 => 'On'
+                1 => 'On',
             ],
             PelTag::CANON_FI_FLASH_EXPOSURE_LOCK => [
                 0 => 'Off',
-                1 => 'On'
-            ]
+                1 => 'On',
+            ],
         ],
         PelIfd::CANON_CAMERA_SETTINGS => [
             PelTag::CANON_CS_MACRO => [
                 1 => 'Macro',
-                2 => 'Normal'
+                2 => 'Normal',
             ],
             PelTag::CANON_CS_QUALITY => [
                 1 => 'Economy',
@@ -97,7 +96,7 @@ class PelEntrySShort extends PelEntryNumber
                 4 => 'RAW',
                 5 => 'Superfine',
                 130 => 'Normal Movie',
-                131 => 'Movie (2)'
+                131 => 'Movie (2)',
             ],
             PelTag::CANON_CS_FLASH_MODE => [
                 0 => 'Off',
@@ -107,7 +106,7 @@ class PelEntrySShort extends PelEntryNumber
                 4 => 'Slow-sync',
                 5 => 'Red-eye reduction (Auto)',
                 6 => 'Red-eye reduction (On)',
-                16 => 'External flash'
+                16 => 'External flash',
             ],
             PelTag::CANON_CS_DRIVE_MODE => [
                 0 => 'Single',
@@ -118,7 +117,7 @@ class PelEntrySShort extends PelEntryNumber
                 5 => 'Continuous, High',
                 6 => 'Silent Single',
                 9 => 'Single, Silent',
-                10 => 'Continuous, Silent'
+                10 => 'Continuous, Silent',
             ],
             PelTag::CANON_CS_FOCUS_MODE => [
                 0 => 'One-shot AF',
@@ -131,7 +130,7 @@ class PelEntrySShort extends PelEntryNumber
                 16 => 'Pan Focus',
                 256 => 'AF + MF',
                 512 => 'Movie Snap Focus',
-                519 => 'Movie Servo AF'
+                519 => 'Movie Servo AF',
             ],
             PelTag::CANON_CS_RECORD_MODE => [
                 1 => 'JPEG',
@@ -142,7 +141,7 @@ class PelEntrySShort extends PelEntryNumber
                 6 => 'CR2',
                 7 => 'CR2+JPEG',
                 9 => 'MOV',
-                10 => 'MP4'
+                10 => 'MP4',
             ],
             PelTag::CANON_CS_IMAGE_SIZE => [
                 0 => 'Large',
@@ -161,7 +160,7 @@ class PelEntrySShort extends PelEntryNumber
                 129 => 'Medium Movie',
                 130 => 'Small Movie',
                 137 => '1280x720 Movie',
-                142 => '1920x1080 Movie'
+                142 => '1920x1080 Movie',
             ],
             PelTag::CANON_CS_EASY_MODE => [
                 0 => 'Full auto',
@@ -234,19 +233,19 @@ class PelEntrySShort extends PelEntryNumber
                 261 => 'Sunset',
                 263 => 'Night Scene',
                 264 => 'Surface',
-                265 => 'Low Light 2'
+                265 => 'Low Light 2',
             ],
             PelTag::CANON_CS_DIGITAL_ZOOM => [
                 0 => 'None',
                 1 => '2x',
                 2 => '4x',
-                3 => 'Other'
+                3 => 'Other',
             ],
             PelTag::CANON_CS_CONTRAST => [
-                0 => 'Normal'
+                0 => 'Normal',
             ],
             PelTag::CANON_CS_SATURATION => [
-                0 => 'Normal'
+                0 => 'Normal',
             ],
             PelTag::CANON_CS_METERING_MODE => [
                 0 => 'Default',
@@ -254,7 +253,7 @@ class PelEntrySShort extends PelEntryNumber
                 2 => 'Average',
                 3 => 'Evaluative',
                 4 => 'Partial',
-                5 => 'Center-weighted average'
+                5 => 'Center-weighted average',
             ],
             PelTag::CANON_CS_FOCUS_TYPE => [
                 0 => 'Manual',
@@ -267,7 +266,7 @@ class PelEntrySShort extends PelEntryNumber
                 7 => 'Far Range',
                 8 => 'Pan Focus',
                 9 => 'Super Macro',
-                10 => 'Infinity'
+                10 => 'Infinity',
             ],
             PelTag::CANON_CS_AF_POINT => [
                 0x2005 => 'Manual AF point selection',
@@ -277,7 +276,7 @@ class PelEntrySShort extends PelEntryNumber
                 0x3003 => 'Center',
                 0x3004 => 'Left',
                 0x4001 => 'Auto AF point selection',
-                0x4006 => 'Face Detect'
+                0x4006 => 'Face Detect',
             ],
             PelTag::CANON_CS_EXPOSURE_PROGRAM => [
                 0 => 'Easy',
@@ -287,7 +286,7 @@ class PelEntrySShort extends PelEntryNumber
                 4 => 'Manual',
                 5 => 'Depth-of-field AE',
                 6 => 'M-Dep',
-                7 => 'Bulb'
+                7 => 'Bulb',
             ],
             PelTag::CANON_CS_LENS_TYPE => [
                 // ATTENTION: Every index is multiplied by 100
@@ -631,19 +630,19 @@ class PelEntrySShort extends PelEntryNumber
                 416000 => 'Canon EF-S 35mm f/2.8 Macro IS STM',
                 3691000 => 'Canon EF 70-300mm f/4-5.6 IS II USM',
                 3691200 => 'Canon EF-S 18-135mm f/3.5-5.6 IS USM',
-                6149400 => 'Canon CN-E 85mm T1.3 L F'
+                6149400 => 'Canon CN-E 85mm T1.3 L F',
             ],
             PelTag::CANON_CS_FOCUS_CONTINUOUS => [
                 0 => 'Single',
                 1 => 'Continuous',
-                8 => 'Manual'
+                8 => 'Manual',
             ],
             PelTag::CANON_CS_AE_SETTING => [
                 0 => 'Normal AE',
                 1 => 'Exposure Compensation',
                 2 => 'AE Lock',
                 3 => 'AE Lock + Exposure Comp.',
-                4 => 'No AE'
+                4 => 'No AE',
             ],
             PelTag::CANON_CS_IMAGE_STABILIZATION => [
                 0 => 'Off',
@@ -655,11 +654,11 @@ class PelEntrySShort extends PelEntryNumber
                 257 => 'On (2)',
                 258 => 'Shoot Only (2)',
                 259 => 'Panning (2)',
-                260 => 'Dynamic (2)'
+                260 => 'Dynamic (2)',
             ],
             PelTag::CANON_CS_SPOT_METERING_MODE => [
                 0 => 'Center',
-                1 => 'AF Point'
+                1 => 'AF Point',
             ],
             PelTag::CANON_CS_PHOTO_EFFECT => [
                 0 => 'Off',
@@ -669,28 +668,27 @@ class PelEntrySShort extends PelEntryNumber
                 4 => 'Sepia',
                 5 => 'B&W',
                 6 => 'Custom',
-                100 => 'My Color Data'
+                100 => 'My Color Data',
             ],
             PelTag::CANON_CS_MANUAL_FLASH_OUTPUT => [
                 0x500 => 'Full',
                 0x502 => 'Medium',
-                0x504 => 'Low'
+                0x504 => 'Low',
             ],
             PelTag::CANON_CS_COLOR_TONE => [
-                0 => 'Normal'
+                0 => 'Normal',
             ],
             PelTag::CANON_CS_SRAW_QUALITY => [
                 1 => 'sRAW1 (mRAW)',
-                2 => 'sRAW2 (sRAW)'
-            ]
-        ]
+                2 => 'sRAW2 (sRAW)',
+            ],
+        ],
     ];
 
     /**
      * Make a new entry that can hold a signed short.
      *
-     * The method accept several integer arguments. The {@link
-     * getValue} method will always return an array except for when a
+     * The method accept several integer arguments. The {@link getValue} method will always return an array except for when a
      * single integer argument is given here.
      *
      * @param int $tag
@@ -722,9 +720,10 @@ class PelEntrySShort extends PelEntryNumber
      *
      * @param int $number
      *            the number that should be converted.
-     * @param boolean $order
+     * @param bool $order
      *            one of {@link PelConvert::LITTLE_ENDIAN} and
      *            {@link PelConvert::BIG_ENDIAN}, specifying the target byte order.
+     *
      * @return string bytes representing the number given.
      */
     public function numberToBytes(int $number, bool $order): string
@@ -736,13 +735,13 @@ class PelEntrySShort extends PelEntryNumber
      * Get the value of an entry as text.
      *
      * The value will be returned in a format suitable for presentation,
-     * e.g., instead of returning '2' for a {@link
-     * PelTag::METERING_MODE} tag, 'Center-Weighted Average' is
+     * e.g., instead of returning '2' for a {@link PelTag::METERING_MODE} tag, 'Center-Weighted Average' is
      * returned.
      *
-     * @param boolean $brief
+     * @param bool $brief
      *            some values can be returned in a long or more
      *            brief form, and this parameter controls that.
+     *
      * @return string the value as text.
      */
     public function getText(bool $brief = false): string
@@ -751,13 +750,12 @@ class PelEntrySShort extends PelEntryNumber
             $val = $this->value[0];
             if ($this->ifd_type === PelIfd::CANON_CAMERA_SETTINGS && $this->tag === PelTag::CANON_CS_LENS_TYPE) {
                 // special handling: lens types must be multtiplied by 100 because digits canÄt be used in arrays
-                $val = $val * 100;
+                $val *= 100;
             }
             if (array_key_exists($val, self::TRANSLATIONS[$this->ifd_type][$this->tag])) {
                 return Pel::tra(self::TRANSLATIONS[$this->ifd_type][$this->tag][$val]);
-            } else {
-                return (string) $val;
             }
+            return (string) $val;
         }
         return parent::getText($brief);
     }

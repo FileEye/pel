@@ -17,7 +17,10 @@ namespace lsolesen\pel;
  * normal strings.
  *
  * It is important that entries from this class are only created with
- * the {@link PelTag::XP_TITLE}, {@link PelTag::XP_COMMENT}, {@link * PelTag::XP_AUTHOR}, {@link PelTag::XP_KEYWORD}, and {@link * PelTag::XP_SUBJECT} tags. If another tag is used the data will no
+ * the {@link PelTag::XP_TITLE}, {@link PelTag::XP_COMMENT}, {@link PelTag::XP_AUTHOR},
+ * {@link PelTag::XP_KEYWORD}, and {@link PelTag::XP_SUBJECT} tags.
+ *
+ * If another tag is used the data will no
  * longer be correctly decoded when reloaded with PEL. (The data will
  * be loaded as an {@link PelEntryByte} entry, which isn't as useful.)
  *
@@ -55,7 +58,8 @@ class PelEntryWindowsString extends PelEntry
      * @param int $tag
      *            the tag which this entry represents. This should be
      *            one of {@link PelTag::XP_TITLE}, {@link PelTag::XP_COMMENT},
-     *            {@link PelTag::XP_AUTHOR}, {@link PelTag::XP_KEYWORD}, and {@link *            PelTag::XP_SUBJECT} tags. If another tag is used, then this
+     *            {@link PelTag::XP_AUTHOR}, {@link PelTag::XP_KEYWORD}, and
+     *            {@link PelTag::XP_SUBJECT} tags. If another tag is used, then this
      *            entry will be incorrectly reloaded as a {@link PelEntryByte}.
      * @param string $str
      *            the string that this entry will represent. It will

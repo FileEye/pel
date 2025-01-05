@@ -9,18 +9,13 @@ namespace lsolesen\pel;
  */
 class PelEntryException extends PelException
 {
-
     /**
      * The IFD type (if known).
-     *
-     * @var int
      */
     protected ?int $type = null;
 
     /**
      * The tag of the entry (if known).
-     *
-     * @var int
      */
     protected ?int $tag = null;
 
@@ -28,8 +23,7 @@ class PelEntryException extends PelException
      * Get the IFD type associated with the exception.
      *
      * @return int|null one of {@link PelIfd::IFD0}, {@link PelIfd::IFD1},
-     *         {@link PelIfd::EXIF}, {@link PelIfd::GPS}, or {@link
-     *         PelIfd::INTEROPERABILITY}. If no type is set, null is returned.
+     *         {@link PelIfd::EXIF}, {@link PelIfd::GPS}, or {@link PelIfd::INTEROPERABILITY}. If no type is set, null is returned.
      */
     public function getIfdType(): ?int
     {

@@ -234,7 +234,7 @@ class PelTag
     /**
      * File change date and time.
      *
-     * Format: {@link PelFormat::ASCII}, modelled by the {@link * PelEntryTime} class.
+     * Format: {@link PelFormat::ASCII}, modelled by the {@link PelEntryTime} class.
      *
      * Components: 20.
      */
@@ -441,7 +441,7 @@ class PelTag
     /**
      * Copyright holder.
      *
-     * Format: {@link PelFormat::ASCII}, modelled by the {@link * PelEntryCopyright} class.
+     * Format: {@link PelFormat::ASCII}, modelled by the {@link PelEntryCopyright} class.
      *
      * Components: any number.
      */
@@ -540,7 +540,7 @@ class PelTag
     /**
      * Exif version.
      *
-     * Format: {@link PelFormat::UNDEFINED}, modelled by the {@link * PelEntryVersion} class.
+     * Format: {@link PelFormat::UNDEFINED}, modelled by the {@link PelEntryVersion} class.
      *
      * Components: 4.
      */
@@ -549,7 +549,7 @@ class PelTag
     /**
      * Date and time of original data generation.
      *
-     * Format: {@link PelFormat::ASCII}, modelled by the {@link * PelEntryTime} class.
+     * Format: {@link PelFormat::ASCII}, modelled by the {@link PelEntryTime} class.
      *
      * Components: 20.
      */
@@ -558,7 +558,7 @@ class PelTag
     /**
      * Date and time of digital data generation.
      *
-     * Format: {@link PelFormat::ASCII}, modelled by the {@link * PelEntryTime} class.
+     * Format: {@link PelFormat::ASCII}, modelled by the {@link PelEntryTime} class.
      *
      * Components: 20.
      */
@@ -720,7 +720,7 @@ class PelTag
     /**
      * User Comment
      *
-     * Format: {@link PelFormat::UNDEFINED}, modelled by the {@link * PelEntryUserComment} class.
+     * Format: {@link PelFormat::UNDEFINED}, modelled by the {@link PelEntryUserComment} class.
      *
      * Components: any number.
      */
@@ -806,7 +806,7 @@ class PelTag
     /**
      * Supported Flashpix version
      *
-     * Format: {@link PelFormat::UNDEFINED}, modelled by the {@link * PelEntryVersion} class.
+     * Format: {@link PelFormat::UNDEFINED}, modelled by the {@link PelEntryVersion} class.
      *
      * Components: 4.
      */

@@ -63,6 +63,9 @@ jobs:
         - name: PHPStan code analysis
           run: php vendor/bin/phpstan analyze
 
+        - name: PHPinsights code analysis
+          run: php vendor/bin/phpinsights analyse --no-interaction
+
         - name: Execute Rector
           run: vendor/bin/rector --dry-run
 

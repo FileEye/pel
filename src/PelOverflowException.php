@@ -9,7 +9,6 @@ namespace lsolesen\pel;
  */
 class PelOverflowException extends PelException
 {
-
     /**
      * Construct a new overflow exception.
      *

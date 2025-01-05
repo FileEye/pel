@@ -29,18 +29,13 @@ namespace lsolesen\pel;
  */
 class PelEntryCopyright extends PelEntryAscii
 {
-
     /**
      * The photographer copyright.
-     *
-     * @var string
      */
     private string $photographer;
 
     /**
      * The editor copyright.
-     *
-     * @var string
      */
     private string $editor;
 
@@ -88,8 +83,7 @@ class PelEntryCopyright extends PelEntryAscii
      * Retrieve the copyright information.
      *
      * The strings returned will be the same as the one used previously
-     * with either {@link __construct the constructor} or with {@link
-     * setValue}.
+     * with either {@link __construct the constructor} or with {@link setValue}.
      *
      * @return array<int, string> an array with two strings, the photographer and
      *         editor copyrights. The two fields will be returned in that
@@ -100,7 +94,7 @@ class PelEntryCopyright extends PelEntryAscii
     {
         return [
             $this->photographer,
-            $this->editor
+            $this->editor,
         ];
     }
 
@@ -111,11 +105,12 @@ class PelEntryCopyright extends PelEntryAscii
      * with a '-' in between if both copyright fields are present,
      * otherwise only one of them will be returned.
      *
-     * @param boolean $brief
+     * @param bool $brief
      *            if false, then the strings '(Photographer)' and
      *            '(Editor)' will be appended to the photographer and editor
      *            copyright fields (if present), otherwise the fields will be
      *            returned as is.
+     *
      * @return string the copyright information in a string.
      */
     public function getText(bool $brief = false): string

@@ -13,7 +13,6 @@ namespace lsolesen\pel;
  */
 class PelEntrySByte extends PelEntryNumber
 {
-
     /**
      * Make a new entry that can hold a signed byte.
      *
@@ -49,9 +48,10 @@ class PelEntrySByte extends PelEntryNumber
      *
      * @param int $number
      *            the number that should be converted.
-     * @param boolean $order
+     * @param bool $order
      *            one of {@link PelConvert::LITTLE_ENDIAN} and
      *            {@link PelConvert::BIG_ENDIAN}, specifying the target byte order.
+     *
      * @return string bytes representing the number given.
      */
     public function numberToBytes(int $number, bool $order): string
