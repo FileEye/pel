@@ -1163,10 +1163,7 @@ class PelIfd implements IteratorAggregate, ArrayAccess, Stringable
      */
     public function getEntry(int $tag): ?PelEntry
     {
-        if (isset($this->entries[$tag])) {
-            return $this->entries[$tag];
-        }
-        return null;
+        return $this->entries[$tag] ?? null;
     }
 
     /**
@@ -1282,10 +1279,7 @@ class PelIfd implements IteratorAggregate, ArrayAccess, Stringable
      */
     public function getSubIfd(int $type): ?PelIfd
     {
-        if (isset($this->sub[$type])) {
-            return $this->sub[$type];
-        }
-        return null;
+        return $this->sub[$type] ?? null;
     }
 
     /**
