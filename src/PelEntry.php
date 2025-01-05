@@ -1,42 +1,10 @@
 <?php
 
-/**
- * PEL: PHP Exif Library.
- * A library with support for reading and
- * writing all Exif headers in JPEG and TIFF images using PHP.
- *
- * Copyright (C) 2004, 2005, 2006 Martin Geisler.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program in the file COPYING; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301 USA
- */
+declare(strict_types=1);
 
-/**
- * Classes for dealing with Exif entries.
- *
- * This file defines two exception classes and the abstract class
- * {@link PelEntry} which provides the basic methods that all Exif
- * entries will have. All Exif entries will be represented by
- * descendants of the {@link PelEntry} class --- the class itself is
- * abstract and so it cannot be instantiated.
- *
- * @author Martin Geisler <mgeisler@users.sourceforge.net>
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public
- *          License (GPL)
- * @package PEL
- */
+namespace lsolesen\pel;
+
+use Stringable;
 
 /**
  * Common ancestor class of all {@link PelIfd} entries.
@@ -55,30 +23,17 @@
  * If you instead want to have an entry for some data which take the
  * form of an integer, a string, a byte, or some other PHP type, then
  * don't use this class. You should instead create an object of the
- * right subclass ({@link PelEntryShort} for short integers, {@link
- * PelEntryAscii} for strings, and so on) directly.
- *
- * @author Martin Geisler <mgeisler@users.sourceforge.net>
- * @package PEL
+ * right subclass ({@link PelEntryShort} for short integers, {@link * PelEntryAscii} for strings, and so on) directly.
  */
-namespace lsolesen\pel;
-
-use lsolesen\pel\PelIfd;
-use Stringable;
-
 abstract class PelEntry implements Stringable
 {
-
     /**
      * Type of IFD containing this tag.
      *
      * This must be one of the constants defined in {@link PelIfd}:
      * {@link PelIfd::IFD0} for the main image IFD, {@link PelIfd::IFD1}
      * for the thumbnail image IFD, {@link PelIfd::EXIF} for the Exif
-     * sub-IFD, {@link PelIfd::GPS} for the GPS sub-IFD, or {@link
-     * PelIfd::INTEROPERABILITY} for the interoperability sub-IFD.
-     *
-     * @var int
+     * sub-IFD, {@link PelIfd::GPS} for the GPS sub-IFD, or {@link * PelIfd::INTEROPERABILITY} for the interoperability sub-IFD.
      */
     protected int $ifd_type = PelIfd::IFD0;
 
@@ -88,31 +43,41 @@ abstract class PelEntry implements Stringable
      * Subclasses must either override {@link getBytes()} or, if
      * possible, maintain this property so that it always contains a
      * true representation of the entry.
-     *
-     * @var string
      */
     protected string $bytes = '';
 
     /**
      * The {@link PelTag} of this entry.
-     *
-     * @var int
      */
     protected int $tag;
 
     /**
      * The {@link PelFormat} of this entry.
-     *
-     * @var int
      */
     protected int $format;
 
     /**
      * The number of components of this entry.
-     *
-     * @var int
      */
     protected int $components;
+
+    /**
+     * Turn this entry into a string.
+     *
+     * @return string a string representation of this entry. This is
+     *         mostly for debugging.
+     */
+    public function __toString(): string
+    {
+        $str = Pel::fmt("  Tag: 0x%04X (%s)\n", $this->tag, PelTag::getName($this->ifd_type, $this->tag));
+        $str .= Pel::fmt("    Format    : %d (%s)\n", $this->format, PelFormat::getName($this->format));
+        $str .= Pel::fmt("    Components: %d\n", $this->components);
+        if ($this->getTag() !== PelTag::MAKER_NOTE && $this->getTag() !== PelTag::PRINT_IM) {
+            $str .= Pel::fmt("    Value     : %s\n", print_r($this->getValue(), true));
+        }
+        $str .= Pel::fmt("    Text      : %s\n", $this->getText());
+        return $str;
+    }
 
     /**
      * Return the tag of this entry.
@@ -130,8 +95,7 @@ abstract class PelEntry implements Stringable
      * @return int one of the constants defined in {@link PelIfd}:
      *         {@link PelIfd::IFD0} for the main image IFD, {@link PelIfd::IFD1}
      *         for the thumbnail image IFD, {@link PelIfd::EXIF} for the Exif
-     *         sub-IFD, {@link PelIfd::GPS} for the GPS sub-IFD, or {@link
-     *         PelIfd::INTEROPERABILITY} for the interoperability sub-IFD.
+     *         sub-IFD, {@link PelIfd::GPS} for the GPS sub-IFD, or {@link *         PelIfd::INTEROPERABILITY} for the interoperability sub-IFD.
      */
     public function getIfdType(): int
     {
@@ -142,9 +106,7 @@ abstract class PelEntry implements Stringable
      * Update the IFD type.
      *
      * @param int $type
-     *            must be one of the constants defined in {@link
-     *            PelIfd}: {@link PelIfd::IFD0} for the main image IFD, {@link
-     *            PelIfd::IFD1} for the thumbnail image IFD, {@link PelIfd::EXIF}
+     *            must be one of the constants defined in {@link *            PelIfd}: {@link PelIfd::IFD0} for the main image IFD, {@link *            PelIfd::IFD1} for the thumbnail image IFD, {@link PelIfd::EXIF}
      *            for the Exif sub-IFD, {@link PelIfd::GPS} for the GPS sub-IFD, or
      *            {@link PelIfd::INTEROPERABILITY} for the interoperability
      *            sub-IFD.
@@ -177,9 +139,10 @@ abstract class PelEntry implements Stringable
     /**
      * Turn this entry into bytes.
      *
-     * @param boolean $o
+     * @param bool $o
      *            the desired byte order, which must be either
      *            {@link Convert::LITTLE_ENDIAN} or {@link Convert::BIG_ENDIAN}.
+     *
      * @return string bytes representing this entry.
      */
     public function getBytes(bool $o): string
@@ -194,9 +157,10 @@ abstract class PelEntry implements Stringable
      * e.g., rationals will be returned as 'x/y', ASCII strings will be
      * returned as themselves etc.
      *
-     * @param boolean $brief
+     * @param bool $brief
      *            some values can be returned in a long or more
      *            brief form, and this parameter controls that.
+     *
      * @return string the value as text.
      */
     abstract public function getText(bool $brief = false): string;
@@ -219,26 +183,8 @@ abstract class PelEntry implements Stringable
      *
      * @param mixed $value
      *            the new value.
-     * @abstract
      *
+     * @abstract
      */
     abstract public function setValue(mixed $value): void;
-
-    /**
-     * Turn this entry into a string.
-     *
-     * @return string a string representation of this entry. This is
-     *         mostly for debugging.
-     */
-    public function __toString(): string
-    {
-        $str = Pel::fmt("  Tag: 0x%04X (%s)\n", $this->tag, PelTag::getName($this->ifd_type, $this->tag));
-        $str .= Pel::fmt("    Format    : %d (%s)\n", $this->format, PelFormat::getName($this->format));
-        $str .= Pel::fmt("    Components: %d\n", $this->components);
-        if ($this->getTag() !== PelTag::MAKER_NOTE && $this->getTag() !== PelTag::PRINT_IM) {
-            $str .= Pel::fmt("    Value     : %s\n", print_r($this->getValue(), true));
-        }
-        $str .= Pel::fmt("    Text      : %s\n", $this->getText());
-        return $str;
-    }
 }

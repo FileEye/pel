@@ -1,65 +1,23 @@
 <?php
 
-/**
- * PEL: PHP Exif Library.
- * A library with support for reading and
- * writing all Exif headers in JPEG and TIFF images using PHP.
- *
- * Copyright (C) 2004, 2005 Martin Geisler.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program in the file COPYING; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301 USA
- */
+declare(strict_types=1);
 
-/**
- * Classes used to hold data for Exif tags of format undefined.
- *
- * This file contains the base class {@link PelEntryUndefined} and
- * the subclasses {@link PelEntryUserComment} which should be used
- * to manage the {@link PelTag::USER_COMMENT} tag, and {@link
- * PelEntryVersion} which is used to manage entries with version
- * information.
- *
- * @author Martin Geisler <mgeisler@users.sourceforge.net>
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public
- *          License (GPL)
- * @package PEL
- */
+namespace lsolesen\pel;
 
 /**
  * Class for holding data of any kind.
  *
  * This class can hold bytes of undefined format.
- *
- * @author Martin Geisler <mgeisler@users.sourceforge.net>
- * @package PEL
  */
-namespace lsolesen\pel;
-
 class PelEntryUndefined extends PelEntry
 {
-
     /**
      * Make a new PelEntry that can hold undefined data.
      *
-     * @param integer $tag
+     * @param int $tag
      *            which this entry represents. This
      *            should be one of the constants defined in {@link PelTag},
-     *            e.g., {@link PelTag::SCENE_TYPE}, {@link
-     *            PelTag::MAKER_NOTE} or any other tag with format {@link
-     *            PelFormat::UNDEFINED}.
+     *            e.g., {@link PelTag::SCENE_TYPE}, {@link *            PelTag::MAKER_NOTE} or any other tag with format {@link *            PelFormat::UNDEFINED}.
      * @param string $data
      *            the data that this entry will be holding. Since
      *            the format is undefined, no checking will be done on the data. If no data are given, a empty string will be stored
@@ -99,9 +57,10 @@ class PelEntryUndefined extends PelEntry
      *
      * The value will be returned in a format suitable for presentation.
      *
-     * @param boolean $brief
+     * @param bool $brief
      *            some values can be returned in a long or more
      *            brief form, and this parameter controls that.
+     *
      * @return string the value as text.
      */
     public function getText(bool $brief = false): string
@@ -122,7 +81,7 @@ class PelEntryUndefined extends PelEntry
             case PelTag::COMPONENTS_CONFIGURATION:
                 // CC (e->components, 4, v);
                 $v = '';
-                for ($i = 0; $i < 4; $i ++) {
+                for ($i = 0; $i < 4; $i++) {
                     match (ord($this->bytes[$i])) {
                         0 => $v .= '-',
                         1 => $v .= 'Y',

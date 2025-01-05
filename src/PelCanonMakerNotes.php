@@ -1,27 +1,8 @@
 <?php
-/*
- * PEL: PHP Exif Library.
- * A library with support for reading and
- * writing all Exif headers in JPEG and TIFF images using PHP.
- *
- * Copyright (C) 2004, 2005 Martin Geisler.
- * Copyright (C) 2017 Johannes Weberhofer.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program in the file COPYING; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301 USA
- */
+
+declare(strict_types=1);
+
+namespace lsolesen\pel;
 
 /**
  * Namespace for functions operating on Exif formats.
@@ -33,16 +14,7 @@
  *
  * All the methods defined here are static, and they all operate on a
  * single argument which should be one of the class constants.
- *
- * @author Vinzenz Rosenkranz <vinzenz.rosenkranz@gmail.com>
- * @author Thanks to Benedikt Rosenkranz <beluro@web.de>
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public
- *          License (GPL)
- * @package
- *
  */
-namespace lsolesen\pel;
-
 class PelCanonMakerNotes extends PelMakerNotes
 {
     /**
@@ -88,7 +60,7 @@ class PelCanonMakerNotes extends PelMakerNotes
         0x4019,
         0x4020,
         0x4025,
-        0x4027
+        0x4027,
     ];
 
     /**
@@ -106,7 +78,7 @@ class PelCanonMakerNotes extends PelMakerNotes
         0x002d,
         0x002f,
         0x0030,
-        0x0031
+        0x0031,
     ];
 
     /**
@@ -129,7 +101,7 @@ class PelCanonMakerNotes extends PelMakerNotes
         0x001f,
         0x0020,
         0x0021,
-        0x0022
+        0x0022,
     ];
 
     /**
@@ -138,7 +110,7 @@ class PelCanonMakerNotes extends PelMakerNotes
     private array $undefinedPanoramaTags = [
         0x0001,
         0x0003,
-        0x0004
+        0x0004,
     ];
 
     /**
@@ -159,7 +131,7 @@ class PelCanonMakerNotes extends PelMakerNotes
         0x001d,
         0x001e,
         0x001f,
-        0x0020
+        0x0020,
     ];
 
     public function __construct(PelIfd $parent, PelDataWindow $data, int $size, int $offset)
@@ -175,7 +147,7 @@ class PelCanonMakerNotes extends PelMakerNotes
         Pel::debug('Loading %d components in maker notes.', $this->components);
         $mkNotesIfd = new PelIfd(PelIfd::CANON_MAKER_NOTES);
 
-        for ($i = 0; $i < $this->components; $i ++) {
+        for ($i = 0; $i < $this->components; $i++) {
             $tag = $this->data->getShort($this->offset + 12 * $i);
             $components = $this->data->getLong($this->offset + 12 * $i + 4);
             $data = $this->data->getLong($this->offset + 12 * $i + 8);
@@ -201,12 +173,12 @@ class PelCanonMakerNotes extends PelMakerNotes
         $size = $data->getShort($offset);
         $offset += 2;
         $elemSize = PelFormat::getSize(PelFormat::SSHORT);
-        if ((! $components) || ($size / $components !== $elemSize)) {
+        if (! $components || ($size / $components !== $elemSize)) {
             throw new PelMakerNotesMalformedException('Size of Canon Camera Settings does not match the number of entries.');
         }
         $camIfd = new PelIfd($type);
 
-        for ($i = 0; $i < $components; $i ++) {
+        for ($i = 0; $i < $components; $i++) {
             // check if tag is defined
             if (in_array($i + 1, $this->undefinedCameraSettingsTags)) {
                 continue;
@@ -228,7 +200,7 @@ class PelCanonMakerNotes extends PelMakerNotes
         }
         $shotIfd = new PelIfd($type);
 
-        for ($i = 0; $i < $components; $i ++) {
+        for ($i = 0; $i < $components; $i++) {
             // check if tag is defined
             if (in_array($i + 1, $this->undefinedShotInfoTags)) {
                 continue;
@@ -250,7 +222,7 @@ class PelCanonMakerNotes extends PelMakerNotes
         }
         $panoramaIfd = new PelIfd($type);
 
-        for ($i = 0; $i < $components; $i ++) {
+        for ($i = 0; $i < $components; $i++) {
             // check if tag is defined
             if (in_array($i + 1, $this->undefinedPanoramaTags)) {
                 continue;
@@ -272,7 +244,7 @@ class PelCanonMakerNotes extends PelMakerNotes
         }
         $fileIfd = new PelIfd($type);
 
-        for ($i = 0; $i < $components; $i ++) {
+        for ($i = 0; $i < $components; $i++) {
             // check if tag is defined
             if (in_array($i + 1, $this->undefinedFileInfoTags)) {
                 continue;

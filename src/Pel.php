@@ -1,27 +1,8 @@
 <?php
 
-/**
- * PEL: PHP Exif Library.
- * A library with support for reading and
- * writing all Exif headers in JPEG and TIFF images using PHP.
- *
- * Copyright (C) 2004, 2005, 2006, 2007 Martin Geisler.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program in the file COPYING; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301 USA
- */
+declare(strict_types=1);
+
+namespace lsolesen\pel;
 
 /**
  * Class with miscellaneous static methods.
@@ -31,14 +12,9 @@
  *
  * Debugging output from PEL can be turned on and off by assigning
  * true or false to {@link Pel::$debug}.
- *
- * @author Martin Geisler <mgeisler@users.sourceforge.net>
  */
-namespace lsolesen\pel;
-
 class Pel
 {
-
     /**
      * Flag that controls if dgettext can be used.
      * Is set to true or false at the first access
@@ -162,18 +138,16 @@ class Pel
      *
      * This method will throw the passed exception when strict parsing
      * in effect (see {@link setStrictParsing()}). Otherwise the
-     * exception is stored (it can be accessed with {@link
-     * getExceptions()}) and a warning is issued (with {@link
-     * Pel::warning}).
+     * exception is stored (it can be accessed with {@link getExceptions()})
+     * and a warning is issued (with {@link Pel::warning}).
      */
     public static function maybeThrow(PelException $e): void
     {
         if (self::$strict) {
             throw $e;
-        } else {
-            self::$exceptions[] = $e;
-            self::warning('%s (%s:%s)', $e->getMessage(), basename($e->getFile()), $e->getLine());
         }
+        self::$exceptions[] = $e;
+        self::warning('%s (%s:%s)', $e->getMessage(), basename($e->getFile()), $e->getLine());
     }
 
     /**
@@ -182,14 +156,13 @@ class Pel
      * If strict parsing is enabled, then most errors while loading
      * images will result in exceptions being thrown. Otherwise a
      * warning will be emitted (using {@link Pel::warning}) and the
-     * exceptions will be stored for later use via {@link
-     * getExceptions()}.
+     * exceptions will be stored for later use via {@link getExceptions()}.
      *
      * Some errors will still be fatal and result in thrown exceptions,
      * but an effort will be made to skip over as much garbage as
      * possible.
      *
-     * @param boolean $flag
+     * @param bool $flag
      *            use true to enable strict parsing, false to
      *            disable.
      */
@@ -201,7 +174,7 @@ class Pel
     /**
      * Get current setting for strict parsing.
      *
-     * @return boolean true if strict parsing is in effect, false
+     * @return bool true if strict parsing is in effect, false
      *         otherwise.
      */
     public static function getStrictParsing(): bool
@@ -212,7 +185,7 @@ class Pel
     /**
      * Enable/disable debugging output.
      *
-     * @param boolean $flag
+     * @param bool $flag
      *            use true to enable debug output, false to
      *            disable.
      */
@@ -224,7 +197,7 @@ class Pel
     /**
      * Get current setting for debug output.
      *
-     * @return boolean true if debug is enabled, false otherwise.
+     * @return bool true if debug is enabled, false otherwise.
      */
     public static function getDebug(): bool
     {
@@ -282,6 +255,7 @@ class Pel
      *
      * @param string $str
      *            the string that should be translated.
+     *
      * @return string the translated string, or the original string if
      *         no translation could be found.
      */
@@ -307,6 +281,7 @@ class Pel
      *            any number of arguments can be given. The
      *            arguments will be available for the format string as usual with
      *            sprintf().
+     *
      * @return string the translated string, or the original string if
      *         no translation could be found.
      */
@@ -318,10 +293,6 @@ class Pel
     /**
      * Wrapper for dgettext.
      * The untranslated stub will be return in the case that dgettext is not available.
-     *
-     * @param string $domain
-     * @param string $str
-     * @return string
      */
     private static function dgettextWrapper(string $domain, string $str): string
     {
@@ -333,8 +304,7 @@ class Pel
         }
         if (self::$hasdgetext) {
             return dgettext($domain, $str);
-        } else {
-            return $str;
         }
+        return $str;
     }
 }
