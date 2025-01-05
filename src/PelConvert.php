@@ -83,7 +83,7 @@ class PelConvert
      *            BIG_ENDIAN}.
      * @return string the bytes representing the unsigned short.
      */
-    public static function shortToBytes(int $value, bool $endian): string 
+    public static function shortToBytes(int $value, bool $endian): string
     {
         if ($endian === self::LITTLE_ENDIAN) {
             return chr($value) . chr($value >> 8);
