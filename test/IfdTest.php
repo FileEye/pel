@@ -33,7 +33,7 @@ use lsolesen\pel\PelTag;
 class IfdTest extends TestCase
 {
 
-    public function testIteratorAggretate()
+    public function testIteratorAggretate(): void
     {
         $ifd = new PelIfd(PelIfd::IFD0);
 
@@ -56,7 +56,7 @@ class IfdTest extends TestCase
         $this->assertSame($entries[PelTag::DATE_TIME], $date);
     }
 
-    public function testArrayAccess()
+    public function testArrayAccess(): void
     {
         $ifd = new PelIfd(PelIfd::IFD0);
 

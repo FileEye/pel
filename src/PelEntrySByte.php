@@ -68,7 +68,7 @@ class PelEntrySByte extends PelEntryNumber
      *            signed byte, that is between -128 and 127 (inclusive). If not,
      *            then a {@link PelOverflowException} will be thrown.
      */
-    public function __construct($tag, $value = null)
+    public function __construct(int $tag, int ...$value)
     {
         $this->tag = $tag;
         $this->min = - 128;
@@ -90,7 +90,7 @@ class PelEntrySByte extends PelEntryNumber
      *            {@link PelConvert::BIG_ENDIAN}, specifying the target byte order.
      * @return string bytes representing the number given.
      */
-    public function numberToBytes($number, $order)
+    public function numberToBytes(int $number, bool $order): string
     {
         return chr($number);
     }

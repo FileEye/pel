@@ -56,7 +56,7 @@ class PelExif extends PelJpegContent
      *
      * @var PelTiff
      */
-    private $tiff = null;
+    private ?PelTiff $tiff = null;
 
     /**
      * Construct a new Exif object.
@@ -80,7 +80,7 @@ class PelExif extends PelJpegContent
      *
      * @param PelDataWindow $d
      */
-    public function load(PelDataWindow $d)
+    public function load(PelDataWindow $d): void
     {
         Pel::debug('Parsing %d bytes of Exif data...', $d->getSize());
 
@@ -110,7 +110,7 @@ class PelExif extends PelJpegContent
      * @param PelTiff $tiff
      *            the new TIFF object.
      */
-    public function setTiff(PelTiff $tiff)
+    public function setTiff(PelTiff $tiff): void
     {
         $this->tiff = $tiff;
     }
@@ -123,7 +123,7 @@ class PelExif extends PelJpegContent
      *
      * @return PelTiff|null the TIFF object with the Exif data.
      */
-    public function getTiff()
+    public function getTiff(): ?PelTiff
     {
         return $this->tiff;
     }
@@ -133,7 +133,7 @@ class PelExif extends PelJpegContent
      *
      * @return string bytes representing this object.
      */
-    public function getBytes()
+    public function getBytes(): string
     {
         return self::EXIF_HEADER . $this->tiff->getBytes();
     }
@@ -144,7 +144,7 @@ class PelExif extends PelJpegContent
      * @return string a string describing this object. This is mostly
      *         useful for debugging.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return Pel::tra("Dumping Exif data...\n") . $this->tiff->__toString();
     }

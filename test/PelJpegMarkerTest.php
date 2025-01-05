@@ -33,7 +33,7 @@ use lsolesen\pel\PelJpegMarker;
 class PelJpegMarkerTest extends TestCase
 {
 
-    public function testNames()
+    public function testNames(): void
     {
         $jpegMarker = new PelJpegMarker();
         $this->assertEquals($jpegMarker::getName(PelJpegMarker::SOF0), 'SOF0');
@@ -43,7 +43,7 @@ class PelJpegMarkerTest extends TestCase
         $this->assertEquals($jpegMarker::getName(100), Pel::fmt('Unknown marker: 0x%02X', 100));
     }
 
-    public function testDescriptions()
+    public function testDescriptions(): void
     {
         $jpegMarker = new PelJpegMarker();
         $this->assertEquals($jpegMarker::getDescription(PelJpegMarker::SOF0), 'Encoding (baseline)');
@@ -57,7 +57,7 @@ class PelJpegMarkerTest extends TestCase
      *
      * @throws PelJpegInvalidMarkerException
      */
-    public function testInvalidMarkerException()
+    public function testInvalidMarkerException(): void
     {
         $this->expectException('lsolesen\pel\PelJpegInvalidMarkerException');
         throw new PelJpegInvalidMarkerException(1, 2);

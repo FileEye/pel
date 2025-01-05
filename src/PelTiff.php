@@ -77,7 +77,7 @@ class PelTiff
      *
      * @var PelIfd
      */
-    private $ifd = null;
+    private ?PelIfd $ifd = null;
 
     /**
      * Construct a new object for holding TIFF data.
@@ -119,7 +119,7 @@ class PelTiff
      *            constructed. This should be valid TIFF data, coming either
      *            directly from a TIFF image or from the Exif data in a JPEG image.
      */
-    public function load(PelDataWindow $d)
+    public function load(PelDataWindow $d): void
     {
         Pel::debug('Parsing %d bytes of TIFF data...', $d->getSize());
 
@@ -166,7 +166,7 @@ class PelTiff
      * @param string $filename
      *            the filename. This must be a readable file.
      */
-    public function loadFile($filename)
+    public function loadFile(string $filename): void
     {
         $this->load(new PelDataWindow(file_get_contents($filename)));
     }
@@ -178,7 +178,7 @@ class PelTiff
      *            the new first IFD, which must be of type {@link
      *            PelIfd::IFD0}.
      */
-    public function setIfd(PelIfd $ifd)
+    public function setIfd(PelIfd $ifd): void
     {
         if ($ifd->getType() != PelIfd::IFD0) {
             throw new PelInvalidDataException('Invalid type of IFD: %d, expected %d.', $ifd->getType(), PelIfd::IFD0);
@@ -192,7 +192,7 @@ class PelTiff
      * @return PelIfd|null the first IFD contained in the TIFF data, if any.
      *         If there is no IFD null will be returned.
      */
-    public function getIfd()
+    public function getIfd(): ?PelIfd
     {
         return $this->ifd;
     }
@@ -210,7 +210,7 @@ class PelTiff
      *            PelConvert::BIG_ENDIAN}.
      * @return string the bytes representing this object.
      */
-    public function getBytes($order = PelConvert::LITTLE_ENDIAN)
+    public function getBytes(bool $order = PelConvert::LITTLE_ENDIAN): string
     {
         if ($order == PelConvert::LITTLE_ENDIAN) {
             $bytes = 'II';
@@ -253,7 +253,7 @@ class PelTiff
      * @return integer|FALSE The number of bytes that were written to the
      *         file, or FALSE on failure.
      */
-    public function saveFile($filename)
+    public function saveFile(string $filename): int|false
     {
         return file_put_contents($filename, $this->getBytes());
     }
@@ -264,7 +264,7 @@ class PelTiff
      * @return string a string describing this object. This is mostly useful
      *         for debugging.
      */
-    public function __toString()
+    public function __toString(): string
     {
         $str = Pel::fmt("Dumping TIFF data...\n");
         if ($this->ifd !== null) {
@@ -287,7 +287,7 @@ class PelTiff
      *         false otherwise.
      * @see PelJpeg::isValid()
      */
-    public static function isValid(PelDataWindow $d)
+    public static function isValid(PelDataWindow $d): bool
     {
         /* First check that we have enough data. */
         if ($d->getSize() < 8) {

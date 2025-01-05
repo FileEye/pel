@@ -68,7 +68,7 @@ class PelEntryAscii extends PelEntry
      *
      * @var string
      */
-    private $str;
+    private string $str = '';
 
     /**
      * Make a new PelEntry that can hold an ASCII string.
@@ -84,7 +84,7 @@ class PelEntryAscii extends PelEntry
      *            setValue}, namely that it should be given without any trailing
      *            NULL character and that it must be plain 7-bit ASCII.
      */
-    public function __construct($tag, $str = '')
+    public function __construct(int $tag, string $str = '')
     {
         $this->tag = $tag;
         $this->format = PelFormat::ASCII;
@@ -96,8 +96,10 @@ class PelEntryAscii extends PelEntry
      * {@inheritdoc}
      * @see \lsolesen\pel\PelEntry::setValue()
      */
-    public function setValue($str)
+    public function setValue(mixed $str): void
     {
+        $str = (string) $str;
+
         $this->components = strlen($str) + 1;
         $this->str = $str;
         $this->bytes = $str . chr(0x00);
@@ -108,7 +110,7 @@ class PelEntryAscii extends PelEntry
      * {@inheritdoc}
      * @see \lsolesen\pel\PelEntry::getValue()
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->str;
     }
@@ -118,7 +120,7 @@ class PelEntryAscii extends PelEntry
      * {@inheritdoc}
      * @see \lsolesen\pel\PelEntry::getText()
      */
-    public function getText($brief = false)
+    public function getText(bool $brief = false): string
     {
         return $this->str;
     }

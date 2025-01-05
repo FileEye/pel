@@ -68,7 +68,7 @@ class PelEntryByte extends PelEntryNumber
      *            unsigned byte, that is between 0 and 255 (inclusive). If not,
      *            then a {@link PelOverflowException} will be thrown.
      */
-    public function __construct($tag, $value = null)
+    public function __construct(int $tag, $value = null)
     {
         $this->tag = $tag;
         $this->min = 0;
@@ -85,7 +85,7 @@ class PelEntryByte extends PelEntryNumber
      * {@inheritdoc}
      * @see \lsolesen\pel\PelEntryNumber::numberToBytes()
      */
-    public function numberToBytes($number, $order)
+    public function numberToBytes(int $number, bool $order): string
     {
         return chr($number);
     }

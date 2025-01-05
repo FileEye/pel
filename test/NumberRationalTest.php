@@ -30,7 +30,7 @@ use lsolesen\pel\PelOverflowException;
 class NumberRationalTest extends NumberTestCase
 {
 
-    public function testOverflow()
+    public function testOverflow(): void
     {
         $entry = new PelEntryRational(42, [
             1,
@@ -99,7 +99,7 @@ class NumberRationalTest extends NumberTestCase
         ]);
     }
 
-    public function testReturnValues()
+    public function testReturnValues(): void
     {
         $entry = new PelEntryRational(42);
         $this->assertEquals($entry->getValue(), []);

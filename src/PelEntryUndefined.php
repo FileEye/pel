@@ -64,7 +64,7 @@ class PelEntryUndefined extends PelEntry
      *            the data that this entry will be holding. Since
      *            the format is undefined, no checking will be done on the data. If no data are given, a empty string will be stored
      */
-    public function __construct($tag, $data = '')
+    public function __construct(int $tag, string $data = '')
     {
         $this->tag = $tag;
         $this->format = PelFormat::UNDEFINED;
@@ -78,7 +78,7 @@ class PelEntryUndefined extends PelEntry
      *            the data that this entry will be holding. Since
      *            the format is undefined, no checking will be done on the data.
      */
-    public function setValue($data)
+    public function setValue(mixed $data): void
     {
         $this->components = strlen($data);
         $this->bytes = $data;
@@ -89,7 +89,7 @@ class PelEntryUndefined extends PelEntry
      *
      * @return string the data that this entry is holding.
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->bytes;
     }
@@ -104,7 +104,7 @@ class PelEntryUndefined extends PelEntry
      *            brief form, and this parameter controls that.
      * @return string the value as text.
      */
-    public function getText($brief = false)
+    public function getText(bool $brief = false): string
     {
         switch ($this->tag) {
             case PelTag::FILE_SOURCE:

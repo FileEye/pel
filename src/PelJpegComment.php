@@ -48,7 +48,7 @@ class PelJpegComment extends PelJpegContent
      *
      * @var string
      */
-    private $comment = '';
+    private string $comment = '';
 
     /**
      * Construct a new JPEG comment.
@@ -57,7 +57,7 @@ class PelJpegComment extends PelJpegContent
      *
      * @param string $comment
      */
-    public function __construct($comment = '')
+    public function __construct(string $comment = '')
     {
         $this->comment = $comment;
     }
@@ -69,7 +69,7 @@ class PelJpegComment extends PelJpegContent
      *
      * @param PelDataWindow $d
      */
-    public function load(PelDataWindow $d)
+    public function load(PelDataWindow $d): void
     {
         $this->comment = $d->getBytes();
     }
@@ -82,7 +82,7 @@ class PelJpegComment extends PelJpegContent
      * @param string $comment
      *            the new comment.
      */
-    public function setValue($comment)
+    public function setValue(string $comment): void
     {
         $this->comment = $comment;
     }
@@ -92,7 +92,7 @@ class PelJpegComment extends PelJpegContent
      *
      * @return string the comment.
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->comment;
     }
@@ -102,7 +102,7 @@ class PelJpegComment extends PelJpegContent
      *
      * @return string bytes representing this comment.
      */
-    public function getBytes()
+    public function getBytes(): string
     {
         return $this->comment;
     }
@@ -112,7 +112,7 @@ class PelJpegComment extends PelJpegContent
      *
      * @return string the same as {@link getValue()}.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getValue();
     }

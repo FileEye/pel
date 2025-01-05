@@ -30,7 +30,7 @@ use PHPUnit\Framework\TestCase;
 class OlympusC765uzTest extends TestCase
 {
 
-    public function testRead()
+    public function testRead(): void
     {
         Pel::clearExceptions();
         Pel::setStrictParsing(false);

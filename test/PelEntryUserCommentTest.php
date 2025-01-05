@@ -31,7 +31,7 @@ use lsolesen\pel\PelEntryUserComment;
 class PelEntryUserCommentTest extends TestCase
 {
 
-    public function testUsercomment()
+    public function testUsercomment(): void
     {
         $entry = new PelEntryUserComment();
         $this->assertEquals($entry->getComponents(), 8);

@@ -33,7 +33,7 @@ use lsolesen\pel\PelTag;
 class PelEntryWindowsStringTest extends TestCase
 {
 
-    public function testWindowsString()
+    public function testWindowsString(): void
     {
         $test_str = 'Tést';
         $test_str_ucs2 = mb_convert_encoding($test_str, 'UCS-2LE', 'auto');

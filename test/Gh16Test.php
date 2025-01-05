@@ -35,7 +35,7 @@ use lsolesen\pel\PelTiff;
 class Gh16Test extends TestCase
 {
 
-    protected $file;
+    protected string $file;
 
     protected function setUp(): void
     {
@@ -49,7 +49,7 @@ class Gh16Test extends TestCase
         unlink($this->file);
     }
 
-    public function testThisDoesNotWorkAsExpected()
+    public function testThisDoesNotWorkAsExpected(): void
     {
         $subject = "Превед, медвед!";
 

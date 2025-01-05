@@ -48,9 +48,9 @@ abstract class PelEntryNumber extends PelEntry
     /**
      * The value held by this entry.
      *
-     * @var array
+     * @var array<int, mixed>
      */
-    protected $value = [];
+    protected array $value = [];
 
     /**
      * The minimum allowed value.
@@ -60,7 +60,7 @@ abstract class PelEntryNumber extends PelEntry
      *
      * @var int
      */
-    protected $min;
+    protected int $min;
 
     /**
      * The maximum allowed value.
@@ -70,7 +70,7 @@ abstract class PelEntryNumber extends PelEntry
      *
      * @var int
      */
-    protected $max;
+    protected int $max;
 
     /**
      * The dimension of the number held.
@@ -80,7 +80,7 @@ abstract class PelEntryNumber extends PelEntry
      *
      * @var int
      */
-    protected $dimension = 1;
+    protected int $dimension = 1;
 
     /**
      * Change the value.
@@ -94,14 +94,14 @@ abstract class PelEntryNumber extends PelEntry
      * method will always return an array except for when a single
      * number is given here.
      *
-     * @param int|array $value...
+     * @param int|array<int, mixed> $value...
      *            the new value(s). This can be zero or
      *            more numbers, that is, either integers or arrays. The input will
      *            be checked to ensure that the numbers are within the valid range.
      *            If not, then a {@link PelOverflowException} will be thrown.
      * @see PelEntryNumber::getValue
      */
-    public function setValue($value)
+    public function setValue(mixed $value): void
     {
         $value = func_get_args();
         $this->setValueArray($value);
@@ -115,12 +115,12 @@ abstract class PelEntryNumber extends PelEntry
      * value, and a {@link PelOverflowException} will be thrown if the
      * value is found to be outside the legal range.
      *
-     * @param array $values
+     * @param array<int, mixed> $values
      *            the new values. The array must contain the new
      *            numbers.
      * @see PelEntryNumber::getValue
      */
-    public function setValueArray($values)
+    public function setValueArray(array $values): void
     {
         foreach ($values as $v) {
             $this->validateNumber($v);
@@ -133,10 +133,10 @@ abstract class PelEntryNumber extends PelEntry
     /**
      * Return the numeric value held.
      *
-     * @return int|array this will either be a single number if there is
+     * @return int|array<int, mixed> this will either be a single number if there is
      *         only one component, or an array of numbers otherwise.
      */
-    public function getValue()
+    public function getValue(): int|array
     {
         if ($this->components == 1) {
             return $this->value[0];
@@ -152,13 +152,13 @@ abstract class PelEntryNumber extends PelEntry
      * given my {@link getMin()} and {@link getMax()}, inclusive. If
      * not, then a {@link PelOverflowException} is thrown.
      *
-     * @param int|array $n
+     * @param int|array<int, mixed> $n
      *            the number in question.
      * @return void nothing, but will throw a {@link
      *         PelOverflowException} if the number is found to be outside the
      *         legal range and {@link Pel::$strict} is true.
      */
-    public function validateNumber($n)
+    public function validateNumber(int|array $n): void
     {
         if ($this->dimension == 1 || is_scalar($n)) {
             if (is_int($n) && ($n < $this->min || $n > $this->max)) {
@@ -182,14 +182,14 @@ abstract class PelEntryNumber extends PelEntry
      * This appends a number to the numbers already held by this entry,
      * thereby increasing the number of components by one.
      *
-     * @param int|array $n
+     * @param int|array<int, mixed> $n
      *            the number to be added.
      */
-    public function addNumber($n)
+    public function addNumber(int|array $n): void
     {
         $this->validateNumber($n);
         $this->value[] = $n;
-        $this->components ++;
+        $this->components++;
     }
 
     /**
@@ -207,7 +207,7 @@ abstract class PelEntryNumber extends PelEntry
      *            {@link PelConvert::BIG_ENDIAN}, specifying the target byte order.
      * @return string bytes representing the number given.
      */
-    abstract public function numberToBytes($number, $order);
+    abstract public function numberToBytes(int $number, bool $order): string;
 
     /**
      * Turn this entry into bytes.
@@ -218,7 +218,7 @@ abstract class PelEntryNumber extends PelEntry
      *            PelConvert::BIG_ENDIAN}.
      * @return string bytes representing this entry.
      */
-    public function getBytes($o)
+    public function getBytes(bool $o): string
     {
         $bytes = '';
         for ($i = 0; $i < $this->components; $i ++) {
@@ -241,7 +241,7 @@ abstract class PelEntryNumber extends PelEntry
      * sophisticated behavior than the default, which is to just return
      * the number as is.
      *
-     * @param int|array $number
+     * @param int|array<int, mixed> $number
      *            the number which will be formatted.
      * @param boolean $brief
      *            it could be that there is both a verbose and a
@@ -249,7 +249,7 @@ abstract class PelEntryNumber extends PelEntry
      * @return string the number formatted as a string suitable for
      *         display.
      */
-    public function formatNumber($number, $brief = false)
+    public function formatNumber(int|array $number, bool $brief = false): string
     {
         return is_int($number) ? (string) $number : implode(', ', $number);
     }
@@ -263,7 +263,7 @@ abstract class PelEntryNumber extends PelEntry
      *            and a comma will be used.
      * @return string the numbers(s) held by this entry.
      */
-    public function getText($brief = false)
+    public function getText(bool $brief = false): string
     {
         if ($this->components == 0) {
             return '';

@@ -26,16 +26,17 @@ namespace Pel\Test;
 
 use PHPUnit\Framework\TestCase;
 use lsolesen\pel\Pel;
+use lsolesen\pel\PelEntryNumber;
 use lsolesen\pel\PelOverflowException;
 
 abstract class NumberTestCase extends TestCase
 {
 
-    protected $min;
+    protected int $min;
 
-    protected $max;
+    protected int $max;
 
-    protected $num;
+    protected PelEntryNumber $num;
 
     /**
      *
@@ -47,7 +48,7 @@ abstract class NumberTestCase extends TestCase
         Pel::setStrictParsing(true);
     }
 
-    public function testOverflow()
+    public function testOverflow(): void
     {
         $this->num->setValue(0);
         $this->assertSame(0, $this->num->getValue());
@@ -89,7 +90,7 @@ abstract class NumberTestCase extends TestCase
         $this->assertSame(0, $this->num->getValue());
     }
 
-    public function testReturnValues()
+    public function testReturnValues(): void
     {
         $this->num->setValue(1, 2, 3);
         $this->assertSame([

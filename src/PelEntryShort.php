@@ -330,7 +330,7 @@ class PelEntryShort extends PelEntryNumber
      *            (inclusive). If not, then a {@link PelOverFlowException} will be
      *            thrown.
      */
-    public function __construct($tag, $value = null)
+    public function __construct(int $tag, int ...$value)
     {
         $this->tag = $tag;
         $this->min = 0;
@@ -352,7 +352,7 @@ class PelEntryShort extends PelEntryNumber
      *            {@link PelConvert::BIG_ENDIAN}, specifying the target byte order.
      * @return string bytes representing the number given.
      */
-    public function numberToBytes($number, $order)
+    public function numberToBytes(int $number, bool $order): string
     {
         return PelConvert::shortToBytes($number, $order);
     }
@@ -370,7 +370,7 @@ class PelEntryShort extends PelEntryNumber
      *            brief form, and this parameter controls that.
      * @return string the value as text.
      */
-    public function getText($brief = false)
+    public function getText(bool $brief = false): string
     {
         if (array_key_exists($this->ifd_type, self::IFD_TYPE_TRANSLATIONS)) {
             if (array_key_exists($this->value[0], self::IFD_TYPE_TRANSLATIONS[$this->ifd_type])) {
@@ -379,7 +379,7 @@ class PelEntryShort extends PelEntryNumber
                 // @phpstan-ignore-next-line
                 return Pel::tra(self::IFD_TYPE_TRANSLATIONS[$this->ifd_type][$this->value[0]]);
             } else {
-                return $this->value[0];
+                return (string) $this->value[0];
             }
         } elseif ($this->tag === PelTag::YCBCR_SUB_SAMPLING) {
             if ($this->value[0] == 2 && $this->value[1] == 1) {
@@ -404,7 +404,7 @@ class PelEntryShort extends PelEntryNumber
             if (array_key_exists($this->value[0], self::PEL_TAG_TRANSLATIONS[$this->tag])) {
                 return Pel::tra(self::PEL_TAG_TRANSLATIONS[$this->tag][$this->value[0]]);
             } else {
-                return $this->value[0];
+                return (string) $this->value[0];
             }
         }
         return parent::getText($brief);

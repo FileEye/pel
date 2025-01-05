@@ -49,8 +49,7 @@ namespace lsolesen\pel;
 
 class PelJpegContent
 {
-
-    private $data = null;
+    private ?PelDataWindow $data = null;
 
     /**
      * Make a new piece of JPEG content.
@@ -70,7 +69,7 @@ class PelJpegContent
      *         will match the bytes given to {@link __construct the
      *         constructor}.
      */
-    public function getBytes()
+    public function getBytes(): string
     {
         return $this->data->getBytes();
     }

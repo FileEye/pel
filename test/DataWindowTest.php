@@ -32,7 +32,7 @@ use PHPUnit\Framework\TestCase;
 class DataWindowTest extends TestCase
 {
 
-    public function testReadBytes()
+    public function testReadBytes(): void
     {
         $window = new PelDataWindow('abcdefgh');
 
@@ -72,7 +72,7 @@ class DataWindowTest extends TestCase
         $this->assertTrue($caught);
     }
 
-    public function testReadIntegers()
+    public function testReadIntegers(): void
     {
         $window = new PelDataWindow("\x01\x02\x03\x04", PelConvert::BIG_ENDIAN);
 
@@ -106,7 +106,7 @@ class DataWindowTest extends TestCase
         $this->assertEquals($window->getLong(0), 0x04030201);
     }
 
-    public function testReadBigIntegers()
+    public function testReadBigIntegers(): void
     {
         $window = new PelDataWindow("\x89\xAB\xCD\xEF", PelConvert::BIG_ENDIAN);
 

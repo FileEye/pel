@@ -738,7 +738,7 @@ class PelEntrySShort extends PelEntryNumber
      *            (inclusive). If not, then a {@link PelOverFlowException} will be
      *            thrown.
      */
-    public function __construct($tag, $value = null)
+    public function __construct(int $tag, int ...$value)
     {
         $this->tag = $tag;
         $this->min = - 32768;
@@ -760,7 +760,7 @@ class PelEntrySShort extends PelEntryNumber
      *            {@link PelConvert::BIG_ENDIAN}, specifying the target byte order.
      * @return string bytes representing the number given.
      */
-    public function numberToBytes($number, $order)
+    public function numberToBytes(int $number, bool $order): string
     {
         return PelConvert::sShortToBytes($number, $order);
     }
@@ -778,7 +778,7 @@ class PelEntrySShort extends PelEntryNumber
      *            brief form, and this parameter controls that.
      * @return string the value as text.
      */
-    public function getText($brief = false)
+    public function getText(bool $brief = false): string
     {
         if (array_key_exists($this->ifd_type, self::TRANSLATIONS) && array_key_exists($this->tag, self::TRANSLATIONS[$this->ifd_type])) {
             $val = $this->value[0];
@@ -789,7 +789,7 @@ class PelEntrySShort extends PelEntryNumber
             if (array_key_exists($val, self::TRANSLATIONS[$this->ifd_type][$this->tag])) {
                 return Pel::tra(self::TRANSLATIONS[$this->ifd_type][$this->tag][$val]);
             } else {
-                return $val;
+                return (string) $val;
             }
         }
         return parent::getText($brief);

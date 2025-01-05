@@ -25,12 +25,13 @@ namespace Pel\Test\imagetests;
 
 use lsolesen\pel\Pel;
 use lsolesen\pel\PelJpeg;
+use lsolesen\pel\PelInvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class OlympusC50zTest extends TestCase
 {
 
-    public function testRead()
+    public function testRead(): void
     {
         Pel::clearExceptions();
         Pel::setStrictParsing(false);
@@ -97,7 +98,15 @@ class OlympusC50zTest extends TestCase
 
         $entry = $ifd0->getEntry(306); // DateTime
         $this->assertInstanceOf('lsolesen\pel\PelEntryTime', $entry);
-        $this->assertEquals($entry->getValue(), false);
+
+        $caught = false;
+        try {
+            $entry->getValue();
+        } catch (PelInvalidArgumentException $e) {
+            $caught = true;
+        }
+        $this->assertTrue($caught);
+
         $this->assertEquals($entry->getText(), '0000:00:00 00:00:00');
 
         $entry = $ifd0->getEntry(531); // YCbCrPositioning
@@ -152,12 +161,28 @@ class OlympusC50zTest extends TestCase
 
         $entry = $ifd0_0->getEntry(36867); // DateTimeOriginal
         $this->assertInstanceOf('lsolesen\pel\PelEntryTime', $entry);
-        $this->assertEquals($entry->getValue(), false);
+
+        $caught = false;
+        try {
+            $entry->getValue();
+        } catch (PelInvalidArgumentException $e) {
+            $caught = true;
+        }
+        $this->assertTrue($caught);
+
         $this->assertEquals($entry->getText(), '0000:00:00 00:00:00');
 
         $entry = $ifd0_0->getEntry(36868); // DateTimeDigitized
         $this->assertInstanceOf('lsolesen\pel\PelEntryTime', $entry);
-        $this->assertEquals($entry->getValue(), false);
+
+        $caught = false;
+        try {
+            $entry->getValue();
+        } catch (PelInvalidArgumentException $e) {
+            $caught = true;
+        }
+        $this->assertTrue($caught);
+
         $this->assertEquals($entry->getText(), '0000:00:00 00:00:00');
 
         $entry = $ifd0_0->getEntry(37121); // ComponentsConfiguration

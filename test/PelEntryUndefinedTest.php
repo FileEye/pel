@@ -34,7 +34,7 @@ use lsolesen\pel\PelEntryVersion;
 class PelEntryUndefinedTest extends TestCase
 {
 
-    public function testReturnValues()
+    public function testReturnValues(): void
     {
         new PelEntryUndefined(42);
 
@@ -43,7 +43,7 @@ class PelEntryUndefinedTest extends TestCase
         $this->assertEquals($entry->getValue(), 'foo bar baz');
     }
 
-    public function testUsercomment()
+    public function testUsercomment(): void
     {
         $entry = new PelEntryUserComment();
         $this->assertEquals($entry->getComponents(), 8);
@@ -56,7 +56,7 @@ class PelEntryUndefinedTest extends TestCase
         $this->assertEquals($entry->getEncoding(), 'ASCII');
     }
 
-    public function testVersion()
+    public function testVersion(): void
     {
         $entry = new PelEntryVersion(42);
 

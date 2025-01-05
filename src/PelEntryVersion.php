@@ -59,7 +59,7 @@ class PelEntryVersion extends PelEntry
      *
      * @var float
      */
-    private $version;
+    private float $version;
 
     /**
      * Make a new entry for holding a version.
@@ -73,7 +73,7 @@ class PelEntryVersion extends PelEntry
      *            exactly four digits: two digits on either side of the decimal
      *            point.
      */
-    public function __construct($tag, $version = 0.0)
+    public function __construct(int $tag, float $version = 0.0)
     {
         $this->tag = $tag;
         $this->format = PelFormat::UNDEFINED;
@@ -88,7 +88,7 @@ class PelEntryVersion extends PelEntry
      *            exactly four digits: two digits on either side of the decimal
      *            point.
      */
-    public function setValue($version = 0.0)
+    public function setValue(mixed $version = 0.0): void
     {
         $this->version = $version;
         $major = floor($version);
@@ -105,7 +105,7 @@ class PelEntryVersion extends PelEntry
      *         given to {@link setValue} or {@link __construct the
      *         constructor}.
      */
-    public function getValue()
+    public function getValue(): float
     {
         return $this->version;
     }
@@ -121,7 +121,7 @@ class PelEntryVersion extends PelEntry
      * @return string the version number with the type of the tag,
      *         either 'Exif' or 'FlashPix'.
      */
-    public function getText($brief = false)
+    public function getText(bool $brief = false): string
     {
         $v = $this->version;
 

@@ -30,7 +30,7 @@ use lsolesen\pel\PelJpeg;
 class LoadNonExistingJpegTest extends TestCase
 {
 
-    public function testWindowWindowExceptionIsCaught()
+    public function testWindowWindowExceptionIsCaught(): void
     {
         $this->expectException(PelException::class);
         new PelJpeg('non-existing-file');

@@ -36,7 +36,7 @@ use PHPUnit\Framework\TestCase;
 class Bug3017880Test extends TestCase
 {
 
-    public function testThisDoesNotWorkAsExpected()
+    public function testThisDoesNotWorkAsExpected(): void
     {
         $filename = dirname(__FILE__) . '/images/bug3017880.jpg';
         try {

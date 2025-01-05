@@ -45,21 +45,21 @@ namespace lsolesen\pel;
 abstract class PelMakerNotes
 {
 
-    protected $type;
+    protected ?int $type = null;
 
-    protected $parent;
+    protected PelIfd $parent;
 
-    protected $data;
+    protected PelDataWindow $data;
 
-    protected $size;
+    protected int $size;
 
-    protected $components;
+    protected int $components;
 
-    protected $offset;
+    protected int $offset;
 
-    public static function createMakerNotesFromManufacturer($man, $parent, $data, $size, $offset)
+    public static function createMakerNotesFromManufacturer(string $manufacturer, PelIfd $parent, PelDataWindow $data, int $size, int $offset): ?PelCanonMakerNotes
     {
-        switch ($man) {
+        switch ($manufacturer) {
             case 'Canon':
                 return new PelCanonMakerNotes($parent, $data, $size, $offset);
             default:
@@ -67,7 +67,7 @@ abstract class PelMakerNotes
         }
     }
 
-    public function __construct($parent, $data, $size, $offset)
+    public function __construct(PelIfd $parent, PelDataWindow $data, int $size, int $offset)
     {
         $this->parent = $parent;
         $this->data = $data;
@@ -77,5 +77,5 @@ abstract class PelMakerNotes
         Pel::debug('Creating MakerNotes with %d bytes at offset %d.', $size, $offset);
     }
 
-    abstract public function load();
+    abstract public function load(): void;
 }

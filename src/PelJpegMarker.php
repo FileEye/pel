@@ -364,8 +364,10 @@ class PelJpegMarker
 
     /**
      * Values for marker's short names
+     *
+     * @var array<int, string>
      */
-    protected static $jpegMarkerShort = [
+    protected static array $jpegMarkerShort = [
         self::SOF0 => 'SOF0',
         self::SOF1 => 'SOF1',
         self::SOF2 => 'SOF2',
@@ -433,8 +435,10 @@ class PelJpegMarker
 
     /**
      * Values for marker's descriptions names.
+     *
+     * @var array<int|string, string>
      */
-    protected static $jpegMarkerDescriptions = [
+    protected static array $jpegMarkerDescriptions = [
         self::SOF0 => 'Encoding (baseline)',
         self::SOF1 => 'Encoding (extended sequential)',
         self::SOF2 => 'Encoding (progressive)',
@@ -473,7 +477,7 @@ class PelJpegMarker
      *            the marker as defined in {@link PelJpegMarker}
      * @return boolean
      */
-    public static function isValid($marker)
+    public static function isValid(int $marker): bool
     {
         return ($marker >= self::SOF0 && $marker <= self::COM);
     }
@@ -486,7 +490,7 @@ class PelJpegMarker
      *            the marker as defined in {@link PelJpegMarker}
      * @return string
      */
-    public static function getBytes($marker)
+    public static function getBytes(int $marker): string
     {
         return chr($marker);
     }
@@ -499,7 +503,7 @@ class PelJpegMarker
      *            the marker as defined in {@link PelJpegMarker}
      * @return string
      */
-    public static function getName($marker)
+    public static function getName(int $marker): string
     {
         if (array_key_exists($marker, self::$jpegMarkerShort)) {
             return self::$jpegMarkerShort[$marker];
@@ -515,7 +519,7 @@ class PelJpegMarker
      *            the marker as defined in {@link PelJpegMarker}
      * @return string
      */
-    public static function getDescription($marker)
+    public static function getDescription(int $marker): string
     {
         if (array_key_exists($marker, self::$jpegMarkerShort)) {
             if (array_key_exists($marker, self::$jpegMarkerDescriptions)) {

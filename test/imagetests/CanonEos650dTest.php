@@ -30,7 +30,7 @@ use lsolesen\pel\PelJpeg;
 class CanonEos650dTest extends TestCase
 {
 
-    public function testRead()
+    public function testRead(): void
     {
         Pel::clearExceptions();
         Pel::setStrictParsing(false);

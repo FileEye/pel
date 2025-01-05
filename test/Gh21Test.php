@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 class Gh21Test extends TestCase
 {
 
-    protected $file;
+    protected string $file;
 
     public function setUp(): void
     {
@@ -43,7 +43,7 @@ class Gh21Test extends TestCase
         unlink($this->file);
     }
 
-    public function testThisDoesNotWorkAsExpected()
+    public function testThisDoesNotWorkAsExpected(): void
     {
         $scale = 0.75;
         $input_jpeg = new PelJpeg($this->file);

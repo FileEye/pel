@@ -30,7 +30,7 @@ use lsolesen\pel\PelJpeg;
 class Tags1Test extends TestCase
 {
 
-    public function testTags()
+    public function testTags(): void
     {
         Pel::clearExceptions();
         Pel::setStrictParsing(true);

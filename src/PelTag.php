@@ -1850,8 +1850,10 @@ class PelTag
 
     /**
      * Values for tags short names.
+     *
+     * @var array<int, string>
      */
-    protected static $exifTagsShort = [
+    protected static array $exifTagsShort = [
         self::INTEROPERABILITY_INDEX => 'InteroperabilityIndex',
         self::INTEROPERABILITY_VERSION => 'InteroperabilityVersion',
         self::IMAGE_WIDTH => 'ImageWidth',
@@ -1974,8 +1976,10 @@ class PelTag
 
     /**
      * Values for tags titles.
+     *
+     * @var array<int, string>
      */
-    protected static $exifTagsTitle = [
+    protected static array $exifTagsTitle = [
         self::INTEROPERABILITY_INDEX => 'Interoperability Index',
         self::INTEROPERABILITY_VERSION => 'Interoperability Version',
         self::IMAGE_WIDTH => 'Image Width',
@@ -2098,8 +2102,10 @@ class PelTag
 
     /**
      * Values for gps tags short names.
+     *
+     * @var array<int, string>
      */
-    protected static $gpsTagsShort = [
+    protected static array $gpsTagsShort = [
         self::GPS_VERSION_ID => 'GPSVersionID',
         self::GPS_LATITUDE_REF => 'GPSLatitudeRef',
         self::GPS_LATITUDE => 'GPSLatitude',
@@ -2135,6 +2141,8 @@ class PelTag
 
     /**
      * Values for canon maker notes tags titles
+     *
+     * @var array<int, string>
      */
     protected static $canonTagsTitle = [
         self::CANON_CAMERA_SETTINGS => 'Camera Settings',
@@ -2171,6 +2179,8 @@ class PelTag
 
     /**
      * Values for canon maker notes tags short names
+     *
+     * @var array<int, string>
      */
     protected static $canonTagsShort = [
         self::CANON_CAMERA_SETTINGS => 'CameraSettings',
@@ -2207,8 +2217,10 @@ class PelTag
 
     /**
      * Values for canon camera settings tags titles
+     *
+     * @var array<int, string>
      */
-    protected static $canonCsTagsTitle = [
+    protected static array $canonCsTagsTitle = [
         self::CANON_CS_MACRO => 'Macro Mode',
         self::CANON_CS_SELF_TIMER => 'Self Timer',
         self::CANON_CS_QUALITY => 'Quality',
@@ -2250,8 +2262,10 @@ class PelTag
 
     /**
      * Values for canon camera settings tags short names
+     *
+     * @var array<int, string>
      */
-    protected static $canonCsTagsShort = [
+    protected static array $canonCsTagsShort = [
         self::CANON_CS_MACRO => 'MacroMode',
         self::CANON_CS_SELF_TIMER => 'SelfTimer',
         self::CANON_CS_QUALITY => 'Quality',
@@ -2293,8 +2307,10 @@ class PelTag
 
     /**
      * Values for canon shot info tags titles
+     *
+     * @var array<int, string>
      */
-    protected static $canonSiTagsTitle = [
+    protected static array $canonSiTagsTitle = [
         self::CANON_SI_ISO_SPEED => 'ISO Speed Used',
         self::CANON_SI_MEASURED_EV => 'Measured EV',
         self::CANON_SI_TARGET_APERTURE => 'Target Aperture',
@@ -2316,8 +2332,10 @@ class PelTag
 
     /**
      * Values for canon shot info tags short names
+     *
+     * @var array<int, string>
      */
-    protected static $canonSiTagsShort = [
+    protected static array $canonSiTagsShort = [
         self::CANON_SI_ISO_SPEED => 'ISOSpeedUsed',
         self::CANON_SI_MEASURED_EV => 'MeasuredEV',
         self::CANON_SI_TARGET_APERTURE => 'TargetAperture',
@@ -2339,24 +2357,30 @@ class PelTag
 
     /**
      * Values for canon panorama tags titles
+     *
+     * @var array<int, string>
      */
-    protected static $canonPaTagsTitle = [
+    protected static array $canonPaTagsTitle = [
         self::CANON_PA_PANORAMA_FRAME => 'Panorama Frame',
         self::CANON_PA_PANORAMA_DIRECTION => 'Panorama Direction'
     ];
 
     /**
      * Values for canon panorama tags short names
+     *
+     * @var array<int, string>
      */
-    protected static $canonPaTagsShort = [
+    protected static array $canonPaTagsShort = [
         self::CANON_PA_PANORAMA_FRAME => 'PanoramaFrame',
         self::CANON_PA_PANORAMA_DIRECTION => 'PanoramaDirection'
     ];
 
     /**
      * Values for canon picture info tags titles
+     *
+     * @var array<int, string>
      */
-    protected static $canonPiTagsTitle = [
+    protected static array $canonPiTagsTitle = [
         self::CANON_PI_IMAGE_WIDTH => 'Image Width',
         self::CANON_PI_IMAGE_HEIGHT => 'Image Height',
         self::CANON_PI_IMAGE_WIDTH_AS_SHOT => 'Image Width As Shot',
@@ -2367,8 +2391,10 @@ class PelTag
 
     /**
      * Values for canon picture info tags short names
+     *
+     * @var array<int, string>
      */
-    protected static $canonPiTagsShort = [
+    protected static array $canonPiTagsShort = [
         self::CANON_PI_IMAGE_WIDTH => 'ImageWidth',
         self::CANON_PI_IMAGE_HEIGHT => 'ImageHeight',
         self::CANON_PI_IMAGE_WIDTH_AS_SHOT => 'ImageWidthAsShot',
@@ -2379,8 +2405,10 @@ class PelTag
 
     /**
      * Values for canon file info tags titles
+     *
+     * @var array<int, string>
      */
-    protected static $canonFiTagsTitle = [
+    protected static array $canonFiTagsTitle = [
         self::CANON_FI_FILE_NUMBER => 'File Number',
         self::CANON_FI_BRACKET_MODE => 'Bracket Mode',
         self::CANON_FI_BRACKET_VALUE => 'Bracket Value',
@@ -2402,8 +2430,10 @@ class PelTag
 
     /**
      * Values for canon file info tags short names
+     *
+     * @var array<int, string>
      */
-    protected static $canonFiTagsShort = [
+    protected static array $canonFiTagsShort = [
         self::CANON_FI_FILE_NUMBER => 'FileNumber',
         self::CANON_FI_BRACKET_MODE => 'BracketMode',
         self::CANON_FI_BRACKET_VALUE => 'BracketValue',
@@ -2426,14 +2456,14 @@ class PelTag
     /**
      * Returns a string from container with key $tag and subcontainer index of $idx
      *
-     * @param array $container
+     * @param array<int, string> $container
      *            {@link PelTag::EXIF_TAGS_SHORT}, {@link PelTag::EXIF_TAGS_TITLE},
      *            {@link PelTag::GPS_TAGS_SHORT} or {@link PelTag::GPS_TAGS_TITLE} container.
      * @param int $tag
      *            the tag.
      * @return string short name or long name of the tag.
      */
-    public static function getValue($container, $tag)
+    public static function getValue(array $container, int $tag): string
     {
         if (isset($container[$tag])) {
             return $container[$tag];
@@ -2449,10 +2479,8 @@ class PelTag
      * @deprecated Use getExifTagByName() and getGpsTagByName() to distinct the type of tag.
      * @param string $name
      *            tag short name.
-     * @return mixed (bool|int)
-     *         the tag.
      */
-    public static function getTagByName($name)
+    public static function getTagByName(string $name): int|false
     {
         $k = array_search($name, self::$exifTagsShort);
         if ($k !== false) {
@@ -2473,10 +2501,8 @@ class PelTag
      *
      * @param string $name
      *            tag short name.
-     * @return mixed (bool|int)
-     *         the tag.
      */
-    public static function getExifTagByName($name)
+    public static function getExifTagByName(string $name): int|false
     {
         return array_search($name, static::$exifTagsShort);
     }
@@ -2487,10 +2513,8 @@ class PelTag
      *
      * @param string $name
      *            tag short name.
-     * @return mixed (bool|int)
-     *         the tag.
      */
-    public static function getGpsTagByName($name)
+    public static function getGpsTagByName(string $name): int|false
     {
         return array_search($name, static::$gpsTagsShort);
     }
@@ -2502,7 +2526,7 @@ class PelTag
      *            the tag.
      * @return string description string.
      */
-    protected static function unknownTag($tag)
+    protected static function unknownTag(int $tag): string
     {
         return Pel::fmt('Unknown: 0x%04X', $tag);
     }
@@ -2521,7 +2545,7 @@ class PelTag
      *         'Unknown:0xTTTT' will be returned where 'TTTT' is the hexadecimal
      *         representation of the tag.
      */
-    public static function getName($type, $tag)
+    public static function getName(int $type, int $tag): string
     {
         switch ($type) {
             case PelIfd::IFD0:
@@ -2562,7 +2586,7 @@ class PelTag
      *         'Unknown Tag: 0xTT' will be returned where 'TT' is the
      *         hexadecimal representation of the tag.
      */
-    public function getTitle($type, $tag)
+    public function getTitle(int $type, int $tag): string
     {
         switch ($type) {
             case PelIfd::IFD0:

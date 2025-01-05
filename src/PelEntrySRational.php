@@ -60,7 +60,7 @@ class PelEntrySRational extends PelEntrySLong
      *            be one of the constants defined in {@link PelTag}, e.g., {@link
      *            PelTag::SHUTTER_SPEED_VALUE}, or any other tag which can have
      *            format {@link PelFormat::SRATIONAL}.
-     * @param array $value
+     * @param array<int, mixed> $value
      *            the rational(s) that this entry will
      *            represent. The arguments passed must obey the same rules as the
      *            argument to {@link setValue}, namely that each argument should be
@@ -69,7 +69,7 @@ class PelEntrySRational extends PelEntrySLong
      *            2147483647 (inclusive). If not, then a {@link
      *            PelOverflowException} will be thrown.
      */
-    public function __construct($tag, $value = null)
+    public function __construct(int $tag, array ...$value)
     {
         $this->tag = $tag;
         $this->format = PelFormat::SRATIONAL;
@@ -89,15 +89,19 @@ class PelEntrySRational extends PelEntrySLong
      * between the numerator and denominator. Care is taken to display
      * '-1/2' instead of the ugly but mathematically equivalent '1/-2'.
      *
-     * @param array $number
+     * @param int|array<int, mixed> $number
      *            the rational which will be formatted.
      * @param boolean $brief
      *            not used.
      * @return string the rational formatted as a string suitable for
      *         display.
      */
-    public function formatNumber($number, $brief = false)
+    public function formatNumber(int|array $number, bool $brief = false): string
     {
+        if (is_int($number)) {
+            return (string) $number;
+        }
+
         if ($number[1] < 0) {
             /* Turn output like 1/-2 into -1/2. */
             return (- $number[0]) . '/' . (- $number[1]);
@@ -118,7 +122,7 @@ class PelEntrySRational extends PelEntrySLong
      *            brief form, and this parameter controls that.
      * @return string the value as text.
      */
-    public function getText($brief = false)
+    public function getText(bool $brief = false): string
     {
         if (isset($this->value[0])) {
             $v = $this->value[0];

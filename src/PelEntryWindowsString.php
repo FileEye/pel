@@ -78,7 +78,7 @@ class PelEntryWindowsString extends PelEntry
      *
      * @var string
      */
-    private $str;
+    private string $str = '';
 
     /**
      * Make a new PelEntry that can hold a Windows XP specific string.
@@ -96,7 +96,7 @@ class PelEntryWindowsString extends PelEntry
      * @param bool $from_exif
      *            internal use only, tells that string is UCS-2LE encoded, as PHP fails to detect this encoding
      */
-    public function __construct($tag, $str = '', $from_exif = false)
+    public function __construct(int $tag, string $str = '', bool $from_exif = false)
     {
         $this->tag = $tag;
         $this->format = PelFormat::BYTE;
@@ -114,7 +114,7 @@ class PelEntryWindowsString extends PelEntry
      * @param bool $from_exif
      *            internal use only, tells that string is UCS-2LE encoded, as PHP fails to detect this encoding
      */
-    public function setValue($str, $from_exif = false)
+    public function setValue(mixed $str, bool $from_exif = false): void
     {
         $zlen = strlen(static::ZEROES);
         if (false !== $from_exif) {
@@ -144,7 +144,7 @@ class PelEntryWindowsString extends PelEntry
      *         characters. The string will be the same as the one given to
      *         {@link setValue} or to the {@link __construct constructor}.
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->str;
     }
@@ -160,7 +160,7 @@ class PelEntryWindowsString extends PelEntry
      *         characters. The string will be the same as the one given to
      *         {@link setValue} or to the {@link __construct constructor}.
      */
-    public function getText($brief = false)
+    public function getText(bool $brief = false): string
     {
         return $this->str;
     }

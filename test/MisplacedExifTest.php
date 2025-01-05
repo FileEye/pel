@@ -34,7 +34,7 @@ class MisplacedExifTest extends TestCase
 
     // NOTE: this test relies on the assumption that internal PelJpeg::sections order is kept between section
     // manipulations. It may fail it this changes.
-    public function testRead()
+    public function testRead(): void
     {
         Pel::clearExceptions();
         Pel::setStrictParsing(false);

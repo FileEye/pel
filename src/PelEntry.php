@@ -63,6 +63,8 @@
  */
 namespace lsolesen\pel;
 
+use lsolesen\pel\PelIfd;
+
 abstract class PelEntry
 {
 
@@ -77,7 +79,7 @@ abstract class PelEntry
      *
      * @var int
      */
-    protected $ifd_type;
+    protected int $ifd_type = PelIfd::IFD0;
 
     /**
      * The bytes representing this entry.
@@ -88,35 +90,35 @@ abstract class PelEntry
      *
      * @var string
      */
-    protected $bytes = '';
+    protected string $bytes = '';
 
     /**
      * The {@link PelTag} of this entry.
      *
      * @var int
      */
-    protected $tag;
+    protected int $tag;
 
     /**
      * The {@link PelFormat} of this entry.
      *
      * @var int
      */
-    protected $format;
+    protected int $format;
 
     /**
      * The number of components of this entry.
      *
      * @var int
      */
-    protected $components;
+    protected int $components;
 
     /**
      * Return the tag of this entry.
      *
      * @return int the tag of this entry.
      */
-    public function getTag()
+    public function getTag(): int
     {
         return $this->tag;
     }
@@ -130,7 +132,7 @@ abstract class PelEntry
      *         sub-IFD, {@link PelIfd::GPS} for the GPS sub-IFD, or {@link
      *         PelIfd::INTEROPERABILITY} for the interoperability sub-IFD.
      */
-    public function getIfdType()
+    public function getIfdType(): int
     {
         return $this->ifd_type;
     }
@@ -146,7 +148,7 @@ abstract class PelEntry
      *            {@link PelIfd::INTEROPERABILITY} for the interoperability
      *            sub-IFD.
      */
-    public function setIfdType($type)
+    public function setIfdType(int $type): void
     {
         $this->ifd_type = $type;
     }
@@ -156,7 +158,7 @@ abstract class PelEntry
      *
      * @return int the format of this entry.
      */
-    public function getFormat()
+    public function getFormat(): int
     {
         return $this->format;
     }
@@ -166,7 +168,7 @@ abstract class PelEntry
      *
      * @return int the number of components of this entry.
      */
-    public function getComponents()
+    public function getComponents(): int
     {
         return $this->components;
     }
@@ -179,7 +181,7 @@ abstract class PelEntry
      *            {@link Convert::LITTLE_ENDIAN} or {@link Convert::BIG_ENDIAN}.
      * @return string bytes representing this entry.
      */
-    public function getBytes($o)
+    public function getBytes(bool $o): string
     {
         return $this->bytes;
     }
@@ -196,7 +198,7 @@ abstract class PelEntry
      *            brief form, and this parameter controls that.
      * @return string the value as text.
      */
-    abstract public function getText($brief = false);
+    abstract public function getText(bool $brief = false): string;
 
     /**
      * Get the value of this entry.
@@ -207,7 +209,7 @@ abstract class PelEntry
      *
      * @return mixed the unformatted value.
      */
-    abstract public function getValue();
+    abstract public function getValue(): mixed;
 
     /**
      * Set the value of this entry.
@@ -219,17 +221,7 @@ abstract class PelEntry
      * @abstract
      *
      */
-    public function setValue($value)
-    {
-        /*
-         * This (fake) abstract method is here to make it possible for the
-         * documentation to refer to PelEntry::setValue().
-         * It cannot declared abstract in the proper PHP way, for then PHP
-         * wont allow subclasses to define it with two arguments (which is
-         * what PelEntryCopyright does).
-         */
-        throw new PelException('setValue() is abstract.');
-    }
+    abstract public function setValue(mixed $value): void;
 
     /**
      * Turn this entry into a string.
@@ -237,7 +229,7 @@ abstract class PelEntry
      * @return string a string representation of this entry. This is
      *         mostly for debugging.
      */
-    public function __toString()
+    public function __toString(): string
     {
         $str = Pel::fmt("  Tag: 0x%04X (%s)\n", $this->tag, PelTag::getName($this->ifd_type, $this->tag));
         $str .= Pel::fmt("    Format    : %d (%s)\n", $this->format, PelFormat::getName($this->format));

@@ -60,7 +60,7 @@ class PelEntryUserComment extends PelEntryUndefined
      *
      * @var string
      */
-    private $comment;
+    private string $comment;
 
     /**
      * The encoding.
@@ -69,7 +69,7 @@ class PelEntryUserComment extends PelEntryUndefined
      *
      * @var string
      */
-    private $encoding;
+    private string $encoding;
 
     /**
      * Make a new entry for holding a user comment.
@@ -81,7 +81,7 @@ class PelEntryUserComment extends PelEntryUndefined
      *            'ASCII', 'JIS', 'Unicode', or the empty string specifying an
      *            undefined encoding.
      */
-    public function __construct($comment = '', $encoding = 'ASCII')
+    public function __construct(string $comment = '', string $encoding = 'ASCII')
     {
         parent::__construct(PelTag::USER_COMMENT);
         $this->setValue($comment, $encoding);
@@ -97,7 +97,7 @@ class PelEntryUserComment extends PelEntryUndefined
      *            'ASCII', 'JIS', 'Unicode', or the empty string specifying an
      *            unknown encoding.
      */
-    public function setValue($comment = '', $encoding = 'ASCII')
+    public function setValue(mixed $comment = '', string $encoding = 'ASCII'): void
     {
         $this->comment = $comment;
         $this->encoding = $encoding;
@@ -113,7 +113,7 @@ class PelEntryUserComment extends PelEntryUndefined
      *
      * @return string the user comment.
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->comment;
     }
@@ -123,7 +123,7 @@ class PelEntryUserComment extends PelEntryUndefined
      *
      * @return string the encoding of the user comment.
      */
-    public function getEncoding()
+    public function getEncoding(): string
     {
         return $this->encoding;
     }
@@ -133,7 +133,7 @@ class PelEntryUserComment extends PelEntryUndefined
      *
      * @return string the user comment.
      */
-    public function getText($brief = false)
+    public function getText(bool $brief = false): string
     {
         return $this->comment;
     }

@@ -83,9 +83,9 @@ class PelConvert
      *            BIG_ENDIAN}.
      * @return string the bytes representing the unsigned short.
      */
-    public static function shortToBytes($value, $endian)
+    public static function shortToBytes(int $value, bool $endian): string 
     {
-        if ($endian == self::LITTLE_ENDIAN) {
+        if ($endian === self::LITTLE_ENDIAN) {
             return chr($value) . chr($value >> 8);
         } else {
             return chr($value >> 8) . chr($value);
@@ -103,7 +103,7 @@ class PelConvert
      *            BIG_ENDIAN}.
      * @return string the bytes representing the signed short.
      */
-    public static function sShortToBytes($value, $endian)
+    public static function sShortToBytes(int $value, bool $endian): string
     {
         /*
          * We can just use shortToBytes, since signed shorts fits well
@@ -131,7 +131,7 @@ class PelConvert
      *            BIG_ENDIAN}.
      * @return string the bytes representing the unsigned long.
      */
-    public static function longToBytes($value, $endian)
+    public static function longToBytes(int $value, bool $endian): string
     {
         /*
          * We cannot convert the number to bytes in the normal way (using
@@ -141,7 +141,7 @@ class PelConvert
          * handles such big numbers.
          */
         $hex = str_pad(base_convert((string) $value, 10, 16), 8, '0', STR_PAD_LEFT);
-        if ($endian == self::LITTLE_ENDIAN) {
+        if ($endian === self::LITTLE_ENDIAN) {
             return chr((int) hexdec($hex[6] . $hex[7])) . chr((int) hexdec($hex[4] . $hex[5])) . chr((int) hexdec($hex[2] . $hex[3])) . chr((int) hexdec($hex[0] . $hex[1]));
         } else {
             return chr((int) hexdec($hex[0] . $hex[1])) . chr((int) hexdec($hex[2] . $hex[3])) . chr((int) hexdec($hex[4] . $hex[5])) . chr((int) hexdec($hex[6] . $hex[7]));
@@ -160,7 +160,7 @@ class PelConvert
      *            BIG_ENDIAN}.
      * @return string the bytes representing the signed long.
      */
-    public static function sLongToBytes($value, $endian)
+    public static function sLongToBytes(int $value, bool $endian): string
     {
         /*
          * We can convert the number into bytes in the normal way using
@@ -168,7 +168,7 @@ class PelConvert
          * longToBytes) because PHP automatically handles 32 bit signed
          * integers for us.
          */
-        if ($endian == self::LITTLE_ENDIAN) {
+        if ($endian === self::LITTLE_ENDIAN) {
             return (chr($value) . chr($value >> 8) . chr($value >> 16) . chr($value >> 24));
         } else {
             return (chr($value >> 24) . chr($value >> 16) . chr($value >> 8) . chr($value));
@@ -187,7 +187,7 @@ class PelConvert
      * @return integer $offset the unsigned byte found at offset, e.g., an integer
      *         in the range 0 to 255.
      */
-    public static function bytesToByte($bytes, $offset)
+    public static function bytesToByte(string $bytes, int $offset): int
     {
         return ord($bytes[$offset]);
     }
@@ -204,7 +204,7 @@ class PelConvert
      * @return integer the signed byte found at offset, e.g., an integer in
      *         the range -128 to 127.
      */
-    public static function bytesToSByte($bytes, $offset)
+    public static function bytesToSByte(string $bytes, int $offset): int
     {
         $n = self::bytesToByte($bytes, $offset);
         if ($n > 127) {
@@ -229,9 +229,9 @@ class PelConvert
      * @return integer the unsigned short found at offset, e.g., an integer
      *         in the range 0 to 65535.
      */
-    public static function bytesToShort($bytes, $offset, $endian)
+    public static function bytesToShort(string $bytes, int $offset, bool $endian): int
     {
-        if ($endian == self::LITTLE_ENDIAN) {
+        if ($endian === self::LITTLE_ENDIAN) {
             return (ord($bytes[$offset + 1]) * 256 + ord($bytes[$offset]));
         } else {
             return (ord($bytes[$offset]) * 256 + ord($bytes[$offset + 1]));
@@ -253,7 +253,7 @@ class PelConvert
      * @return integer the signed byte found at offset, e.g., an integer in
      *         the range -32768 to 32767.
      */
-    public static function bytesToSShort($bytes, $offset, $endian)
+    public static function bytesToSShort(string $bytes, int $offset, bool $endian): int
     {
         $n = self::bytesToShort($bytes, $offset, $endian);
         if ($n > 32767) {
@@ -278,9 +278,9 @@ class PelConvert
      * @return integer the unsigned long found at offset, e.g., an integer
      *         in the range 0 to 4294967295.
      */
-    public static function bytesToLong($bytes, $offset, $endian)
+    public static function bytesToLong(string $bytes, int $offset, bool $endian): int
     {
-        if ($endian == self::LITTLE_ENDIAN) {
+        if ($endian === self::LITTLE_ENDIAN) {
             return (ord($bytes[$offset + 3]) * 16777216 + ord($bytes[$offset + 2]) * 65536 + ord($bytes[$offset + 1]) * 256 + ord($bytes[$offset]));
         } else {
             return (ord($bytes[$offset]) * 16777216 + ord($bytes[$offset + 1]) * 65536 + ord($bytes[$offset + 2]) * 256 + ord($bytes[$offset + 3]));
@@ -302,7 +302,7 @@ class PelConvert
      * @return integer the signed long found at offset, e.g., an integer in
      *         the range -2147483648 to 2147483647.
      */
-    public static function bytesToSLong($bytes, $offset, $endian)
+    public static function bytesToSLong(string $bytes, int $offset, bool $endian): int
     {
         $n = self::bytesToLong($bytes, $offset, $endian);
         if ($n > 2147483647) {
@@ -324,10 +324,10 @@ class PelConvert
      * @param boolean $endian
      *            one of {@link LITTLE_ENDIAN} and {@link
      *            BIG_ENDIAN}. *
-     * @return array the unsigned rational found at offset, e.g., an
+     * @return array<int, int> the unsigned rational found at offset, e.g., an
      *         array with two integers in the range 0 to 4294967295.
      */
-    public static function bytesToRational($bytes, $offset, $endian)
+    public static function bytesToRational(string $bytes, int $offset, bool $endian): array
     {
         return [
             self::bytesToLong($bytes, $offset, $endian),
@@ -347,10 +347,10 @@ class PelConvert
      * @param boolean $endian
      *            one of {@link LITTLE_ENDIAN} and {@link
      *            BIG_ENDIAN}.
-     * @return array the signed rational found at offset, e.g., an array
+     * @return array<int, int> the signed rational found at offset, e.g., an array
      *         with two integers in the range -2147483648 to 2147483647.
      */
-    public static function bytesToSRational($bytes, $offset, $endian)
+    public static function bytesToSRational(string $bytes, int $offset, bool $endian): array
     {
         return [
             self::bytesToSLong($bytes, $offset, $endian),
@@ -373,7 +373,7 @@ class PelConvert
      *            dumped.
      * @return void
      */
-    public static function bytesToDump($bytes, $max = 0)
+    public static function bytesToDump(string $bytes, int $max = 0): void
     {
         $s = strlen($bytes);
 

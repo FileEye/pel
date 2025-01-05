@@ -76,7 +76,7 @@ class PelEntryTime extends PelEntryAscii
      *
      * @var int
      */
-    private $day_count;
+    private int $day_count;
 
     /**
      * The number of seconds into the day of the timestamp held by this
@@ -87,7 +87,7 @@ class PelEntryTime extends PelEntryAscii
      *
      * @var int
      */
-    private $seconds;
+    private int $seconds;
 
     /**
      * Make a new entry for holding a timestamp.
@@ -112,7 +112,7 @@ class PelEntryTime extends PelEntryAscii
      *            {@link UNIX_TIMESTAMP}, {@link EXIF_STRING}, or
      *            {@link JULIAN_DAY_COUNT}.
      */
-    public function __construct($tag, $timestamp, $type = self::UNIX_TIMESTAMP)
+    public function __construct(int $tag, int|float|string $timestamp, int $type = self::UNIX_TIMESTAMP)
     {
         $this->tag = $tag;
         $this->format = PelFormat::ASCII;
@@ -130,7 +130,7 @@ class PelEntryTime extends PelEntryAscii
      *            the type of the timestamp. This must be one of
      *            {@link UNIX_TIMESTAMP}, {@link EXIF_STRING}, or
      *            {@link JULIAN_DAY_COUNT}.
-     * @return integer|string|false the timestamp held by this entry in the correct form
+     * @return string the timestamp held by this entry in the correct form
      *         as indicated by the type argument. For {@link UNIX_TIMESTAMP}
      *         this is an integer counting the number of seconds since January
      *         1st 1970, for {@link EXIF_STRING} this is a string of the form
@@ -139,19 +139,15 @@ class PelEntryTime extends PelEntryAscii
      *         count and the fractional part denotes the time of day (0.25 means
      *         6:00, 0.75 means 18:00).
      */
-    public function getValue($type = self::UNIX_TIMESTAMP)
+    public function getValue(int $type = self::UNIX_TIMESTAMP): string
     {
         switch ($type) {
             case self::UNIX_TIMESTAMP:
                 $seconds = $this->convertJdToUnix($this->day_count);
                 if ($seconds === false) {
-                    /*
-                     * We get false if the Julian Day Count is outside the range
-                     * of a UNIX timestamp.
-                     */
-                    return false;
+                    throw new PelInvalidArgumentException('Invalid UNIX_TIMESTAMP (%d), Julian Day Count is outside the range of UNIX timestamp', $this->day_count);
                 } else {
-                    return $seconds + $this->seconds;
+                    return (string) ($seconds + $this->seconds);
                 }
             case self::EXIF_STRING:
                 list ($year, $month, $day) = $this->convertJdToGregorian($this->day_count);
@@ -160,7 +156,7 @@ class PelEntryTime extends PelEntryAscii
                 $seconds = $this->seconds % 60;
                 return sprintf('%04d:%02d:%02d %02d:%02d:%02d', $year, $month, $day, $hours, $minutes, $seconds);
             case self::JULIAN_DAY_COUNT:
-                return $this->day_count + $this->seconds / 86400;
+                return (string) ($this->day_count + round($this->seconds / 86400, 2));
             default:
                 throw new PelInvalidArgumentException('Expected UNIX_TIMESTAMP (%d), ' . 'EXIF_STRING (%d), or ' . 'JULIAN_DAY_COUNT (%d) for $type, got %d.', self::UNIX_TIMESTAMP, self::EXIF_STRING, self::JULIAN_DAY_COUNT, $type);
         }
@@ -169,7 +165,7 @@ class PelEntryTime extends PelEntryAscii
     /**
      * Update the timestamp held by this entry.
      *
-     * @param integer|float|string $timestamp
+     * @param int|float|string $timestamp
      *            the timestamp held by this entry in the correct form
      *            as indicated by the third argument. For {@link UNIX_TIMESTAMP}
      *            this is an integer counting the number of seconds since January
@@ -178,13 +174,13 @@ class PelEntryTime extends PelEntryAscii
      *            floating point number where the integer part denotes the day
      *            count and the fractional part denotes the time of day (0.25 means
      *            6:00, 0.75 means 18:00).
-     * @param integer $type
+     * @param int $type
      *            the type of the timestamp. This must be one of
      *            {@link UNIX_TIMESTAMP}, {@link EXIF_STRING}, or
      *            {@link JULIAN_DAY_COUNT}.
      * @throws PelInvalidArgumentException
      */
-    public function setValue($timestamp, $type = self::UNIX_TIMESTAMP)
+    public function setValue(mixed $timestamp, int $type = self::UNIX_TIMESTAMP): void
     {
         if ($type === self::UNIX_TIMESTAMP) {
             if (is_int($timestamp) || is_float($timestamp)) {
@@ -239,7 +235,7 @@ class PelEntryTime extends PelEntryAscii
      *            the day in the month.
      * @return integer the Julian Day count.
      */
-    public function convertGregorianToJd($year, $month, $day)
+    public function convertGregorianToJd(int $year, int $month, int $day): int
     {
         // Special case mapping 0/0/0 -> 0
         if ($year == 0 || $month == 0 || $day == 0) {
@@ -255,9 +251,9 @@ class PelEntryTime extends PelEntryAscii
      *
      * @param int $jd
      *            the Julian Day count.
-     * @return array an array with three entries: year, month, day.
+     * @return array<int, int|float> an array with three entries: year, month, day.
      */
-    public function convertJdToGregorian($jd)
+    public function convertJdToGregorian(int $jd): array
     {
         // Special case mapping 0 -> 0/0/0
         if ($jd == 0) {
@@ -292,7 +288,7 @@ class PelEntryTime extends PelEntryAscii
      *            the timestamp.
      * @return float the Julian Day count.
      */
-    public function convertUnixToJd($timestamp)
+    public function convertUnixToJd(int|float $timestamp): float
     {
         return floor($timestamp / 86400) + 2440588;
     }
@@ -302,10 +298,10 @@ class PelEntryTime extends PelEntryAscii
      *
      * @param integer|float $jd
      *            the Julian Day count.
-     * @return mixed $timestamp the integer timestamp or false if the
+     * @return int|false $timestamp the integer timestamp or false if the
      *         day count cannot be represented as a UNIX timestamp.
      */
-    public function convertJdToUnix($jd)
+    public function convertJdToUnix(int|float $jd): int|false
     {
         if ($jd > 0) {
             $timestamp = ($jd - 2440588) * 86400;

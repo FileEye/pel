@@ -68,7 +68,7 @@ class PelEntrySLong extends PelEntryNumber
      *            -2147483648 and 2147483647 (inclusive). If not, then a {@link
      *            PelOverflowException} will be thrown.
      */
-    public function __construct($tag, $value = null)
+    public function __construct(int $tag, int ...$value)
     {
         $this->tag = $tag;
         $this->min = - 2147483648;
@@ -90,7 +90,7 @@ class PelEntrySLong extends PelEntryNumber
      *            {@link PelConvert::BIG_ENDIAN}, specifying the target byte order.
      * @return string bytes representing the number given.
      */
-    public function numberToBytes($number, $order)
+    public function numberToBytes(int $number, bool $order): string
     {
         return PelConvert::sLongToBytes($number, $order);
     }

@@ -45,8 +45,10 @@ namespace lsolesen\pel;
 
 class PelCanonMakerNotes extends PelMakerNotes
 {
-
-    private $undefinedMakerNotesTags = [
+    /**
+     * @var array<int, int>
+     */
+    private array $undefinedMakerNotesTags = [
         0x0000,
         0x0003,
         0x000a,
@@ -89,7 +91,10 @@ class PelCanonMakerNotes extends PelMakerNotes
         0x4027
     ];
 
-    private $undefinedCameraSettingsTags = [
+    /**
+     * @var array<int, int>
+     */
+    private array $undefinedCameraSettingsTags = [
         0x0006,
         0x0008,
         0x0015,
@@ -104,7 +109,10 @@ class PelCanonMakerNotes extends PelMakerNotes
         0x0031
     ];
 
-    private $undefinedShotInfoTags = [
+    /**
+     * @var array<int, int>
+     */
+    private array $undefinedShotInfoTags = [
         0x0001,
         0x0006,
         0x000a,
@@ -124,13 +132,19 @@ class PelCanonMakerNotes extends PelMakerNotes
         0x0022
     ];
 
-    private $undefinedPanoramaTags = [
+    /**
+     * @var array<int, int>
+     */
+    private array $undefinedPanoramaTags = [
         0x0001,
         0x0003,
         0x0004
     ];
 
-    private $undefinedFileInfoTags = [
+    /**
+     * @var array<int, int>
+     */
+    private array $undefinedFileInfoTags = [
         0x0002,
         0x000a,
         0x000b,
@@ -148,13 +162,13 @@ class PelCanonMakerNotes extends PelMakerNotes
         0x0020
     ];
 
-    public function __construct($parent, $data, $size, $offset)
+    public function __construct(PelIfd $parent, PelDataWindow $data, int $size, int $offset)
     {
         parent::__construct($parent, $data, $size, $offset);
         $this->type = PelIfd::CANON_MAKER_NOTES;
     }
 
-    public function load()
+    public function load(): void
     {
         $this->components = $this->data->getShort($this->offset);
         $this->offset += 2;
@@ -192,7 +206,7 @@ class PelCanonMakerNotes extends PelMakerNotes
         $this->parent->addSubIfd($mkNotesIfd);
     }
 
-    private function parseCameraSettings($parent, $data, $offset, $components)
+    private function parseCameraSettings(PelIfd $parent, PelDataWindow $data, int $offset, int $components): void
     {
         $type = PelIfd::CANON_CAMERA_SETTINGS;
         Pel::debug('Found Canon Camera Settings sub IFD at offset %d', $offset);
@@ -214,7 +228,7 @@ class PelCanonMakerNotes extends PelMakerNotes
         $parent->addSubIfd($camIfd);
     }
 
-    private function parseShotInfo($parent, $data, $offset, $components)
+    private function parseShotInfo(PelIfd $parent, PelDataWindow $data, int $offset, int $components): void
     {
         $type = PelIfd::CANON_SHOT_INFO;
         Pel::debug('Found Canon Shot Info sub IFD at offset %d', $offset);
@@ -236,7 +250,7 @@ class PelCanonMakerNotes extends PelMakerNotes
         $parent->addSubIfd($shotIfd);
     }
 
-    private function parsePanorama($parent, $data, $offset, $components)
+    private function parsePanorama(PelIfd $parent, PelDataWindow $data, int $offset, int $components): void
     {
         $type = PelIfd::CANON_PANORAMA;
         Pel::debug('Found Canon Panorama sub IFD at offset %d', $offset);
@@ -258,7 +272,7 @@ class PelCanonMakerNotes extends PelMakerNotes
         $parent->addSubIfd($panoramaIfd);
     }
 
-    private function parseFileInfo($parent, $data, $offset, $components)
+    private function parseFileInfo(PelIfd $parent, PelDataWindow $data, int $offset, int $components): void
     {
         $type = PelIfd::CANON_FILE_INFO;
         Pel::debug('Found Canon File Info sub IFD at offset %d', $offset);

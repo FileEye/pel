@@ -51,6 +51,8 @@ class ReadWriteTest extends TestCase
 
     /**
      * @dataProvider writeEntryProvider
+     *
+     * @param array<string, mixed> $entries
      */
     #[DataProvider('writeEntryProvider')]
     public function testWriteRead(array $entries): void
@@ -119,7 +121,10 @@ class ReadWriteTest extends TestCase
         unlink('test-output.jpg');
     }
 
-    public static function writeEntryProvider()
+    /**
+     * @return array<string, mixed>
+     */
+    public static function writeEntryProvider(): array
     {
         return [
             'PEL Byte Read/Write Tests' => [
@@ -211,7 +216,7 @@ class ReadWriteTest extends TestCase
     /**
      * Tests loading and writing back a TIFF image file.
      */
-    public function testTiffLoadSave()
+    public function testTiffLoadSave(): void
     {
         $file_uri = dirname(__FILE__) . '/images/sample-1.tiff';
 
