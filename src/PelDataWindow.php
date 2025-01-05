@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace lsolesen\pel;
 
 use GdImage;
+use Stringable;
 
 /**
  * The window.
  *
  * @package PEL
  */
-class PelDataWindow implements \Stringable
+class PelDataWindow implements Stringable
 {
     /**
      * The data held by this window.
@@ -19,6 +20,11 @@ class PelDataWindow implements \Stringable
      * The string can contain any kind of data, including binary data.
      */
     private string $data = '';
+
+    /**
+     * File stream
+     */
+    private ?PelFileStream $stream = null;
 
     /**
      * The start of the current window.
@@ -57,11 +63,17 @@ class PelDataWindow implements \Stringable
      *
      * @throws PelInvalidArgumentException if $data was of invalid type
      */
-    public function __construct(string|GdImage $data = '', private bool $order = PelConvert::LITTLE_ENDIAN)
+    public function __construct(string|PelFileStream|GdImage $data = '', private bool $order = PelConvert::LITTLE_ENDIAN)
     {
+        if ($data instanceof PelFileStream) {
+            $this->stream = $data;
+            $this->size = $data->filesize();
+            return;
+        }
+
         if (is_string($data)) {
             $this->data = $data;
-        } else {
+        } elseif ($data instanceof GdImage) {
             /*
              * The ImageJpeg() function insists on printing the bytes
              * instead of returning them in a more civil way as a string, so
@@ -89,6 +101,9 @@ class PelDataWindow implements \Stringable
      */
     public function __toString(): string
     {
+        if ($this->stream !== null) {
+            return Pel::fmt('DataWindow: %d bytes in [%d, %d] of file stream', $this->size, $this->start, $this->start + $this->size);
+        }
         return Pel::fmt('DataWindow: %d bytes in [%d, %d] of %d bytes', $this->size, $this->start, $this->start + $this->size, strlen($this->data));
     }
 
@@ -181,20 +196,25 @@ class PelDataWindow implements \Stringable
      *
      * @return PelDataWindow a new window that operates on the same data
      *         as this window, but (optionally) with a smaller window size.
-     *
-     * @throws PelDataWindowWindowException
-     * @throws PelDataWindowOffsetException
      */
     public function getClone(?int $start = null, ?int $size = null): PelDataWindow
     {
-        $c = clone $this;
+        if ($this->stream !== null) {
+            $c = new PelDataWindow($this->stream, $this->order);
+        } else {
+            $c = new PelDataWindow($this->data, $this->order);
+        }
 
-        if (is_int($start)) {
+        $c->setWindowStart($this->start);
+        $c->setWindowSize($this->size);
+
+        if ($start !== null) {
             $c->setWindowStart($start);
         }
-        if (is_int($size)) {
+        if ($size !== null) {
             $c->setWindowSize($size);
         }
+
         return $c;
     }
 
@@ -240,7 +260,13 @@ class PelDataWindow implements \Stringable
             $size = $this->size - $start;
         }
 
-        return substr($this->data, $this->start + $start, $size);
+        if ($this->stream !== null) {
+            $bytes = $this->stream->read($this->start + $start, $size);
+        } else {
+            $bytes = substr($this->data, $this->start + $start, $size);
+        }
+
+        return $bytes;
     }
 
     /**
@@ -269,6 +295,9 @@ class PelDataWindow implements \Stringable
         $offset += $this->start;
 
         /* Return an unsigned byte. */
+        if ($this->stream !== null) {
+            return PelConvert::streamToByte($this->stream, $offset);
+        }
         return PelConvert::bytesToByte($this->data, $offset);
     }
 
@@ -298,6 +327,9 @@ class PelDataWindow implements \Stringable
         $offset += $this->start;
 
         /* Return a signed byte. */
+        if ($this->stream !== null) {
+            return PelConvert::streamToSByte($this->stream, $offset);
+        }
         return PelConvert::bytesToSByte($this->data, $offset);
     }
 
@@ -328,6 +360,9 @@ class PelDataWindow implements \Stringable
         $offset += $this->start;
 
         /* Return an unsigned short. */
+        if ($this->stream !== null) {
+            return PelConvert::streamToShort($this->stream, $offset, $this->order);
+        }
         return PelConvert::bytesToShort($this->data, $offset, $this->order);
     }
 
@@ -358,6 +393,9 @@ class PelDataWindow implements \Stringable
         $offset += $this->start;
 
         /* Return a signed short. */
+        if ($this->stream !== null) {
+            return PelConvert::streamToSShort($this->stream, $offset, $this->order);
+        }
         return PelConvert::bytesToSShort($this->data, $offset, $this->order);
     }
 
@@ -388,6 +426,9 @@ class PelDataWindow implements \Stringable
         $offset += $this->start;
 
         /* Return an unsigned long. */
+        if ($this->stream !== null) {
+            return PelConvert::streamToLong($this->stream, $offset, $this->order);
+        }
         return PelConvert::bytesToLong($this->data, $offset, $this->order);
     }
 
@@ -418,6 +459,9 @@ class PelDataWindow implements \Stringable
         $offset += $this->start;
 
         /* Return a signed long. */
+        if ($this->stream !== null) {
+            return PelConvert::streamToSLong($this->stream, $offset, $this->order);
+        }
         return PelConvert::bytesToSLong($this->data, $offset, $this->order);
     }
 
@@ -500,7 +544,13 @@ class PelDataWindow implements \Stringable
 
         /* Check each character, return as soon as the answer is known. */
         for ($i = 0; $i < $s; $i++) {
-            if ($this->data[$offset + $i] !== $str[$i]) {
+            if ($this->stream !== null) {
+                $chr = $this->stream->read($offset + $i, 1);
+            } else {
+                $chr = $this->data[$offset + $i];
+            }
+
+            if ($chr !== $str[$i]) {
                 return false;
             }
         }

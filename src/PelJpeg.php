@@ -103,7 +103,7 @@ class PelJpeg implements \Stringable
     /**
      * Make a string representation of this JPEG object.
      *
-     * This is mainly usefull for debugging. It will show the structure
+     * This is mainly useful for debugging. It will show the structure
      * of the image, and its sections.
      *
      * @return string debugging information about this JPEG object.
@@ -196,15 +196,19 @@ class PelJpeg implements \Stringable
                 $d->setWindowStart(2);
 
                 if ($marker === PelJpegMarker::APP1) {
+                    $clone = $d->getClone(0, $len);
+
                     try {
                         $content = new PelExif();
-                        $content->load($d->getClone(0, $len));
+                        $content->load($clone);
+                        unset($clone);
                     } catch (PelInvalidDataException) {
                         /*
                          * We store the data as normal JPEG content if it could
                          * not be parsed as Exif data.
                          */
-                        $content = new PelJpegContent($d->getClone(0, $len));
+                        $content = new PelJpegContent($clone);
+                        unset($clone);
                     }
 
                     $this->appendSection($marker, $content);
@@ -212,11 +216,15 @@ class PelJpeg implements \Stringable
                     $d->setWindowStart($len);
                 } elseif ($marker === PelJpegMarker::COM) {
                     $content = new PelJpegComment();
-                    $content->load($d->getClone(0, $len));
+                    $clone = $d->getClone(0, $len);
+                    $content->load($clone);
+                    unset($clone);
                     $this->appendSection($marker, $content);
                     $d->setWindowStart($len);
                 } else {
-                    $content = new PelJpegContent($d->getClone(0, $len));
+                    $clone = $d->getClone(0, $len);
+                    $content = new PelJpegContent($clone);
+                    unset($clone);
                     $this->appendSection($marker, $content);
                     /* Skip past the data. */
                     $d->setWindowStart($len);
@@ -235,7 +243,10 @@ class PelJpeg implements \Stringable
                             $length--;
                         }
 
-                        $this->jpeg_data = $d->getClone(0, $length - 2);
+                        $clone = $d->getClone(0, $length - 2);
+                        $this->jpeg_data = $clone;
+                        unset($clone);
+
                         Pel::debug('JPEG data: ' . $this->jpeg_data->__toString());
 
                         /* Append the EOI. */
@@ -244,7 +255,9 @@ class PelJpeg implements \Stringable
                         /* Now check to see if there are any trailing data. */
                         if ($length !== $d->getSize()) {
                             Pel::maybeThrow(new PelException('Found trailing content after EOI: %d bytes', $d->getSize() - $length));
-                            $content = new PelJpegContent($d->getClone($length));
+                            $clone = $d->getClone($length);
+                            $content = new PelJpegContent($clone);
+                            unset($clone);
                             /*
                              * We don't have a proper JPEG marker for trailing
                              * garbage, so we just use 0x00...
@@ -270,11 +283,9 @@ class PelJpeg implements \Stringable
      */
     public function loadFile(string $filename): void
     {
-        $content = file_get_contents($filename);
-        if ($content === false) {
-            throw new PelException('Can not open file "%s"', $filename);
-        }
-        $this->load(new PelDataWindow($content));
+        $stream = new PelFileStream($filename);
+
+        $this->load(new PelDataWindow($stream));
     }
 
     /**

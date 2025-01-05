@@ -152,7 +152,35 @@ class PelConvert
      */
     public static function bytesToByte(string $bytes, int $offset): int
     {
-        return ord($bytes[$offset]);
+        $string = $bytes[$offset];
+        return self::convertToByte($string);
+    }
+
+    /**
+     * Extract an unsigned byte from a stream.
+     *
+     * @param PelFileStream $stream
+     *            the file stream
+     * @param int $offset
+     *            The byte found at the offset will be
+     *            returned as an integer. The must be at least one byte available
+     *            at offset.
+     *
+     * @return int $offset the unsigned byte found at offset, e.g., an integer
+     *         in the range 0 to 255.
+     */
+    public static function streamToByte(PelFileStream $stream, int $offset): int
+    {
+        $string = $stream->read($offset, 1);
+        return self::convertToByte($string);
+    }
+
+    /**
+     * Convert a string to byte representation
+     */
+    public static function convertToByte(string $string): int
+    {
+        return ord($string);
     }
 
     /**
@@ -171,6 +199,35 @@ class PelConvert
     public static function bytesToSByte(string $bytes, int $offset): int
     {
         $n = self::bytesToByte($bytes, $offset);
+
+        return self::convertToSByte($n);
+    }
+
+    /**
+     * Extract a signed byte from a stream.
+     *
+     * @param PelFileStream $stream
+     *            the file stream
+     * @param int $offset
+     *            the offset. The byte found at the offset will be
+     *            returned as an integer. The must be at least one byte available
+     *            at offset.
+     *
+     * @return int the signed byte found at offset, e.g., an integer in
+     *         the range -128 to 127.
+     */
+    public static function streamToSByte(PelFileStream $stream, int $offset): int
+    {
+        $n = self::streamToByte($stream, $offset);
+
+        return self::convertToSByte($n);
+    }
+
+    /**
+     * Convert a string to signed byte representation
+     */
+    public static function convertToSByte(int $n): int
+    {
         if ($n > 127) {
             return $n - 256;
         }
@@ -201,6 +258,33 @@ class PelConvert
     }
 
     /**
+     * Extract an unsigned short from a stream.
+     *
+     * @param PelFileStream $stream
+     *            the file stream
+     * @param int $offset
+     *            the offset. The short found at the offset will be
+     *            returned as an integer. There must be at least two bytes
+     *            available beginning at the offset given.
+     * @param bool $endian
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
+     *
+     * @return int the unsigned short found at offset, e.g., an integer
+     *         in the range 0 to 65535.
+     */
+    public static function streamToShort(PelFileStream $stream, int $offset, bool $endian): int
+    {
+        $n = self::streamToByte($stream, $offset);
+        $n1 = self::streamToByte($stream, $offset + 1);
+
+        if ($endian === self::LITTLE_ENDIAN) {
+            return $n1 * 256 + $n;
+        }
+
+        return $n * 256 + $n1;
+    }
+
+    /**
      * Extract a signed short from bytes.
      *
      * @param int $offset
@@ -216,6 +300,35 @@ class PelConvert
     public static function bytesToSShort(string $bytes, int $offset, bool $endian): int
     {
         $n = self::bytesToShort($bytes, $offset, $endian);
+        return self::convertToSShort($n);
+    }
+
+    /**
+     * Extract a signed short from a stream.
+     *
+     * @param PelFileStream $stream
+     *            the file stream
+     * @param int $offset
+     *            The short found at offset will be returned
+     *            as an integer. There must be at least two bytes available
+     *            beginning at the offset given.
+     * @param bool $endian
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
+     *
+     * @return int the signed byte found at offset, e.g., an integer in
+     *         the range -32768 to 32767.
+     */
+    public static function streamToSShort(PelFileStream $stream, int $offset, bool $endian): int
+    {
+        $n = self::streamToShort($stream, $offset, $endian);
+        return self::convertToSShort($n);
+    }
+
+    /**
+     * Convert a short to signed short
+     */
+    public static function convertToSShort(int $n): int
+    {
         if ($n > 32767) {
             return $n - 65536;
         }
@@ -244,6 +357,34 @@ class PelConvert
     }
 
     /**
+     * Extract an unsigned long from a stream.
+     *
+     * @param PelFileStream $stream
+     *            the file stream
+     * @param int $offset
+     *            The long found at offset will be returned
+     *            as an integer. There must be at least four bytes available
+     *            beginning at the offset given.
+     * @param bool $endian
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
+     *
+     * @return int the unsigned long found at offset, e.g., an integer
+     *         in the range 0 to 4294967295.
+     */
+    public static function streamToLong(PelFileStream $stream, int $offset, bool $endian): int
+    {
+        $n = self::streamToByte($stream, $offset);
+        $n1 = self::streamToByte($stream, $offset + 1);
+        $n2 = self::streamToByte($stream, $offset + 2);
+        $n3 = self::streamToByte($stream, $offset + 3);
+
+        if ($endian === self::LITTLE_ENDIAN) {
+            return $n3 * 16777216 + $n2 * 65536 + $n1 * 256 + $n;
+        }
+        return $n * 16777216 + $n1 * 65536 + $n2 * 256 + $n3;
+    }
+
+    /**
      * Extract a signed long from bytes.
      *
      * @param int $offset
@@ -259,6 +400,35 @@ class PelConvert
     public static function bytesToSLong(string $bytes, int $offset, bool $endian): int
     {
         $n = self::bytesToLong($bytes, $offset, $endian);
+        return self::convertToSLong($n);
+    }
+
+    /**
+     * Extract a signed long from a stream.
+     *
+     * @param PelFileStream $stream
+     *            the file stream
+     * @param int $offset
+     *            The short found at offset will be returned
+     *            as an integer. There must be at least two bytes available
+     *            beginning at the offset given.
+     * @param bool $endian
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
+     *
+     * @return int the signed byte found at offset, e.g., an integer in
+     *         the range -32768 to 32767.
+     */
+    public static function streamToSLong(PelFileStream $stream, int $offset, bool $endian): int
+    {
+        $n = self::streamToLong($stream, $offset, $endian);
+        return self::convertToSLong($n);
+    }
+
+    /**
+     * Convert a long to signed long
+     */
+    public static function convertToSLong(int $n): int
+    {
         if ($n > 2147483647) {
             return $n - 4294967296;
         }
@@ -287,6 +457,27 @@ class PelConvert
     }
 
     /**
+     * Extract an unsigned rational from a stream.
+     *
+     * @param int $offset
+     *            The rational found at offset will be
+     *            returned as an array. There must be at least eight bytes
+     *            available beginning at the offset given.
+     * @param bool $endian
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
+     *
+     * @return array<int, int> the unsigned rational found at offset, e.g., an
+     *         array with two integers in the range 0 to 4294967295.
+     */
+    public static function streamToRational(PelFileStream $stream, int $offset, bool $endian): array
+    {
+        return [
+            self::streamToLong($stream, $offset, $endian),
+            self::streamToLong($stream, $offset + 4, $endian),
+        ];
+    }
+
+    /**
      * Extract a signed rational from bytes.
      *
      * @param int $offset
@@ -304,6 +495,27 @@ class PelConvert
         return [
             self::bytesToSLong($bytes, $offset, $endian),
             self::bytesToSLong($bytes, $offset + 4, $endian),
+        ];
+    }
+
+    /**
+     * Extract a signed rational from bytes.
+     *
+     * @param int $offset
+     *            The rational found at offset will be
+     *            returned as an array. There must be at least eight bytes
+     *            available beginning at the offset given.
+     * @param bool $endian
+     *            one of {@link LITTLE_ENDIAN} and {@link BIG_ENDIAN}.
+     *
+     * @return array<int, int> the signed rational found at offset, e.g., an array
+     *         with two integers in the range -2147483648 to 2147483647.
+     */
+    public static function streamToSRational(PelFileStream $stream, int $offset, bool $endian): array
+    {
+        return [
+            self::streamToSLong($stream, $offset, $endian),
+            self::streamToSLong($stream, $offset + 4, $endian),
         ];
     }
 

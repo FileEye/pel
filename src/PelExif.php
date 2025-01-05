@@ -70,6 +70,7 @@ class PelExif extends PelJpegContent implements \Stringable
         if ($d->getSize() < 6) {
             throw new PelInvalidDataException('Expected at least 6 bytes of Exif data, found just %d bytes.', $d->getSize());
         }
+
         /* Verify the Exif header */
         if ($d->strcmp(0, self::EXIF_HEADER)) {
             $d->setWindowStart(strlen(self::EXIF_HEADER));

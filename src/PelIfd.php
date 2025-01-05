@@ -604,6 +604,7 @@ class PelIfd implements IteratorAggregate, ArrayAccess, Stringable
                     if ($ifdType === null) {
                         break;
                     }
+
                     if ($starting_offset === $o) {
                         Pel::maybeThrow(new PelIfdException('Bogus offset to next IFD: %d, same as offset being loaded from.', $o));
                     } else {

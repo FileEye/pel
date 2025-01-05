@@ -113,6 +113,7 @@ class PelTiff implements Stringable
         if ($d->getSize() < 8) {
             throw new PelInvalidDataException('Expected at least 8 bytes of TIFF data, found just %d bytes.', $d->getSize());
         }
+
         /* Byte order */
         if ($d->strcmp(0, 'II')) {
             Pel::debug('Found Intel byte order');
@@ -150,13 +151,9 @@ class PelTiff implements Stringable
      */
     public function loadFile(string $filename): void
     {
-        $fileContent = file_get_contents($filename);
+        $stream = new PelFileStream($filename);
 
-        if ($fileContent === false) {
-            throw new PelInvalidDataException('Failed to load file: %s.', $filename);
-        }
-
-        $this->load(new PelDataWindow($fileContent));
+        $this->load(new PelDataWindow($stream));
     }
 
     /**
