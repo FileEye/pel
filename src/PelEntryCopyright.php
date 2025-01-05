@@ -97,11 +97,11 @@ class PelEntryCopyright extends PelEntryAscii
         $this->photographer = $photographer;
         $this->editor = $editor;
 
-        if ($photographer == '' && $editor != '') {
+        if ($photographer === '' && $editor !== '') {
             $photographer = ' ';
         }
 
-        if ($editor == '') {
+        if ($editor === '') {
             parent::setValue($photographer);
         } else {
             parent::setValue($photographer . chr(0x00) . $editor);

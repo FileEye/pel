@@ -617,7 +617,7 @@ class PelIfd implements IteratorAggregate, ArrayAccess
 
                     if ($ifdType === null) {
                         break;
-                    } elseif ($starting_offset == $o) {
+                    } elseif ($starting_offset === $o) {
                         Pel::maybeThrow(new PelIfdException('Bogus offset to next IFD: %d, same as offset being loaded from.', $o));
                     } else {
                         $ifd = new PelIfd($ifdType);
@@ -662,13 +662,13 @@ class PelIfd implements IteratorAggregate, ArrayAccess
         $ifdType = null;
 
         /* Map tag to IFD type. */
-        if ($tag == PelTag::EXIF_IFD_POINTER) {
+        if ($tag === PelTag::EXIF_IFD_POINTER) {
             $ifdType = PelIfd::EXIF;
-        } elseif ($tag == PelTag::GPS_INFO_IFD_POINTER) {
+        } elseif ($tag === PelTag::GPS_INFO_IFD_POINTER) {
             $ifdType = PelIfd::GPS;
-        } elseif ($tag == PelTag::INTEROPERABILITY_IFD_POINTER) {
+        } elseif ($tag === PelTag::INTEROPERABILITY_IFD_POINTER) {
             $ifdType = PelIfd::INTEROPERABILITY;
-        } elseif ($tag == PelTag::MAKER_NOTE) {
+        } elseif ($tag === PelTag::MAKER_NOTE) {
             // Store maker notes infos, because we need PelTag::MAKE of PelIfd::IFD0 for MakerNotes
             // Thus MakerNotes will be loaded at the end of loading PelIfd::IFD0
             $this->setMakerNotes($this, $d, $components, $o);
@@ -694,7 +694,7 @@ class PelIfd implements IteratorAggregate, ArrayAccess
             if ($o > $d->getSize() - 6) {
                 Pel::maybeThrow(new PelIfdException('Bogus offset to next IFD: ' . '%d > %d!', $o, $d->getSize() - 6));
             } else {
-                if ($this->type == PelIfd::IFD1) {
+                if ($this->type === PelIfd::IFD1) {
                     // IFD1 shouldn't link further...
                     Pel::maybeThrow(new PelIfdException('IFD1 links to another IFD!'));
                 }
@@ -711,7 +711,7 @@ class PelIfd implements IteratorAggregate, ArrayAccess
      */
     private function checkIfLoadingFinished(): void
     {
-        if ($this->type == PelIfd::IFD0 && isset($this->sub[PelIfd::EXIF])) {
+        if ($this->type === PelIfd::IFD0 && isset($this->sub[PelIfd::EXIF])) {
             // Get MakerNotes from EXIF IFD and check if they are set
             $mk = $this->sub[PelIfd::EXIF]->getMakerNotes();
             if (! empty($mk)) {
@@ -789,7 +789,7 @@ class PelIfd implements IteratorAggregate, ArrayAccess
 
         /* The format of the thumbnail is stored in this tag. */
         // TODO: handle TIFF thumbnail.
-        // if ($tag == PelTag::COMPRESSION) {
+        // if ($tag === PelTag::COMPRESSION) {
         // $this->thumb_format = $data->getShort();
         // }
     }
@@ -841,7 +841,7 @@ class PelIfd implements IteratorAggregate, ArrayAccess
 
         /* The format of the thumbnail is stored in this tag. */
         // TODO: handle TIFF thumbnail.
-        // if ($tag == PelTag::COMPRESSION) {
+        // if ($tag === PelTag::COMPRESSION) {
         // $this->thumb_format = $data->getShort();
         // }
     }
@@ -1526,15 +1526,15 @@ class PelIfd implements IteratorAggregate, ArrayAccess
         /* Find bytes from sub IFDs. */
         $sub_bytes = '';
         foreach ($this->sub as $type => $sub) {
-            if ($type == PelIfd::EXIF) {
+            if ($type === PelIfd::EXIF) {
                 $tag = PelTag::EXIF_IFD_POINTER;
-            } elseif ($type == PelIfd::GPS) {
+            } elseif ($type === PelIfd::GPS) {
                 $tag = PelTag::GPS_INFO_IFD_POINTER;
-            } elseif ($type == PelIfd::INTEROPERABILITY) {
+            } elseif ($type === PelIfd::INTEROPERABILITY) {
                 $tag = PelTag::INTEROPERABILITY_IFD_POINTER;
             } else {
                 // PelConvert::BIG_ENDIAN is the default used by PelConvert
-                $tag = PelConvert::BIG_ENDIAN;
+                $tag = (int) PelConvert::BIG_ENDIAN;
             }
             /* Make an aditional entry with the pointer. */
             $bytes .= PelConvert::shortToBytes($tag, $order);

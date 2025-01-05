@@ -168,7 +168,13 @@ class PelTiff
      */
     public function loadFile(string $filename): void
     {
-        $this->load(new PelDataWindow(file_get_contents($filename)));
+        $fileContent = file_get_contents($filename);
+
+        if ($fileContent === false) {
+            throw new PelInvalidDataException('Failed to load file: %s.', $filename);
+        }
+
+        $this->load(new PelDataWindow($fileContent));
     }
 
     /**
@@ -212,7 +218,7 @@ class PelTiff
      */
     public function getBytes(bool $order = PelConvert::LITTLE_ENDIAN): string
     {
-        if ($order == PelConvert::LITTLE_ENDIAN) {
+        if ($order === PelConvert::LITTLE_ENDIAN) {
             $bytes = 'II';
         } else {
             $bytes = 'MM';
@@ -305,6 +311,6 @@ class PelTiff
         }
 
         /* Verify the TIFF header */
-        return $d->getShort(2) == self::TIFF_HEADER;
+        return $d->getShort(2) === self::TIFF_HEADER;
     }
 }

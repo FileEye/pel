@@ -385,7 +385,7 @@ class PelConvert
         for ($i = 0; $i < $s; $i ++) {
             printf('%02X ', ord($bytes[$i]));
 
-            if (($i + 1) % $line == 0) {
+            if (($i + 1) % $line === 0) {
                 print("\n");
             }
         }

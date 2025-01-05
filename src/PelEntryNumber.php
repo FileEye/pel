@@ -48,7 +48,7 @@ abstract class PelEntryNumber extends PelEntry
     /**
      * The value held by this entry.
      *
-     * @var array<int, mixed>
+     * @var array<int|string, mixed>
      */
     protected array $value = [];
 
@@ -115,7 +115,7 @@ abstract class PelEntryNumber extends PelEntry
      * value, and a {@link PelOverflowException} will be thrown if the
      * value is found to be outside the legal range.
      *
-     * @param array<int, mixed> $values
+     * @param array<int|string, mixed> $values
      *            the new values. The array must contain the new
      *            numbers.
      * @see PelEntryNumber::getValue
@@ -133,12 +133,12 @@ abstract class PelEntryNumber extends PelEntry
     /**
      * Return the numeric value held.
      *
-     * @return int|array<int, mixed> this will either be a single number if there is
+     * @return int|array<int|string, mixed> this will either be a single number if there is
      *         only one component, or an array of numbers otherwise.
      */
     public function getValue(): int|array
     {
-        if ($this->components == 1) {
+        if ($this->components === 1) {
             return $this->value[0];
         } else {
             return $this->value;
@@ -160,7 +160,7 @@ abstract class PelEntryNumber extends PelEntry
      */
     public function validateNumber(int|array $n): void
     {
-        if ($this->dimension == 1 || is_scalar($n)) {
+        if ($this->dimension === 1 || is_scalar($n)) {
             if (is_int($n) && ($n < $this->min || $n > $this->max)) {
                 Pel::maybeThrow(new PelOverflowException((int) $n, $this->min, $this->max));
             }
@@ -222,7 +222,7 @@ abstract class PelEntryNumber extends PelEntry
     {
         $bytes = '';
         for ($i = 0; $i < $this->components; $i ++) {
-            if ($this->dimension == 1) {
+            if ($this->dimension === 1) {
                 $bytes .= $this->numberToBytes($this->value[$i], $o);
             } else {
                 for ($j = 0; $j < $this->dimension; $j ++) {
@@ -265,7 +265,7 @@ abstract class PelEntryNumber extends PelEntry
      */
     public function getText(bool $brief = false): string
     {
-        if ($this->components == 0) {
+        if ($this->components === 0) {
             return '';
         }
 

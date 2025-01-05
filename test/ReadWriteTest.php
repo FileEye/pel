@@ -220,7 +220,8 @@ class ReadWriteTest extends TestCase
     {
         $file_uri = dirname(__FILE__) . '/images/sample-1.tiff';
 
-        $data = @exif_read_data($file_uri);
+        $data = exif_read_data($file_uri);
+        $this->assertNotFalse($data);
         $this->assertEquals(1, $data['Orientation']);
         $this->assertEquals(2, $data['PhotometricInterpretation']);
 
@@ -252,7 +253,8 @@ class ReadWriteTest extends TestCase
         $out_uri = dirname(__FILE__) . '/images/output.sample-1.tiff';
         $tiff->saveFile($out_uri);
 
-        $data_reload = @exif_read_data($out_uri);
+        $data_reload = exif_read_data($out_uri);
+        $this->assertNotFalse($data_reload);
         $this->assertEquals(4, $data_reload['Orientation']);
         $this->assertEquals(4, $data_reload['PhotometricInterpretation']);
         $this->assertEquals([

@@ -194,7 +194,7 @@ class PelJpeg
              */
             $d->setWindowStart($i + 1);
 
-            if ($marker == PelJpegMarker::SOI || $marker == PelJpegMarker::EOI) {
+            if ($marker === PelJpegMarker::SOI || $marker === PelJpegMarker::EOI) {
                 $content = new PelJpegContent(new PelDataWindow());
                 $this->appendSection($marker, $content);
             } else {
@@ -209,7 +209,7 @@ class PelJpeg
                 /* Skip past the length. */
                 $d->setWindowStart(2);
 
-                if ($marker == PelJpegMarker::APP1) {
+                if ($marker === PelJpegMarker::APP1) {
                     try {
                         $content = new PelExif();
                         $content->load($d->getClone(0, $len));
@@ -224,7 +224,7 @@ class PelJpeg
                     $this->appendSection($marker, $content);
                     /* Skip past the data. */
                     $d->setWindowStart($len);
-                } elseif ($marker == PelJpegMarker::COM) {
+                } elseif ($marker === PelJpegMarker::COM) {
                     $content = new PelJpegComment();
                     $content->load($d->getClone(0, $len));
                     $this->appendSection($marker, $content);
@@ -236,7 +236,7 @@ class PelJpeg
                     $d->setWindowStart($len);
 
                     /* In case of SOS, image data will follow. */
-                    if ($marker == PelJpegMarker::SOS) {
+                    if ($marker === PelJpegMarker::SOS) {
                         /*
                          * Some images have some trailing (garbage?) following the
                          * EOI marker. To handle this we seek backwards until we
@@ -245,7 +245,7 @@ class PelJpeg
                          */
 
                         $length = $d->getSize();
-                        while ($d->getByte($length - 2) != 0xFF || $d->getByte($length - 1) != PelJpegMarker::EOI) {
+                        while ($d->getByte($length - 2) !== 0xFF || $d->getByte($length - 1) !== PelJpegMarker::EOI) {
                             $length --;
                         }
 
@@ -311,9 +311,9 @@ class PelJpeg
         for ($i = 0; $i < $sections_count; $i ++) {
             if (! empty($this->sections[$i][0])) {
                 $section = $this->sections[$i];
-                if ($section[0] == PelJpegMarker::APP0) {
+                if ($section[0] === PelJpegMarker::APP0) {
                     $app0_offset = $i;
-                } elseif (($section[0] == PelJpegMarker::APP1) && ($section[1] instanceof PelExif)) {
+                } elseif (($section[0] === PelJpegMarker::APP1) && ($section[1] instanceof PelExif)) {
                     $app1_offset = $i;
                     break;
                 }
@@ -350,9 +350,9 @@ class PelJpeg
         $count_sections = count($this->sections);
         for ($i = 0; $i < $count_sections; $i ++) {
             if (! empty($this->sections[$i][0])) {
-                if ($this->sections[$i][0] == PelJpegMarker::APP1) {
+                if ($this->sections[$i][0] === PelJpegMarker::APP1) {
                     $app1_offset = $i;
-                } elseif ($this->sections[$i][0] == PelJpegMarker::APP2) {
+                } elseif ($this->sections[$i][0] === PelJpegMarker::APP2) {
                     $app2_offset = $i;
                     break;
                 }
@@ -415,7 +415,7 @@ class PelJpeg
         $idx = 0;
         while ($idx < count($this->sections)) {
             $s = $this->sections[$idx];
-            if (($s[0] == PelJpegMarker::APP1) && ($s[1] instanceof PelExif)) {
+            if (($s[0] === PelJpegMarker::APP1) && ($s[1] instanceof PelExif)) {
                 array_splice($this->sections, $idx, 1);
                 $idx --;
             } else {
@@ -501,7 +501,7 @@ class PelJpeg
     public function getSection(int $marker, int $skip = 0): ?PelJpegContent
     {
         foreach ($this->sections as $s) {
-            if ($s[0] == $marker) {
+            if ($s[0] === $marker) {
                 if ($skip > 0) {
                     $skip --;
                 } else {
@@ -565,7 +565,7 @@ class PelJpeg
             /* Write the marker */
             $bytes .= "\xFF" . PelJpegMarker::getBytes($m);
             /* Skip over empty markers. */
-            if ($m == PelJpegMarker::SOI || $m == PelJpegMarker::EOI) {
+            if ($m === PelJpegMarker::SOI || $m === PelJpegMarker::EOI) {
                 continue;
             }
 
@@ -576,7 +576,7 @@ class PelJpeg
             $bytes .= $data;
 
             /* In case of SOS, we need to write the JPEG data. */
-            if ($m == PelJpegMarker::SOS) {
+            if ($m === PelJpegMarker::SOS) {
                 $bytes .= $this->jpeg_data->getBytes();
             }
         }
@@ -615,7 +615,7 @@ class PelJpeg
             $str .= Pel::fmt("Section %d (marker 0x%02X - %s):\n", $i, $m, PelJpegMarker::getName($m));
             $str .= Pel::fmt("  Description: %s\n", PelJpegMarker::getDescription($m));
 
-            if ($m == PelJpegMarker::SOI || $m == PelJpegMarker::EOI) {
+            if ($m === PelJpegMarker::SOI || $m === PelJpegMarker::EOI) {
                 continue;
             }
 
@@ -653,6 +653,6 @@ class PelJpeg
 
         $i = self::getJpgSectionStart($d);
 
-        return $d->getByte($i) == PelJpegMarker::SOI;
+        return $d->getByte($i) === PelJpegMarker::SOI;
     }
 }

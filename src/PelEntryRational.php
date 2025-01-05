@@ -70,7 +70,7 @@ class PelEntryRational extends PelEntryLong
      *            be one of the constants defined in {@link PelTag}, e.g., {@link
      *            PelTag::X_RESOLUTION}, or any other tag which can have format
      *            {@link PelFormat::RATIONAL}.
-     * @param array<int, mixed> ...$value
+     * @param array<int|string, mixed> ...$value
      *            the rational(s) that this entry will
      *            represent. The arguments passed must obey the same rules as the
      *            argument to {@link setValue}, namely that each argument should be

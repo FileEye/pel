@@ -41,7 +41,11 @@ class Gh200Test extends TestCase
     {
         $file = dirname(__FILE__) . '/images/gh-200.jpg';
 
-        $data = new PelDataWindow(file_get_contents($file));
+        $fileContent = file_get_contents($file);
+
+        $this->assertNotFalse($fileContent);
+
+        $data = new PelDataWindow($fileContent);
         $pelJpeg = new PelJpeg($data);
 
         $this->assertNotSame('', $pelJpeg->getBytes());

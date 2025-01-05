@@ -194,13 +194,18 @@ class PelEntryTime extends PelEntryAscii
              * Clean the timestamp: some timestamps are broken other
              * separators than ':' and ' '.
              */
-            $d = preg_split('/[^0-9]+/', $timestamp);
+            $d = preg_split('/[^0-9]+/', (string) $timestamp);
+
+            if ($d === false) {
+                throw new PelInvalidArgumentException('Invalid string value received, got %s', $timestamp);
+            }
+
             for ($i = 0; $i < 6; $i ++) {
                 if (empty($d[$i])) {
                     $d[$i] = 0;
                 }
             }
-            $this->day_count = $this->convertGregorianToJd($d[0], $d[1], $d[2]);
+            $this->day_count = $this->convertGregorianToJd((int) $d[0], (int) $d[1], (int) $d[2]);
             $this->seconds = (int) $d[3] * 3600 + (int) $d[4] * 60 + (int) $d[5];
         } elseif ($type === self::JULIAN_DAY_COUNT) {
             if (is_int($timestamp) || is_float($timestamp)) {
@@ -238,7 +243,7 @@ class PelEntryTime extends PelEntryAscii
     public function convertGregorianToJd(int $year, int $month, int $day): int
     {
         // Special case mapping 0/0/0 -> 0
-        if ($year == 0 || $month == 0 || $day == 0) {
+        if ($year === 0 || $month === 0 || $day === 0) {
             return 0;
         }
 
@@ -256,7 +261,7 @@ class PelEntryTime extends PelEntryAscii
     public function convertJdToGregorian(int $jd): array
     {
         // Special case mapping 0 -> 0/0/0
-        if ($jd == 0) {
+        if ($jd === 0) {
             return [
                 0,
                 0,
@@ -306,7 +311,7 @@ class PelEntryTime extends PelEntryAscii
         if ($jd > 0) {
             $timestamp = ($jd - 2440588) * 86400;
             if ($timestamp >= 0) {
-                return $timestamp;
+                return (int) $timestamp;
             }
         }
         return false;

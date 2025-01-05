@@ -53,7 +53,11 @@ class Gh16Test extends TestCase
     {
         $subject = "Превед, медвед!";
 
-        $data = new PelDataWindow(file_get_contents($this->file));
+        $fileContent = file_get_contents($this->file);
+
+        $this->assertNotFalse($fileContent);
+
+        $data = new PelDataWindow($fileContent);
 
         $this->assertTrue(PelJpeg::isValid($data));
 

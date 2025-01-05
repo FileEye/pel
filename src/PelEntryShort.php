@@ -382,10 +382,10 @@ class PelEntryShort extends PelEntryNumber
                 return (string) $this->value[0];
             }
         } elseif ($this->tag === PelTag::YCBCR_SUB_SAMPLING) {
-            if ($this->value[0] == 2 && $this->value[1] == 1) {
+            if ($this->value[0] === 2 && $this->value[1] === 1) {
                 return 'YCbCr4:2:2';
             }
-            if ($this->value[0] == 2 && $this->value[1] == 2) {
+            if ($this->value[0] === 2 && $this->value[1] === 2) {
                 return 'YCbCr4:2:0';
             }
             return $this->value[0] . ', ' . $this->value[1];

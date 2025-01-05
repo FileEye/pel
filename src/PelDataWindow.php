@@ -109,7 +109,13 @@ class PelDataWindow
              */
             ob_start();
             ImageJpeg($data, null, Pel::getJPEGQuality());
-            $this->data = ob_get_clean();
+            $dataBytes = ob_get_clean();
+
+            if ($dataBytes === false) {
+                throw new PelDataWindowWindowException('Failed to create window object from JPEG');
+            }
+
+            $this->data = $dataBytes;
         }
 
         $this->order = $endianess;

@@ -40,7 +40,7 @@
  * standard. It is easy to test for standards level of an unknown
  * entry:
  * <code>
- * if ($entry->getTag() == PelTag::EXIF_VERSION &&
+ * if ($entry->getTag() === PelTag::EXIF_VERSION &&
  * $entry->getValue() > 2.0) {
  * echo 'Recent Exif version.';
  * }
@@ -129,7 +129,7 @@ class PelEntryVersion extends PelEntry
          * Versions numbers like 2.0 would be output as just 2 if we don't
          * add the '.0' ourselves.
          */
-        if (floor($this->version) == $this->version) {
+        if (floor($this->version) === $this->version) {
             $v .= '.0';
         }
 
@@ -155,7 +155,7 @@ class PelEntryVersion extends PelEntry
         }
 
         if ($brief) {
-            return $v;
+            return (string) $v;
         } else {
             return Pel::fmt('Version %s', $v);
         }
