@@ -42,7 +42,6 @@ use lsolesen\pel\PelTiff;
 
 class CanonEos650dTest extends TestCase
 {
-
     public function testRead(): void
     {
         Pel::clearExceptions();

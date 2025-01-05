@@ -9,7 +9,6 @@ use lsolesen\pel\PelEntryUserComment;
 
 class PelEntryUserCommentTest extends TestCase
 {
-
     public function testUsercomment(): void
     {
         $entry = new PelEntryUserComment();

@@ -41,7 +41,6 @@ use PHPUnit\Framework\TestCase;
 
 class OlympusC765uzTest extends TestCase
 {
-
     public function testRead(): void
     {
         Pel::clearExceptions();

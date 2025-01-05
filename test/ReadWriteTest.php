@@ -23,7 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class ReadWriteTest extends TestCase
 {
-
     public function setUp(): void
     {
         parent::setUp();

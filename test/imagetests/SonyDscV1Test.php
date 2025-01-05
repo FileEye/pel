@@ -40,7 +40,6 @@ use PHPUnit\Framework\TestCase;
 
 class SonyDscV1Test extends TestCase
 {
-
     public function testRead(): void
     {
         Pel::clearExceptions();

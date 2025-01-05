@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class DataWindowTest extends TestCase
 {
-
     public function testReadBytes(): void
     {
         $window = new PelDataWindow('abcdefgh');

@@ -16,7 +16,6 @@ use lsolesen\pel\PelExif;
 
 class Gh200Test extends TestCase
 {
-
     public function testPelDataWindowOffsetExceptionOffsetNotWithin(): void
     {
         $file = dirname(__FILE__) . '/images/gh-200.jpg';

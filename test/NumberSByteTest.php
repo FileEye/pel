@@ -8,7 +8,6 @@ use lsolesen\pel\PelEntrySByte;
 
 class NumberSByteTest extends NumberTestCase
 {
-
     public function setUp(): void
     {
         parent::setUp();

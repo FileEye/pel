@@ -10,7 +10,6 @@ use lsolesen\pel\PelJpeg;
 
 class BrokenImagesTest extends TestCase
 {
-
     public function testWindowWindowExceptionIsCaught(): void
     {
         $jpeg = new PelJpeg(dirname(__FILE__) . '/broken_images/gh-10-a.jpg');

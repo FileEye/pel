@@ -42,7 +42,6 @@ use PHPUnit\Framework\TestCase;
 
 class CanonIxusIITest extends TestCase
 {
-
     public function testRead(): void
     {
         Pel::clearExceptions();

@@ -10,20 +10,19 @@ use lsolesen\pel\PelTag;
 
 class PelTagTest extends TestCase
 {
+    public const NONEXISTENT_TAG_NAME = 'nonexistent tag name';
 
-    const NONEXISTENT_TAG_NAME = 'nonexistent tag name';
+    public const NONEXISTENT_EXIF_TAG = 0xFCFC;
 
-    const NONEXISTENT_EXIF_TAG = 0xFCFC;
+    public const NONEXISTENT_GPS_TAG = 0xFCFC;
 
-    const NONEXISTENT_GPS_TAG = 0xFCFC;
+    public const EXIF_TAG_NAME = 'ImageDescription';
 
-    const EXIF_TAG_NAME = 'ImageDescription';
+    public const GPS_TAG_NAME = 'GPSLongitude';
 
-    const GPS_TAG_NAME = 'GPSLongitude';
+    public const EXIF_TAG = PelTag::IMAGE_DESCRIPTION;
 
-    const EXIF_TAG = PelTag::IMAGE_DESCRIPTION;
-
-    const GPS_TAG = PelTag::GPS_LONGITUDE;
+    public const GPS_TAG = PelTag::GPS_LONGITUDE;
 
     public function testReverseLookup(): void
     {

@@ -11,7 +11,6 @@ use lsolesen\pel\PelJpegMarker;
 
 class PelJpegMarkerTest extends TestCase
 {
-
     public function testNames(): void
     {
         $jpegMarker = new PelJpegMarker();

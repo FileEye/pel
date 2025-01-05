@@ -69,9 +69,9 @@ return [
     ],
 
     'add' => [
-        //  ExampleMetric::class => [
-        //      ExampleInsight::class,
-        //  ]
+        \PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer::class => [
+            'elements' => ['const'],
+        ],
     ],
 
     'remove' => [

@@ -8,7 +8,6 @@ use lsolesen\pel\PelEntrySShort;
 
 class NumberSShortTest extends NumberTestCase
 {
-
     public function setUp(): void
     {
         parent::setUp();

@@ -12,7 +12,6 @@ use lsolesen\pel\PelEntryVersion;
 
 class PelEntryUndefinedTest extends TestCase
 {
-
     public function testReturnValues(): void
     {
         new PelEntryUndefined(42);

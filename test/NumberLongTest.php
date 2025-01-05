@@ -8,7 +8,6 @@ use lsolesen\pel\PelEntryLong;
 
 class NumberLongTest extends NumberTestCase
 {
-
     /**
      *
      * {@inheritdoc}

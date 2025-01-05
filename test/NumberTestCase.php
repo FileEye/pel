@@ -11,7 +11,6 @@ use lsolesen\pel\PelOverflowException;
 
 abstract class NumberTestCase extends TestCase
 {
-
     protected int $min;
 
     protected int $max;

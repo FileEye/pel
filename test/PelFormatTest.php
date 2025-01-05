@@ -10,7 +10,6 @@ use lsolesen\pel\PelIllegalFormatException;
 
 class PelFormatTest extends TestCase
 {
-
     public function testNames(): void
     {
         $pelFormat = new PelFormat();

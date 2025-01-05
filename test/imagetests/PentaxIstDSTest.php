@@ -42,7 +42,6 @@ use PHPUnit\Framework\TestCase;
 
 class PentaxIstDSTest extends TestCase
 {
-
     public function testRead(): void
     {
         Pel::clearExceptions();

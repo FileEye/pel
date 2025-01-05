@@ -10,7 +10,6 @@ use lsolesen\pel\PelJpeg;
 
 class NoExifTest extends TestCase
 {
-
     public function testRead(): void
     {
         Pel::clearExceptions();

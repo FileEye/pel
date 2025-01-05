@@ -42,7 +42,6 @@ use PHPUnit\Framework\TestCase;
 
 class OlympusC5050zTest extends TestCase
 {
-
     public function testRead(): void
     {
         Pel::clearExceptions();

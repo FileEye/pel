@@ -12,7 +12,6 @@ use lsolesen\pel\PelTag;
 
 class IfdTest extends TestCase
 {
-
     public function testIteratorAggretate(): void
     {
         $ifd = new PelIfd(PelIfd::IFD0);

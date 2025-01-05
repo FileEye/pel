@@ -15,7 +15,6 @@ use PHPUnit\Framework\TestCase;
 
 class AsciiTest extends TestCase
 {
-
     public function testReturnValues(): void
     {
         $entry = new PelEntryAscii(42);

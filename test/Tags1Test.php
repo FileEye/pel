@@ -10,7 +10,6 @@ use lsolesen\pel\PelJpeg;
 
 class Tags1Test extends TestCase
 {
-
     public function testTags(): void
     {
         Pel::clearExceptions();

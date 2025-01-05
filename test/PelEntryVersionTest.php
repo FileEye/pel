@@ -10,7 +10,6 @@ use lsolesen\pel\PelEntryVersion;
 
 class PelEntryVersionTest extends TestCase
 {
-
     public function testVersion(): void
     {
         $entry = new PelEntryVersion(42);

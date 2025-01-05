@@ -8,7 +8,6 @@ use lsolesen\pel\PelEntrySLong;
 
 class NumberSLongTest extends NumberTestCase
 {
-
     public function setUp(): void
     {
         parent::setUp();

@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class Gh21Test extends TestCase
 {
-
     protected string $file;
 
     public function setUp(): void

@@ -9,7 +9,6 @@ use lsolesen\pel\PelOverflowException;
 
 class NumberRationalTest extends NumberTestCase
 {
-
     public function testOverflow(): void
     {
         $entry = new PelEntryRational(42, [

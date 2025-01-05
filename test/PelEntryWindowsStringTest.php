@@ -11,7 +11,6 @@ use lsolesen\pel\PelTag;
 
 class PelEntryWindowsStringTest extends TestCase
 {
-
     public function testWindowsString(): void
     {
         $test_str = 'Tést';

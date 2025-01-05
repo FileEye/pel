@@ -8,7 +8,6 @@ use lsolesen\pel\PelEntryByte;
 
 class NumberByteTest extends NumberTestCase
 {
-
     /**
      *
      * {@inheritdoc}

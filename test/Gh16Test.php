@@ -15,7 +15,6 @@ use lsolesen\pel\PelTiff;
 
 class Gh16Test extends TestCase
 {
-
     protected string $file;
 
     protected function setUp(): void
