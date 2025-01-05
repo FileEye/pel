@@ -34,6 +34,9 @@
  * used in Exif data.
  * - addGpsInfo() adds several Exif tags to your JPEG file.
  */
+
+namespace Pel\examples;
+
 use lsolesen\pel\PelEntryAscii;
 use lsolesen\pel\PelEntryByte;
 use lsolesen\pel\PelEntryRational;
@@ -43,6 +46,8 @@ use lsolesen\pel\PelIfd;
 use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelTag;
 use lsolesen\pel\PelTiff;
+
+require_once dirname(dirname(__FILE__)) . '/autoload.php';
 
 /**
  * Convert a decimal degree into degrees, minutes, and seconds.

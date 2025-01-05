@@ -24,6 +24,8 @@
  * Boston, MA 02110-1301 USA
  */
 
+namespace Pel\examples;
+
 /* Make PEL speak the users language, if it is available. */
 setlocale(LC_ALL, '');
 
@@ -32,6 +34,8 @@ use lsolesen\pel\PelConvert;
 use lsolesen\pel\PelDataWindow;
 use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelTiff;
+
+require_once dirname(dirname(__FILE__)) . '/autoload.php';
 
 $prog = array_shift($argv);
 $file = '';

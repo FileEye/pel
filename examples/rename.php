@@ -33,12 +33,16 @@
  * available time will be used.
  */
 
+namespace Pel\examples;
+
 /* a printf() variant that appends a newline to the output. */
 use lsolesen\pel\Pel;
 use lsolesen\pel\PelDataWindow;
 use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelTag;
 use lsolesen\pel\PelTiff;
+
+require_once dirname(dirname(__FILE__)) . '/autoload.php';
 
 function println($args)
 {

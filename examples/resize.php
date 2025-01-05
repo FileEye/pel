@@ -28,6 +28,8 @@ namespace Pel\examples;
 use lsolesen\pel\Pel;
 use lsolesen\pel\PelJpeg;
 
+require_once dirname(dirname(__FILE__)) . '/autoload.php';
+
 /**
  * a printf() variant that appends a newline to the output.
  */
