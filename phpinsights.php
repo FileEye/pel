@@ -69,9 +69,6 @@ return [
     ],
 
     'add' => [
-        \PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer::class => [
-            'elements' => ['const'],
-        ],
     ],
 
     'remove' => [
