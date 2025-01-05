@@ -87,22 +87,22 @@ class ReadWriteTest extends TestCase
         $jpeg = new PelJpeg('test-output.jpg');
 
         $exif = $jpeg->getExif();
-        $this->assertInstanceOf('lsolesen\pel\PelExif', $exif);
+        $this->assertInstanceOf(PelExif::class, $exif);
 
         $tiff = $exif->getTiff();
-        $this->assertInstanceOf('lsolesen\pel\PelTiff', $tiff);
+        $this->assertInstanceOf(PelTiff::class, $tiff);
 
         $ifd = $tiff->getIfd();
-        $this->assertInstanceOf('lsolesen\pel\PelIfd', $ifd);
+        $this->assertInstanceOf(PelIfd::class, $ifd);
 
         $this->assertEquals($ifd->getType(), PelIfd::IFD0);
         $this->assertTrue($ifd->isLastIfd());
 
         foreach ($entries as $entry) {
             $ifdEntry = $ifd->getEntry($entry->getTag());
-            if ($ifdEntry->getFormat() == PelFormat::ASCII) {
-                $ifdValue = $ifd->getEntry($entry->getTag())
-                    ->getValue();
+            $this->assertNotNull($ifdEntry);
+            if ($ifdEntry->getFormat() === PelFormat::ASCII) {
+                $ifdValue = $ifd->getEntry($entry->getTag())?->getValue();
                 $entryValue = $entry->getValue();
                 // cut off after the first nul byte
                 // since $ifdValue comes from parsed ifd,
@@ -227,13 +227,17 @@ class ReadWriteTest extends TestCase
 
         $tiff = new PelTiff($file_uri);
         $ifd = $tiff->getIfd();
-        $this->assertInstanceOf('lsolesen\pel\PelIfd', $ifd);
+        $this->assertInstanceOf(PelIfd::class, $ifd);
         $orientation = $ifd->getEntry(PelTag::ORIENTATION);
+        $this->assertNotNull($orientation);
         $this->assertEquals(1, $orientation->getValue());
         $photometric_interpretation = $ifd->getEntry(PelTag::PHOTOMETRIC_INTERPRETATION);
+        $this->assertNotNull($photometric_interpretation);
         $this->assertEquals(2, $photometric_interpretation->getValue());
-        /** @var \lsolesen\pel\PelEntryShort $bits_per_sample */
+
         $bits_per_sample = $ifd->getEntry(PelTag::BITS_PER_SAMPLE);
+        $this->assertNotNull($bits_per_sample);
+        $this->assertInstanceOf(PelEntryShort::class, $bits_per_sample);
         $this->assertEquals([
             8,
             8,

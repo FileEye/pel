@@ -127,7 +127,7 @@ class PelEntryWindowsString extends PelEntry
             $s = mb_convert_encoding($str, 'UCS-2LE', 'auto');
         }
 
-        if (substr($s, - $zlen, $zlen) != static::ZEROES) {
+        if (substr($s, - $zlen, $zlen) !== static::ZEROES) {
             $s .= static::ZEROES;
         }
         $l = strlen($s);

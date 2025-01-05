@@ -143,7 +143,7 @@ class PelTiff
         }
 
         /* Verify the TIFF header */
-        if ($d->getShort(2) != self::TIFF_HEADER) {
+        if ($d->getShort(2) !== self::TIFF_HEADER) {
             throw new PelInvalidDataException('Missing TIFF magic value.');
         }
         /* IFD 0 offset */
@@ -186,7 +186,7 @@ class PelTiff
      */
     public function setIfd(PelIfd $ifd): void
     {
-        if ($ifd->getType() != PelIfd::IFD0) {
+        if ($ifd->getType() !== PelIfd::IFD0) {
             throw new PelInvalidDataException('Invalid type of IFD: %d, expected %d.', $ifd->getType(), PelIfd::IFD0);
         }
         $this->ifd = $ifd;

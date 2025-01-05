@@ -73,6 +73,7 @@ class Gh16Test extends TestCase
         }
 
         $tiff = $exif->getTiff();
+        $this->assertNotNull($tiff);
 
         $ifd0 = $tiff->getIfd();
         if (null === $ifd0) {
@@ -85,9 +86,13 @@ class Gh16Test extends TestCase
 
         $jpeg = new PelJpeg($this->file);
         $exif = $jpeg->getExif();
+        $this->assertNotNull($exif);
         $tiff = $exif->getTiff();
+        $this->assertNotNull($tiff);
         $ifd0 = $tiff->getIfd();
+        $this->assertNotNull($ifd0);
         $written_subject = $ifd0->getEntry(PelTag::XP_SUBJECT);
+        $this->assertNotNull($written_subject);
         $this->assertEquals($subject, $written_subject->getValue());
     }
 }

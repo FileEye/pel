@@ -896,17 +896,17 @@ class PelIfd implements IteratorAggregate, ArrayAccess
                     case PelTag::DATE_TIME:
                     case PelTag::DATE_TIME_ORIGINAL:
                     case PelTag::DATE_TIME_DIGITIZED:
-                        if ($format != PelFormat::ASCII) {
+                        if ($format !== PelFormat::ASCII) {
                             throw new PelUnexpectedFormatException($this->type, $tag, $format, PelFormat::ASCII);
                         }
-                        if ($components != 20) {
+                        if ($components !== 20) {
                             throw new PelWrongComponentCountException($this->type, $tag, $components, 20);
                         }
                         // TODO: handle timezones.
                         return new PelEntryTime($tag, $data->getBytes(0, - 1), PelEntryTime::EXIF_STRING);
 
                     case PelTag::COPYRIGHT:
-                        if ($format != PelFormat::ASCII) {
+                        if ($format !== PelFormat::ASCII) {
                             throw new PelUnexpectedFormatException($this->type, $tag, $format, PelFormat::ASCII);
                         }
                         $v = explode("\0", trim($data->getBytes(), ' '));
@@ -920,13 +920,13 @@ class PelIfd implements IteratorAggregate, ArrayAccess
                     case PelTag::EXIF_VERSION:
                     case PelTag::FLASH_PIX_VERSION:
                     case PelTag::INTEROPERABILITY_VERSION:
-                        if ($format != PelFormat::UNDEFINED) {
+                        if ($format !== PelFormat::UNDEFINED) {
                             throw new PelUnexpectedFormatException($this->type, $tag, $format, PelFormat::UNDEFINED);
                         }
                         return new PelEntryVersion($tag, (float) $data->getBytes() / 100);
 
                     case PelTag::USER_COMMENT:
-                        if ($format != PelFormat::UNDEFINED) {
+                        if ($format !== PelFormat::UNDEFINED) {
                             throw new PelUnexpectedFormatException($this->type, $tag, $format, PelFormat::UNDEFINED);
                         }
                         if ($data->getSize() < 8) {
@@ -940,7 +940,7 @@ class PelIfd implements IteratorAggregate, ArrayAccess
                     case PelTag::XP_AUTHOR:
                     case PelTag::XP_KEYWORDS:
                     case PelTag::XP_SUBJECT:
-                        if ($format != PelFormat::BYTE) {
+                        if ($format !== PelFormat::BYTE) {
                             throw new PelUnexpectedFormatException($this->type, $tag, $format, PelFormat::BYTE);
                         }
                         return new PelEntryWindowsString($tag, $data->getBytes(), true);
@@ -1089,11 +1089,11 @@ class PelIfd implements IteratorAggregate, ArrayAccess
     {
         $size = $d->getSize();
         /* Now move backwards until we find the EOI JPEG marker. */
-        while ($d->getByte($size - 2) != 0xFF || $d->getByte($size - 1) != PelJpegMarker::EOI) {
+        while ($d->getByte($size - 2) !== 0xFF || $d->getByte($size - 1) !== PelJpegMarker::EOI) {
             $size --;
         }
 
-        if ($size != $d->getSize()) {
+        if ($size !== $d->getSize()) {
             Pel::maybeThrow(new PelIfdException('Decrementing thumbnail size ' . 'to %d bytes', $size));
         }
         $this->thumb_data = $d->getClone(0, $size);
@@ -1565,7 +1565,7 @@ class PelIfd implements IteratorAggregate, ArrayAccess
         $bytes .= $extra_bytes . $sub_bytes;
 
         if (! $this->isLastIfd()) {
-            $bytes .= $this->next->getBytes($end, $order);
+            $bytes .= $this->next?->getBytes($end, $order);
         }
         return $bytes;
     }

@@ -135,7 +135,7 @@ class PelExif extends PelJpegContent
      */
     public function getBytes(): string
     {
-        return self::EXIF_HEADER . $this->tiff->getBytes();
+        return self::EXIF_HEADER . $this->tiff?->getBytes();
     }
 
     /**
@@ -146,6 +146,6 @@ class PelExif extends PelJpegContent
      */
     public function __toString(): string
     {
-        return Pel::tra("Dumping Exif data...\n") . $this->tiff->__toString();
+        return Pel::tra("Dumping Exif data...\n") . $this->tiff?->__toString();
     }
 }

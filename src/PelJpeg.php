@@ -142,7 +142,7 @@ class PelJpeg
     protected static function getJpgSectionStart(PelDataWindow $d): int
     {
         for ($i = 0; $i < 7; $i ++) {
-            if ($d->getByte($i) != 0xFF) {
+            if ($d->getByte($i) !== 0xFF) {
                 break;
             }
         }
@@ -256,7 +256,7 @@ class PelJpeg
                         $this->appendSection(PelJpegMarker::EOI, new PelJpegContent(new PelDataWindow()));
 
                         /* Now check to see if there are any trailing data. */
-                        if ($length != $d->getSize()) {
+                        if ($length !== $d->getSize()) {
                             Pel::maybeThrow(new PelException('Found trailing content ' . 'after EOI: %d bytes', $d->getSize() - $length));
                             $content = new PelJpegContent($d->getClone($length));
                             /*
@@ -577,7 +577,7 @@ class PelJpeg
 
             /* In case of SOS, we need to write the JPEG data. */
             if ($m === PelJpegMarker::SOS) {
-                $bytes .= $this->jpeg_data->getBytes();
+                $bytes .= $this->jpeg_data?->getBytes();
             }
         }
         return $bytes;

@@ -54,6 +54,7 @@ class Bug3017880Test extends TestCase
             $exif->setTiff($tiff);
 
             $tiff = $exif->getTiff();
+            $this->assertNotNull($tiff);
             $ifd0 = $tiff->getIfd();
             if ($ifd0 === null) {
                 $ifd0 = new PelIfd(PelIfd::IFD0);

@@ -71,6 +71,6 @@ class PelJpegContent
      */
     public function getBytes(): string
     {
-        return $this->data->getBytes();
+        return '' . $this->data?->getBytes();
     }
 }

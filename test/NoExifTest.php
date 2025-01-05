@@ -39,6 +39,6 @@ class NoExifTest extends TestCase
         $exif = $jpeg->getExif();
         $this->assertNull($exif);
 
-        $this->assertTrue(count(Pel::getExceptions()) == 0);
+        $this->assertTrue(count(Pel::getExceptions()) === 0);
     }
 }

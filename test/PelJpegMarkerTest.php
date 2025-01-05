@@ -59,7 +59,7 @@ class PelJpegMarkerTest extends TestCase
      */
     public function testInvalidMarkerException(): void
     {
-        $this->expectException('lsolesen\pel\PelJpegInvalidMarkerException');
+        $this->expectException(PelJpegInvalidMarkerException::class);
         throw new PelJpegInvalidMarkerException(1, 2);
     }
 }
