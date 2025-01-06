@@ -8,6 +8,7 @@ use Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRect
 return RectorConfig::configure()
     ->withPaths([
         __DIR__ . '/src',
+        __DIR__ . '/test',
     ])
     // uncomment to reach your current PHP version
     ->withPhpSets()

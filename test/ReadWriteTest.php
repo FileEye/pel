@@ -54,7 +54,7 @@ class ReadWriteTest extends TestCase
         $exif->setTiff($tiff);
         $this->assertNotNull($exif->getTiff());
 
-        $jpeg = new PelJpeg(dirname(__FILE__) . '/images/no-exif.jpg');
+        $jpeg = new PelJpeg(__DIR__ . '/images/no-exif.jpg');
         $this->assertNull($jpeg->getExif());
         $jpeg->setExif($exif);
         $this->assertNotNull($jpeg->getExif());
@@ -87,7 +87,7 @@ class ReadWriteTest extends TestCase
                 // cut off after the first nul byte
                 // since $ifdValue comes from parsed ifd,
                 // it is already cut off
-                $canonicalEntry = strstr($entryValue, "\0", true);
+                $canonicalEntry = strstr((string) $entryValue, "\0", true);
                 // if no nul byte found, use original value
                 if ($canonicalEntry === false) {
                     $canonicalEntry = $entryValue;
@@ -198,7 +198,7 @@ class ReadWriteTest extends TestCase
      */
     public function testTiffLoadSave(): void
     {
-        $file_uri = dirname(__FILE__) . '/images/sample-1.tiff';
+        $file_uri = __DIR__ . '/images/sample-1.tiff';
 
         $data = exif_read_data($file_uri);
         $this->assertNotFalse($data);
@@ -234,7 +234,7 @@ class ReadWriteTest extends TestCase
             4
         ]);
 
-        $out_uri = dirname(__FILE__) . '/images/output.sample-1.tiff';
+        $out_uri = __DIR__ . '/images/output.sample-1.tiff';
         $tiff->saveFile($out_uri);
 
         $data_reload = exif_read_data($out_uri);

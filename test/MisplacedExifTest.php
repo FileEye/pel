@@ -19,7 +19,7 @@ class MisplacedExifTest extends TestCase
         Pel::clearExceptions();
         Pel::setStrictParsing(false);
         // Image contains non-EXIF APP1 section ahead of the EXIF one
-        $jpeg = new PelJpeg(dirname(__FILE__) . '/broken_images/misplaced-exif.jpg');
+        $jpeg = new PelJpeg(__DIR__ . '/broken_images/misplaced-exif.jpg');
         // Assert we just have loaded correct file for the test
         $this->assertNotInstanceOf('\lsolesen\pel\PelExif', $jpeg->getSection(PelJpegMarker::APP1));
 

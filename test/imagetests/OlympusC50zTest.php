@@ -45,7 +45,7 @@ class OlympusC50zTest extends TestCase
     {
         Pel::clearExceptions();
         Pel::setStrictParsing(false);
-        $jpeg = new PelJpeg(dirname(__FILE__) . '/olympus-c50z.jpg');
+        $jpeg = new PelJpeg(__DIR__ . '/olympus-c50z.jpg');
 
         $exif = $jpeg->getExif();
         $this->assertInstanceOf(PelExif::class, $exif);
@@ -112,7 +112,7 @@ class OlympusC50zTest extends TestCase
         $caught = false;
         try {
             $entry->getValue();
-        } catch (PelInvalidArgumentException $e) {
+        } catch (PelInvalidArgumentException) {
             $caught = true;
         }
         $this->assertTrue($caught);
@@ -175,7 +175,7 @@ class OlympusC50zTest extends TestCase
         $caught = false;
         try {
             $entry->getValue();
-        } catch (PelInvalidArgumentException $e) {
+        } catch (PelInvalidArgumentException) {
             $caught = true;
         }
         $this->assertTrue($caught);
@@ -188,7 +188,7 @@ class OlympusC50zTest extends TestCase
         $caught = false;
         try {
             $entry->getValue();
-        } catch (PelInvalidArgumentException $e) {
+        } catch (PelInvalidArgumentException) {
             $caught = true;
         }
         $this->assertTrue($caught);
@@ -397,7 +397,7 @@ class OlympusC50zTest extends TestCase
         /* Sub IFDs of $ifd1. */
         $this->assertEquals(count($ifd1->getSubIfds()), 0);
 
-        $thumb_data = file_get_contents(dirname(__FILE__) . '/olympus-c50z-thumb.jpg');
+        $thumb_data = file_get_contents(__DIR__ . '/olympus-c50z-thumb.jpg');
         $this->assertEquals($ifd1->getThumbnailData(), $thumb_data);
 
         /* Next IFD. */

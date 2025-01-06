@@ -46,7 +46,7 @@ class PentaxIstDSTest extends TestCase
     {
         Pel::clearExceptions();
         Pel::setStrictParsing(false);
-        $jpeg = new PelJpeg(dirname(__FILE__) . '/pentax-istDS.jpg');
+        $jpeg = new PelJpeg(__DIR__ . '/pentax-istDS.jpg');
 
         $exif = $jpeg->getExif();
         $this->assertInstanceOf(PelExif::class, $exif);
@@ -428,7 +428,7 @@ class PentaxIstDSTest extends TestCase
         /* Sub IFDs of $ifd1. */
         $this->assertEquals(count($ifd1->getSubIfds()), 0);
 
-        $thumb_data = file_get_contents(dirname(__FILE__) . '/pentax-istDS-thumb.jpg');
+        $thumb_data = file_get_contents(__DIR__ . '/pentax-istDS-thumb.jpg');
         $this->assertEquals($ifd1->getThumbnailData(), $thumb_data);
 
         /* Next IFD. */

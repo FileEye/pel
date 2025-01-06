@@ -49,7 +49,7 @@ class AsciiTest extends TestCase
         $caught = false;
         try {
             $entry->getValue();
-        } catch (PelInvalidArgumentException $e) {
+        } catch (PelInvalidArgumentException) {
             $caught = true;
         }
         $this->assertTrue($caught);
@@ -62,7 +62,7 @@ class AsciiTest extends TestCase
         $caught = false;
         try {
             $entry->getValue();
-        } catch (PelInvalidArgumentException $e) {
+        } catch (PelInvalidArgumentException) {
             $caught = true;
         }
         $this->assertTrue($caught);

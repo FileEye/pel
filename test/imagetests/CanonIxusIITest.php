@@ -46,7 +46,7 @@ class CanonIxusIITest extends TestCase
     {
         Pel::clearExceptions();
         Pel::setStrictParsing(false);
-        $jpeg = new PelJpeg(dirname(__FILE__) . '/canon-ixus-ii.jpg');
+        $jpeg = new PelJpeg(__DIR__ . '/canon-ixus-ii.jpg');
 
         $exif = $jpeg->getExif();
         $this->assertInstanceOf(PelExif::class, $exif);
@@ -384,7 +384,7 @@ class CanonIxusIITest extends TestCase
         /* Sub IFDs of $ifd1. */
         $this->assertEquals(count($ifd1->getSubIfds()), 0);
 
-        $thumb_data = file_get_contents(dirname(__FILE__) . '/canon-ixus-ii-thumb.jpg');
+        $thumb_data = file_get_contents(__DIR__ . '/canon-ixus-ii-thumb.jpg');
         $this->assertEquals($ifd1->getThumbnailData(), $thumb_data);
 
         /* Next IFD. */

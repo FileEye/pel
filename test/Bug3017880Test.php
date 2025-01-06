@@ -17,7 +17,7 @@ class Bug3017880Test extends TestCase
 {
     public function testThisDoesNotWorkAsExpected(): void
     {
-        $filename = dirname(__FILE__) . '/images/bug3017880.jpg';
+        $filename = __DIR__ . '/images/bug3017880.jpg';
         try {
             $resave_file = 0;
             $jpeg = new PelJpeg($filename);
@@ -55,7 +55,7 @@ class Bug3017880Test extends TestCase
             if (! file_put_contents($filename, $jpeg->getBytes())) {
                 // if it was okay to resave the file, but it did not save correctly
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->fail('Test should not throw an exception');
         }
     }

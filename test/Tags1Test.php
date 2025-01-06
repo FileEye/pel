@@ -14,7 +14,7 @@ class Tags1Test extends TestCase
     {
         Pel::clearExceptions();
         Pel::setStrictParsing(true);
-        $jpeg = new PelJpeg(dirname(__FILE__) . '/images/test-tags-1.jpg');
+        $jpeg = new PelJpeg(__DIR__ . '/images/test-tags-1.jpg');
 
         $exif = $jpeg->getExif();
         $this->assertInstanceOf('\lsolesen\pel\PelExif', $exif);

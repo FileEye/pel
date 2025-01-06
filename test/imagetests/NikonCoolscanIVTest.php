@@ -46,7 +46,7 @@ class NikonCoolscanIVTest extends TestCase
     {
         Pel::clearExceptions();
         Pel::setStrictParsing(false);
-        $jpeg = new PelJpeg(dirname(__FILE__) . '/nikon-coolscan-iv.jpg');
+        $jpeg = new PelJpeg(__DIR__ . '/nikon-coolscan-iv.jpg');
 
         $exif = $jpeg->getExif();
         $this->assertInstanceOf(PelExif::class, $exif);

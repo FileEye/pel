@@ -19,8 +19,8 @@ class Gh16Test extends TestCase
 
     protected function setUp(): void
     {
-        $this->file = dirname(__FILE__) . '/images/gh-16-tmp.jpg';
-        $file = dirname(__FILE__) . '/images/gh-16.jpg';
+        $this->file = __DIR__ . '/images/gh-16-tmp.jpg';
+        $file = __DIR__ . '/images/gh-16.jpg';
         copy($file, $this->file);
     }
 

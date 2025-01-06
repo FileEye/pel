@@ -44,7 +44,7 @@ abstract class NumberTestCase extends TestCase
         $caught = false;
         try {
             $this->num->setValue($this->max + 1);
-        } catch (PelOverflowException $e) {
+        } catch (PelOverflowException) {
             $caught = true;
         }
         $this->assertTrue($caught);
@@ -53,7 +53,7 @@ abstract class NumberTestCase extends TestCase
         $caught = false;
         try {
             $this->num->setValue(0, $this->max + 1);
-        } catch (PelOverflowException $e) {
+        } catch (PelOverflowException) {
             $caught = true;
         }
         $this->assertTrue($caught);
@@ -62,7 +62,7 @@ abstract class NumberTestCase extends TestCase
         $caught = false;
         try {
             $this->num->setValue(0, $this->min - 1);
-        } catch (PelOverflowException $e) {
+        } catch (PelOverflowException) {
             $caught = true;
         }
         $this->assertTrue($caught);

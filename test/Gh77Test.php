@@ -12,7 +12,7 @@ class Gh77Test extends TestCase
 {
     public function testReturnModul(): void
     {
-        $file = dirname(__FILE__) . '/images/gh-77.jpg';
+        $file = __DIR__ . '/images/gh-77.jpg';
 
         $input_jpeg = new PelJpeg($file);
         $app1 = $input_jpeg->getExif();

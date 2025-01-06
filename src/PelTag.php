@@ -1812,7 +1812,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $exifTagsShort = [
+    public static array $exifTagsShort = [
         self::INTEROPERABILITY_INDEX => 'InteroperabilityIndex',
         self::INTEROPERABILITY_VERSION => 'InteroperabilityVersion',
         self::IMAGE_WIDTH => 'ImageWidth',
@@ -1938,7 +1938,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $exifTagsTitle = [
+    public static array $exifTagsTitle = [
         self::INTEROPERABILITY_INDEX => 'Interoperability Index',
         self::INTEROPERABILITY_VERSION => 'Interoperability Version',
         self::IMAGE_WIDTH => 'Image Width',
@@ -2064,7 +2064,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $gpsTagsShort = [
+    public static array $gpsTagsShort = [
         self::GPS_VERSION_ID => 'GPSVersionID',
         self::GPS_LATITUDE_REF => 'GPSLatitudeRef',
         self::GPS_LATITUDE => 'GPSLatitude',
@@ -2103,7 +2103,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $canonTagsTitle = [
+    public static array $canonTagsTitle = [
         self::CANON_CAMERA_SETTINGS => 'Camera Settings',
         self::CANON_FOCAL_LENGTH => 'Focal Length',
         self::CANON_SHOT_INFO => 'Shot Info',
@@ -2141,7 +2141,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $canonTagsShort = [
+    public static array $canonTagsShort = [
         self::CANON_CAMERA_SETTINGS => 'CameraSettings',
         self::CANON_FOCAL_LENGTH => 'FocalLength',
         self::CANON_SHOT_INFO => 'ShotInfo',
@@ -2179,7 +2179,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $canonCsTagsTitle = [
+    public static array $canonCsTagsTitle = [
         self::CANON_CS_MACRO => 'Macro Mode',
         self::CANON_CS_SELF_TIMER => 'Self Timer',
         self::CANON_CS_QUALITY => 'Quality',
@@ -2224,7 +2224,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $canonCsTagsShort = [
+    public static array $canonCsTagsShort = [
         self::CANON_CS_MACRO => 'MacroMode',
         self::CANON_CS_SELF_TIMER => 'SelfTimer',
         self::CANON_CS_QUALITY => 'Quality',
@@ -2269,7 +2269,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $canonSiTagsTitle = [
+    public static array $canonSiTagsTitle = [
         self::CANON_SI_ISO_SPEED => 'ISO Speed Used',
         self::CANON_SI_MEASURED_EV => 'Measured EV',
         self::CANON_SI_TARGET_APERTURE => 'Target Aperture',
@@ -2294,7 +2294,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $canonSiTagsShort = [
+    public static array $canonSiTagsShort = [
         self::CANON_SI_ISO_SPEED => 'ISOSpeedUsed',
         self::CANON_SI_MEASURED_EV => 'MeasuredEV',
         self::CANON_SI_TARGET_APERTURE => 'TargetAperture',
@@ -2319,7 +2319,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $canonPaTagsTitle = [
+    public static array $canonPaTagsTitle = [
         self::CANON_PA_PANORAMA_FRAME => 'Panorama Frame',
         self::CANON_PA_PANORAMA_DIRECTION => 'Panorama Direction',
     ];
@@ -2329,7 +2329,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $canonPaTagsShort = [
+    public static array $canonPaTagsShort = [
         self::CANON_PA_PANORAMA_FRAME => 'PanoramaFrame',
         self::CANON_PA_PANORAMA_DIRECTION => 'PanoramaDirection',
     ];
@@ -2339,7 +2339,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $canonPiTagsTitle = [
+    public static array $canonPiTagsTitle = [
         self::CANON_PI_IMAGE_WIDTH => 'Image Width',
         self::CANON_PI_IMAGE_HEIGHT => 'Image Height',
         self::CANON_PI_IMAGE_WIDTH_AS_SHOT => 'Image Width As Shot',
@@ -2353,7 +2353,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $canonPiTagsShort = [
+    public static array $canonPiTagsShort = [
         self::CANON_PI_IMAGE_WIDTH => 'ImageWidth',
         self::CANON_PI_IMAGE_HEIGHT => 'ImageHeight',
         self::CANON_PI_IMAGE_WIDTH_AS_SHOT => 'ImageWidthAsShot',
@@ -2367,7 +2367,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $canonFiTagsTitle = [
+    public static array $canonFiTagsTitle = [
         self::CANON_FI_FILE_NUMBER => 'File Number',
         self::CANON_FI_BRACKET_MODE => 'Bracket Mode',
         self::CANON_FI_BRACKET_VALUE => 'Bracket Value',
@@ -2392,7 +2392,7 @@ class PelTag
      *
      * @var array<int, string>
      */
-    protected static array $canonFiTagsShort = [
+    public static array $canonFiTagsShort = [
         self::CANON_FI_FILE_NUMBER => 'FileNumber',
         self::CANON_FI_BRACKET_MODE => 'BracketMode',
         self::CANON_FI_BRACKET_VALUE => 'BracketValue',

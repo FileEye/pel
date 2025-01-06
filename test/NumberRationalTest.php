@@ -32,7 +32,7 @@ class NumberRationalTest extends NumberTestCase
                 7,
                 8
             ]);
-        } catch (PelOverflowException $e) {
+        } catch (PelOverflowException) {
             $caught = true;
         }
         $this->assertTrue($caught);
@@ -50,7 +50,7 @@ class NumberRationalTest extends NumberTestCase
                 1,
                 4294967296
             ]);
-        } catch (PelOverflowException $e) {
+        } catch (PelOverflowException) {
             $caught = true;
         }
         $this->assertTrue($caught);
@@ -68,7 +68,7 @@ class NumberRationalTest extends NumberTestCase
                 4294967296,
                 1
             ]);
-        } catch (PelOverflowException $e) {
+        } catch (PelOverflowException) {
             $caught = true;
         }
         $this->assertTrue($caught);

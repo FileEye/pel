@@ -14,7 +14,7 @@ class NoExifTest extends TestCase
     {
         Pel::clearExceptions();
         Pel::setStrictParsing(false);
-        $jpeg = new PelJpeg(dirname(__FILE__) . '/images/no-exif.jpg');
+        $jpeg = new PelJpeg(__DIR__ . '/images/no-exif.jpg');
 
         $exif = $jpeg->getExif();
         $this->assertNull($exif);

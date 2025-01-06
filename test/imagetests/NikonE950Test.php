@@ -46,7 +46,7 @@ class NikonE950Test extends TestCase
     {
         Pel::clearExceptions();
         Pel::setStrictParsing(false);
-        $jpeg = new PelJpeg(dirname(__FILE__) . '/nikon-e950.jpg');
+        $jpeg = new PelJpeg(__DIR__ . '/nikon-e950.jpg');
 
         $exif = $jpeg->getExif();
         $this->assertInstanceOf(PelExif::class, $exif);
@@ -333,7 +333,7 @@ class NikonE950Test extends TestCase
         /* Sub IFDs of $ifd1. */
         $this->assertEquals(count($ifd1->getSubIfds()), 0);
 
-        $thumb_data = file_get_contents(dirname(__FILE__) . '/nikon-e950-thumb.jpg');
+        $thumb_data = file_get_contents(__DIR__ . '/nikon-e950-thumb.jpg');
         $this->assertEquals($ifd1->getThumbnailData(), $thumb_data);
 
         /* Next IFD. */

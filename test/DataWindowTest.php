@@ -45,7 +45,7 @@ class DataWindowTest extends TestCase
         $caught = false;
         try {
             $clone->getBytes(0, 6);
-        } catch (PelDataWindowOffsetException $e) {
+        } catch (PelDataWindowOffsetException) {
             $caught = true;
         }
         $this->assertTrue($caught);

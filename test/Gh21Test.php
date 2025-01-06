@@ -13,8 +13,8 @@ class Gh21Test extends TestCase
 
     public function setUp(): void
     {
-        $this->file = dirname(__FILE__) . '/images/gh-21-tmp.jpg';
-        $file = dirname(__FILE__) . '/images/gh-21.jpg';
+        $this->file = __DIR__ . '/images/gh-21-tmp.jpg';
+        $file = __DIR__ . '/images/gh-21.jpg';
         copy($file, $this->file);
     }
 

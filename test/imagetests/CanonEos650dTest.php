@@ -46,7 +46,7 @@ class CanonEos650dTest extends TestCase
     {
         Pel::clearExceptions();
         Pel::setStrictParsing(false);
-        $jpeg = new PelJpeg(dirname(__FILE__) . '/canon-eos-650d.jpg');
+        $jpeg = new PelJpeg(__DIR__ . '/canon-eos-650d.jpg');
 
         $exif = $jpeg->getExif();
         $this->assertInstanceOf(PelExif::class, $exif);
@@ -301,7 +301,7 @@ class CanonEos650dTest extends TestCase
         /* Sub IFDs of $ifd1. */
         $this->assertEquals(0, count($ifd1->getSubIfds()));
 
-        $thumb_data = file_get_contents(dirname(__FILE__) . '/canon-eos-650d-thumb.jpg');
+        $thumb_data = file_get_contents(__DIR__ . '/canon-eos-650d-thumb.jpg');
         $this->assertEquals($ifd1->getThumbnailData(), $thumb_data);
 
         /* Next IFD. */

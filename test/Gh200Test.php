@@ -18,7 +18,7 @@ class Gh200Test extends TestCase
 {
     public function testPelDataWindowOffsetExceptionOffsetNotWithin(): void
     {
-        $file = dirname(__FILE__) . '/images/gh-200.jpg';
+        $file = __DIR__ . '/images/gh-200.jpg';
 
         $fileContent = file_get_contents($file);
 
