@@ -35,7 +35,7 @@ abstract class NumberTestCase extends TestCase
         $caught = false;
         try {
             $this->num->setValue($this->min - 1);
-        } catch (PelOverflowException $e) {
+        } catch (PelOverflowException) {
             $caught = true;
         }
         $this->assertTrue($caught);
