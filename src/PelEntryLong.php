@@ -12,9 +12,9 @@ namespace lsolesen\pel;
  * which can have format {@link PelFormat::LONG} like in this
  * example:
  * <code>
- * $w = $ifd->getEntry(PelTag::EXIF_IMAGE_WIDTH);
+ * $w = $ifd->getEntry(PelTag::IMAGE_WIDTH);
  * $w->setValue($w->getValue() / 2);
- * $h = $ifd->getEntry(PelTag::EXIF_IMAGE_HEIGHT);
+ * $h = $ifd->getEntry(PelTag::IMAGE_LENGTH);
  * $h->setValue($h->getValue() / 2);
  * </code>
  * Here the width and height is updated to 50% of their original
