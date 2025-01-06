@@ -8,10 +8,6 @@ use lsolesen\pel\PelEntryByte;
 
 class NumberByteTest extends NumberTestCase
 {
-    /**
-     *
-     * {@inheritdoc}
-     */
     public function setUp(): void
     {
         parent::setUp();

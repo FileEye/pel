@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
 use lsolesen\pel\PelIfd;
 use lsolesen\pel\PelTag;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
 class PelTagTest extends TestCase
 {
@@ -31,131 +32,108 @@ class PelTagTest extends TestCase
         $this->assertStringStartsWith('Unknown: ', PelTag::getName(PelIfd::IFD0, self::NONEXISTENT_EXIF_TAG), 'Non-existent EXIF tag');
         $this->assertStringStartsWith('Unknown: ', PelTag::getName(PelIfd::GPS, self::NONEXISTENT_GPS_TAG), 'Non-existent GPS tag');
 
-        $this->assertSame(static::EXIF_TAG, PelTag::getExifTagByName(self::EXIF_TAG_NAME), 'EXIF tag name');
-        $this->assertSame(static::GPS_TAG, PelTag::getGpsTagByName(self::GPS_TAG_NAME), 'GPS tag name');
-        $this->assertEquals(static::EXIF_TAG_NAME, PelTag::getName(PelIfd::IFD0, self::EXIF_TAG), 'EXIF tag');
-        $this->assertEquals(static::GPS_TAG_NAME, PelTag::getName(PelIfd::GPS, self::GPS_TAG), 'GPS tag');
+        $this->assertSame(self::EXIF_TAG, PelTag::getExifTagByName(self::EXIF_TAG_NAME), 'EXIF tag name');
+        $this->assertSame(self::GPS_TAG, PelTag::getGpsTagByName(self::GPS_TAG_NAME), 'GPS tag name');
+        $this->assertSame(self::EXIF_TAG_NAME, PelTag::getName(PelIfd::IFD0, self::EXIF_TAG), 'EXIF tag');
+        $this->assertSame(self::GPS_TAG_NAME, PelTag::getName(PelIfd::GPS, self::GPS_TAG), 'GPS tag');
     }
 
     /**
-     * @dataProvider getValueProvider
-     *
      * @param array<int, string> $container
      */
+    #[DataProvider('getValueProvider')]
     public function testGetValue(array $container, int $tag, string $expected): void
     {
-        $this->assertEquals($expected, PelTag::getValue($container, $tag));
+        $this->assertSame($expected, PelTag::getValue($container, $tag));
     }
 
     /**
-     * @return array<int, mixed>
+     * @return \Iterator<int, mixed>
      */
-    public static function getValueProvider(): array
+    public static function getValueProvider(): \Iterator
     {
-        return [
-            [PelTag::$exifTagsShort, PelTag::IMAGE_WIDTH, 'ImageWidth'],
-            [PelTag::$exifTagsShort, 0xFFFF, 'Unknown: 0xFFFF'],
-            [PelTag::$gpsTagsShort, PelTag::GPS_LATITUDE, 'GPSLatitude'],
-            [PelTag::$gpsTagsShort, 0xFFFF, 'Unknown: 0xFFFF'],
-        ];
+        yield [PelTag::$exifTagsShort, PelTag::IMAGE_WIDTH, 'ImageWidth'];
+        yield [PelTag::$exifTagsShort, 0xFFFF, 'Unknown: 0xFFFF'];
+        yield [PelTag::$gpsTagsShort, PelTag::GPS_LATITUDE, 'GPSLatitude'];
+        yield [PelTag::$gpsTagsShort, 0xFFFF, 'Unknown: 0xFFFF'];
     }
 
-    /**
-     * @dataProvider getTagByNameProvider
-     */
+    #[DataProvider('getTagByNameProvider')]
     public function testGetTagByName(string $name, int|false $expected): void
     {
         $this->assertSame($expected, PelTag::getTagByName($name));
     }
 
     /**
-     * @return array<int, mixed>
+     * @return \Iterator<int, mixed>
      */
-    public static function getTagByNameProvider(): array
+    public static function getTagByNameProvider(): \Iterator
     {
-        return [
-            ['ImageWidth', PelTag::IMAGE_WIDTH],
-            ['GPSLatitude', PelTag::GPS_LATITUDE],
-            ['NonExistentTag', false],
-        ];
+        yield ['ImageWidth', PelTag::IMAGE_WIDTH];
+        yield ['GPSLatitude', PelTag::GPS_LATITUDE];
+        yield ['NonExistentTag', false];
     }
 
-    /**
-     * @dataProvider getExifTagByNameProvider
-     */
+    #[DataProvider('getExifTagByNameProvider')]
     public function testGetExifTagByName(string $name, int|false $expected): void
     {
         $this->assertSame($expected, PelTag::getExifTagByName($name));
     }
 
     /**
-     * @return array<int, mixed>
+     * @return \Iterator<int, mixed>
      */
-    public static function getExifTagByNameProvider(): array
+    public static function getExifTagByNameProvider(): \Iterator
     {
-        return [
-            ['ImageWidth', PelTag::IMAGE_WIDTH],
-            ['NonExistentTag', false],
-        ];
+        yield ['ImageWidth', PelTag::IMAGE_WIDTH];
+        yield ['NonExistentTag', false];
     }
 
-    /**
-     * @dataProvider getGpsTagByNameProvider
-     */
+    #[DataProvider('getGpsTagByNameProvider')]
     public function testGetGpsTagByName(string $name, int|false $expected): void
     {
         $this->assertSame($expected, PelTag::getGpsTagByName($name));
     }
 
     /**
-     * @return array<int, mixed>
+     * @return \Iterator<int, mixed>
      */
-    public static function getGpsTagByNameProvider(): array
+    public static function getGpsTagByNameProvider(): \Iterator
     {
-        return [
-            ['GPSLatitude', PelTag::GPS_LATITUDE],
-            ['NonExistentTag', false],
-        ];
+        yield ['GPSLatitude', PelTag::GPS_LATITUDE];
+        yield ['NonExistentTag', false];
     }
 
-    /**
-     * @dataProvider getNameProvider
-     */
+    #[DataProvider('getNameProvider')]
     public function testGetName(int $type, int $tag, string $expected): void
     {
-        $this->assertEquals($expected, PelTag::getName($type, $tag));
+        $this->assertSame($expected, PelTag::getName($type, $tag));
     }
 
     /**
-     * @return array<int, mixed>
+     * @return \Iterator<int, mixed>
      */
-    public static function getNameProvider(): array
+    public static function getNameProvider(): \Iterator
     {
-        return [
-            [PelIfd::IFD0, PelTag::IMAGE_WIDTH, 'ImageWidth'],
-            [PelIfd::GPS, PelTag::GPS_LATITUDE, 'GPSLatitude'],
-            [PelIfd::IFD0, 0xFFFF, 'Unknown: 0xFFFF'],
-        ];
+        yield [PelIfd::IFD0, PelTag::IMAGE_WIDTH, 'ImageWidth'];
+        yield [PelIfd::GPS, PelTag::GPS_LATITUDE, 'GPSLatitude'];
+        yield [PelIfd::IFD0, 0xFFFF, 'Unknown: 0xFFFF'];
     }
 
-    /**
-     * @dataProvider getTitleProvider
-     */
+    #[DataProvider('getTitleProvider')]
     public function testGetTitle(int $type, int $tag, string $expected): void
     {
         $pelTag = new PelTag();
-        $this->assertEquals($expected, $pelTag->getTitle($type, $tag));
+        $this->assertSame($expected, $pelTag->getTitle($type, $tag));
     }
 
     /**
-     * @return array<int, mixed>
+     * @return \Iterator<int, mixed>
      */
-    public static function getTitleProvider(): array
+    public static function getTitleProvider(): \Iterator
     {
-        return [
-            [PelIfd::IFD0, PelTag::IMAGE_WIDTH, 'Image Width'],
-            [PelIfd::GPS, PelTag::GPS_LATITUDE, 'GPSLatitude'],
-            [PelIfd::IFD0, 0xFFFF, 'Unknown: 0xFFFF'],
-        ];
+        yield [PelIfd::IFD0, PelTag::IMAGE_WIDTH, 'Image Width'];
+        yield [PelIfd::GPS, PelTag::GPS_LATITUDE, 'GPSLatitude'];
+        yield [PelIfd::IFD0, 0xFFFF, 'Unknown: 0xFFFF'];
     }
 }

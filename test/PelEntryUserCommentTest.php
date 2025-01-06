@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
 use lsolesen\pel\PelEntryUserComment;
+use PHPUnit\Framework\TestCase;
 
 class PelEntryUserCommentTest extends TestCase
 {
     public function testUsercomment(): void
     {
         $entry = new PelEntryUserComment();
-        $this->assertEquals($entry->getComponents(), 8);
-        $this->assertEquals($entry->getValue(), '');
-        $this->assertEquals($entry->getEncoding(), 'ASCII');
+        $this->assertSame(8, $entry->getComponents());
+        $this->assertSame('', $entry->getValue());
+        $this->assertSame('ASCII', $entry->getEncoding());
 
         $entry->setValue('Hello!');
-        $this->assertEquals($entry->getComponents(), 14);
-        $this->assertEquals($entry->getValue(), 'Hello!');
-        $this->assertEquals($entry->getEncoding(), 'ASCII');
+        $this->assertSame(14, $entry->getComponents());
+        $this->assertSame('Hello!', $entry->getValue());
+        $this->assertSame('ASCII', $entry->getEncoding());
     }
 }

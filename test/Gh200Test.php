@@ -4,15 +4,9 @@ declare(strict_types=1);
 
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
-use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelDataWindow;
-use lsolesen\pel\PelIfd;
-use lsolesen\pel\PelEntryAscii;
-use lsolesen\pel\PelTag;
-use lsolesen\pel\PelEntryRational;
-use lsolesen\pel\Pel;
-use lsolesen\pel\PelExif;
+use lsolesen\pel\PelJpeg;
+use PHPUnit\Framework\TestCase;
 
 class Gh200Test extends TestCase
 {

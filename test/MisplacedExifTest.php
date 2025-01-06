@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
 use lsolesen\pel\Pel;
 use lsolesen\pel\PelExif;
 use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelJpegMarker;
+use PHPUnit\Framework\TestCase;
 
 class MisplacedExifTest extends TestCase
 {
@@ -21,7 +21,7 @@ class MisplacedExifTest extends TestCase
         // Image contains non-EXIF APP1 section ahead of the EXIF one
         $jpeg = new PelJpeg(__DIR__ . '/broken_images/misplaced-exif.jpg');
         // Assert we just have loaded correct file for the test
-        $this->assertNotInstanceOf('\lsolesen\pel\PelExif', $jpeg->getSection(PelJpegMarker::APP1));
+        $this->assertNotInstanceOf(PelExif::class, $jpeg->getSection(PelJpegMarker::APP1));
 
         // Manually find exif APP1 section index
         $sections1 = $jpeg->getSections();
@@ -43,7 +43,7 @@ class MisplacedExifTest extends TestCase
         $this->assertNotSame($sections1[$exifIdx][1], $sections2[$exifIdx][1]);
         $this->assertSame($newExif, $sections2[$exifIdx][1]);
 
-        $this->assertInstanceOf('\lsolesen\pel\PelExif', $jpeg->getExif());
+        $this->assertInstanceOf(PelExif::class, $jpeg->getExif());
         $jpeg->clearExif();
         // Assert that only EXIF section is gone and all other shifted correctly.
         $sections3 = $jpeg->getSections();

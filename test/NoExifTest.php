@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
 use lsolesen\pel\Pel;
 use lsolesen\pel\PelJpeg;
+use PHPUnit\Framework\TestCase;
 
 class NoExifTest extends TestCase
 {
@@ -19,6 +19,6 @@ class NoExifTest extends TestCase
         $exif = $jpeg->getExif();
         $this->assertNull($exif);
 
-        $this->assertTrue(count(Pel::getExceptions()) === 0);
+        $this->assertCount(0, Pel::getExceptions());
     }
 }

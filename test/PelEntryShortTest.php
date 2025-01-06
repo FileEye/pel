@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
 use lsolesen\pel\PelEntryShort;
-use lsolesen\pel\PelTag;
-use lsolesen\pel\PelConvert;
 use lsolesen\pel\PelOverflowException;
+use lsolesen\pel\PelTag;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
 class PelEntryShortTest extends TestCase
 {
     /**
-     * @dataProvider constructorProvider
-     *
      * @param array<int, int> $values
      * @param array<int, mixed> $expected
      */
+    #[DataProvider('constructorProvider')]
     public function testConstructor(int $tag, array $values, array $expected): void
     {
         $entry = new PelEntryShort($tag, ...$values);
@@ -25,38 +24,33 @@ class PelEntryShortTest extends TestCase
     }
 
     /**
-     * @return array<int, mixed>
+     * @return \Iterator<int, mixed>
      */
-    public static function constructorProvider(): array
+    public static function constructorProvider(): \Iterator
     {
-        return [
-            [PelTag::IMAGE_WIDTH, [42, 42], [42, 42]],
-            [PelTag::IMAGE_LENGTH, [100, 200], [100, 200]],
-            [PelTag::IMAGE_WIDTH, [], []],
-        ];
+        yield [PelTag::IMAGE_WIDTH, [42, 42], [42, 42]];
+        yield [PelTag::IMAGE_LENGTH, [100, 200], [100, 200]];
+        yield [PelTag::IMAGE_WIDTH, [], []];
     }
 
     /**
-     * @dataProvider getTextProvider
-     * 
      * @param array<int, int> $values
      */
+    #[DataProvider('getTextProvider')]
     public function testGetText(int $tag, array $values, string $expected): void
     {
         $entry = new PelEntryShort($tag, ...$values);
-        $this->assertEquals($expected, $entry->getText());
+        $this->assertSame($expected, $entry->getText());
     }
 
     /**
-     * @return array<int, mixed>
+     * @return \Iterator<int, mixed>
      */
-    public static function getTextProvider(): array
+    public static function getTextProvider(): \Iterator
     {
-        return [
-            [PelTag::METERING_MODE, [2], 'Center-Weighted Average'],
-            [PelTag::METERING_MODE, [0], 'Unknown'],
-            [PelTag::IMAGE_WIDTH, [42], '42'],
-        ];
+        yield [PelTag::METERING_MODE, [2], 'Center-Weighted Average'];
+        yield [PelTag::METERING_MODE, [0], 'Unknown'];
+        yield [PelTag::IMAGE_WIDTH, [42], '42'];
     }
 
     public function testSetValueThrowsException(): void

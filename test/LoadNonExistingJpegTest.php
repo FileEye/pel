@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
 use lsolesen\pel\PelException;
 use lsolesen\pel\PelJpeg;
+use PHPUnit\Framework\TestCase;
 
 class LoadNonExistingJpegTest extends TestCase
 {

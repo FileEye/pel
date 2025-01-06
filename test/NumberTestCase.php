@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
 use lsolesen\pel\Pel;
 use lsolesen\pel\PelEntryNumber;
 use lsolesen\pel\PelOverflowException;
+use PHPUnit\Framework\TestCase;
 
 abstract class NumberTestCase extends TestCase
 {
@@ -17,10 +17,6 @@ abstract class NumberTestCase extends TestCase
 
     protected PelEntryNumber $num;
 
-    /**
-     *
-     * {@inheritdoc}
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -75,7 +71,7 @@ abstract class NumberTestCase extends TestCase
         $this->assertSame([
             1,
             2,
-            3
+            3,
         ], $this->num->getValue());
         $this->assertSame('1, 2, 3', $this->num->getText());
 

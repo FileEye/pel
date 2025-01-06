@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
 use lsolesen\pel\PelEntryAscii;
 use lsolesen\pel\PelEntryTime;
 use lsolesen\pel\PelIfd;
 use lsolesen\pel\PelTag;
+use PHPUnit\Framework\TestCase;
 
 class IfdTest extends TestCase
 {
@@ -16,7 +16,7 @@ class IfdTest extends TestCase
     {
         $ifd = new PelIfd(PelIfd::IFD0);
 
-        $this->assertEquals(sizeof($ifd->getIterator()), 0);
+        $this->assertCount(0, $ifd->getIterator());
 
         $desc = new PelEntryAscii(PelTag::IMAGE_DESCRIPTION, 'Hello?');
         $date = new PelEntryTime(PelTag::DATE_TIME, 12345678);
@@ -24,7 +24,7 @@ class IfdTest extends TestCase
         $ifd->addEntry($desc);
         $ifd->addEntry($date);
 
-        $this->assertEquals(sizeof($ifd->getIterator()), 2);
+        $this->assertCount(2, $ifd->getIterator());
 
         $entries = [];
         foreach ($ifd as $tag => $entry) {
@@ -39,7 +39,7 @@ class IfdTest extends TestCase
     {
         $ifd = new PelIfd(PelIfd::IFD0);
 
-        $this->assertEquals(sizeof($ifd->getIterator()), 0);
+        $this->assertCount(0, $ifd->getIterator());
 
         $desc = new PelEntryAscii(PelTag::IMAGE_DESCRIPTION, 'Hello?');
         $date = new PelEntryTime(PelTag::DATE_TIME, 12345678);
@@ -52,6 +52,6 @@ class IfdTest extends TestCase
 
         unset($ifd[PelTag::DATE_TIME]);
 
-        $this->assertFalse(isset($ifd[PelTag::DATE_TIME]));
+        $this->assertArrayNotHasKey(PelTag::DATE_TIME, $ifd);
     }
 }

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Pel\Test;
 
 use Exception;
-use lsolesen\pel\PelJpeg;
-use lsolesen\pel\PelExif;
-use lsolesen\pel\PelTiff;
-use lsolesen\pel\PelIfd;
-use lsolesen\pel\PelTag;
 use lsolesen\pel\PelEntryAscii;
+use lsolesen\pel\PelExif;
+use lsolesen\pel\PelIfd;
+use lsolesen\pel\PelJpeg;
+use lsolesen\pel\PelTag;
+use lsolesen\pel\PelTiff;
 use PHPUnit\Framework\TestCase;
 
 class Bug3017880Test extends TestCase

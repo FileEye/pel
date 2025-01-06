@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
 use lsolesen\pel\PelDataWindow;
 use lsolesen\pel\PelEntryWindowsString;
 use lsolesen\pel\PelExif;
@@ -12,6 +11,7 @@ use lsolesen\pel\PelIfd;
 use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelTag;
 use lsolesen\pel\PelTiff;
+use PHPUnit\Framework\TestCase;
 
 class Gh16Test extends TestCase
 {
@@ -31,7 +31,7 @@ class Gh16Test extends TestCase
 
     public function testThisDoesNotWorkAsExpected(): void
     {
-        $subject = "Превед, медвед!";
+        $subject = 'Превед, медвед!';
 
         $fileContent = file_get_contents($this->file);
 
@@ -45,7 +45,7 @@ class Gh16Test extends TestCase
         $jpeg->load($data);
         $exif = $jpeg->getExif();
 
-        if (null === $exif) {
+        if ($exif === null) {
             $exif = new PelExif();
             $jpeg->setExif($exif);
             $tiff = new PelTiff();
@@ -56,7 +56,7 @@ class Gh16Test extends TestCase
         $this->assertNotNull($tiff);
 
         $ifd0 = $tiff->getIfd();
-        if (null === $ifd0) {
+        if ($ifd0 === null) {
             $ifd0 = new PelIfd(PelIfd::IFD0);
             $tiff->setIfd($ifd0);
         }

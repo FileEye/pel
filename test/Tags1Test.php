@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
 use lsolesen\pel\Pel;
+use lsolesen\pel\PelEntry;
+use lsolesen\pel\PelExif;
+use lsolesen\pel\PelIfd;
 use lsolesen\pel\PelJpeg;
+use lsolesen\pel\PelTag;
+use lsolesen\pel\PelTiff;
+use PHPUnit\Framework\TestCase;
 
 class Tags1Test extends TestCase
 {
@@ -17,31 +22,31 @@ class Tags1Test extends TestCase
         $jpeg = new PelJpeg(__DIR__ . '/images/test-tags-1.jpg');
 
         $exif = $jpeg->getExif();
-        $this->assertInstanceOf('\lsolesen\pel\PelExif', $exif);
+        $this->assertInstanceOf(PelExif::class, $exif);
 
         $tiff = $exif->getTiff();
-        $this->assertInstanceOf('\lsolesen\pel\PelTiff', $tiff);
+        $this->assertInstanceOf(PelTiff::class, $tiff);
 
         $ifd0 = $tiff->getIfd();
-        $this->assertInstanceOf('\lsolesen\pel\PelIfd', $ifd0);
+        $this->assertInstanceOf(PelIfd::class, $ifd0);
 
-        $ratingPercent = $ifd0->getEntry(\lsolesen\pel\PelTag::RATING_PERCENT);
-        $this->assertInstanceOf('\lsolesen\pel\PelEntry', $ratingPercent);
+        $ratingPercent = $ifd0->getEntry(PelTag::RATING_PERCENT);
+        $this->assertInstanceOf(PelEntry::class, $ratingPercent);
         $this->assertEquals(78, $ratingPercent->getValue());
 
-        $exifIfd = $ifd0->getSubIfd(\lsolesen\pel\PelIfd::EXIF);
-        $this->assertInstanceOf('\lsolesen\pel\PelIfd', $exifIfd);
+        $exifIfd = $ifd0->getSubIfd(PelIfd::EXIF);
+        $this->assertInstanceOf(PelIfd::class, $exifIfd);
 
-        $offsetTime = $exifIfd->getEntry(\lsolesen\pel\PelTag::OFFSET_TIME);
-        $this->assertInstanceOf('\lsolesen\pel\PelEntry', $offsetTime);
+        $offsetTime = $exifIfd->getEntry(PelTag::OFFSET_TIME);
+        $this->assertInstanceOf(PelEntry::class, $offsetTime);
         $this->assertEquals('-09:00', $offsetTime->getValue());
 
-        $offsetTimeDigitized = $exifIfd->getEntry(\lsolesen\pel\PelTag::OFFSET_TIME_DIGITIZED);
-        $this->assertInstanceOf('\lsolesen\pel\PelEntry', $offsetTimeDigitized);
+        $offsetTimeDigitized = $exifIfd->getEntry(PelTag::OFFSET_TIME_DIGITIZED);
+        $this->assertInstanceOf(PelEntry::class, $offsetTimeDigitized);
         $this->assertEquals('-10:00', $offsetTimeDigitized->getValue());
 
-        $offsetTimeOriginal = $exifIfd->getEntry(\lsolesen\pel\PelTag::OFFSET_TIME_ORIGINAL);
-        $this->assertInstanceOf('\lsolesen\pel\PelEntry', $offsetTimeOriginal);
+        $offsetTimeOriginal = $exifIfd->getEntry(PelTag::OFFSET_TIME_ORIGINAL);
+        $this->assertInstanceOf(PelEntry::class, $offsetTimeOriginal);
         $this->assertEquals('-11:00', $offsetTimeOriginal->getValue());
     }
 }

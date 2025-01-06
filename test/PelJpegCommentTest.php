@@ -4,50 +4,41 @@ declare(strict_types=1);
 
 namespace lsolesen\pel;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use lsolesen\pel\PelJpegComment;
-use lsolesen\pel\PelDataWindow;
 
 class PelJpegCommentTest extends TestCase
 {
-    /**
-     * @dataProvider commentProvider
-     */
+    #[DataProvider('commentProvider')]
     public function testConstructAndGetValue(string $initialComment, string $expected): void
     {
         $comment = new PelJpegComment($initialComment);
-        $this->assertEquals($expected, $comment->getValue());
+        $this->assertSame($expected, $comment->getValue());
     }
 
     /**
-     * @return array<int, mixed>
+     * @return \Iterator<int, mixed>
      */
-    public static function commentProvider(): array
+    public static function commentProvider(): \Iterator
     {
-        return [
-            ['Test comment', 'Test comment'],
-            ['', ''],
-            ['Another comment', 'Another comment'],
-        ];
+        yield ['Test comment', 'Test comment'];
+        yield ['', ''];
+        yield ['Another comment', 'Another comment'];
     }
 
-    /**
-     * @dataProvider commentProvider
-     */
+    #[DataProvider('commentProvider')]
     public function testSetValue(string $newComment, string $expected): void
     {
         $comment = new PelJpegComment();
         $comment->setValue($newComment);
-        $this->assertEquals($expected, $comment->getValue());
+        $this->assertSame($expected, $comment->getValue());
     }
 
-    /**
-     * @dataProvider commentProvider
-     */
+    #[DataProvider('commentProvider')]
     public function testToString(string $initialComment, string $expected): void
     {
         $comment = new PelJpegComment($initialComment);
-        $this->assertEquals($expected, (string)$comment);
+        $this->assertSame($expected, (string) $comment);
     }
 
     public function testLoad(): void
@@ -58,12 +49,12 @@ class PelJpegCommentTest extends TestCase
         $comment = new PelJpegComment();
         $comment->load($dataWindowMock);
 
-        $this->assertEquals('Loaded comment', $comment->getValue());
+        $this->assertSame('Loaded comment', $comment->getValue());
     }
 
     public function testGetBytes(): void
     {
         $comment = new PelJpegComment('Byte comment');
-        $this->assertEquals('Byte comment', $comment->getBytes());
+        $this->assertSame('Byte comment', $comment->getBytes());
     }
 }

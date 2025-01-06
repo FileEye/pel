@@ -15,161 +15,161 @@ class ConvertTest extends TestCase
     {
         $o = PelConvert::LITTLE_ENDIAN;
 
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 0, $o), 0x00000000);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 1, $o), 0x01000000);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 2, $o), 0x23010000);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 3, $o), 0x45230100);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 4, $o), 0x67452301);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 5, $o), 0x89674523);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 6, $o), 0xAB896745);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 7, $o), 0xCDAB8967);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 8, $o), 0xEFCDAB89);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 9, $o), 0xFFEFCDAB);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 10, $o), 0xFFFFEFCD);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 11, $o), 0xFFFFFFEF);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 12, $o), 0xFFFFFFFF);
+        $this->assertSame(0x00000000, PelConvert::bytesToLong($this->bytes, 0, $o));
+        $this->assertSame(0x01000000, PelConvert::bytesToLong($this->bytes, 1, $o));
+        $this->assertSame(0x23010000, PelConvert::bytesToLong($this->bytes, 2, $o));
+        $this->assertSame(0x45230100, PelConvert::bytesToLong($this->bytes, 3, $o));
+        $this->assertSame(0x67452301, PelConvert::bytesToLong($this->bytes, 4, $o));
+        $this->assertSame(0x89674523, PelConvert::bytesToLong($this->bytes, 5, $o));
+        $this->assertSame(0xAB896745, PelConvert::bytesToLong($this->bytes, 6, $o));
+        $this->assertSame(0xCDAB8967, PelConvert::bytesToLong($this->bytes, 7, $o));
+        $this->assertSame(0xEFCDAB89, PelConvert::bytesToLong($this->bytes, 8, $o));
+        $this->assertSame(0xFFEFCDAB, PelConvert::bytesToLong($this->bytes, 9, $o));
+        $this->assertSame(0xFFFFEFCD, PelConvert::bytesToLong($this->bytes, 10, $o));
+        $this->assertSame(0xFFFFFFEF, PelConvert::bytesToLong($this->bytes, 11, $o));
+        $this->assertSame(0xFFFFFFFF, PelConvert::bytesToLong($this->bytes, 12, $o));
     }
 
     public function testLongBig(): void
     {
         $o = PelConvert::BIG_ENDIAN;
 
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 0, $o), 0x00000000);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 1, $o), 0x00000001);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 2, $o), 0x00000123);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 3, $o), 0x00012345);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 4, $o), 0x01234567);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 5, $o), 0x23456789);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 6, $o), 0x456789AB);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 7, $o), 0x6789ABCD);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 8, $o), 0x89ABCDEF);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 9, $o), 0xABCDEFFF);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 10, $o), 0xCDEFFFFF);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 11, $o), 0xEFFFFFFF);
-        $this->assertEquals(PelConvert::bytesToLong($this->bytes, 12, $o), 0xFFFFFFFF);
+        $this->assertSame(0x00000000, PelConvert::bytesToLong($this->bytes, 0, $o));
+        $this->assertSame(0x00000001, PelConvert::bytesToLong($this->bytes, 1, $o));
+        $this->assertSame(0x00000123, PelConvert::bytesToLong($this->bytes, 2, $o));
+        $this->assertSame(0x00012345, PelConvert::bytesToLong($this->bytes, 3, $o));
+        $this->assertSame(0x01234567, PelConvert::bytesToLong($this->bytes, 4, $o));
+        $this->assertSame(0x23456789, PelConvert::bytesToLong($this->bytes, 5, $o));
+        $this->assertSame(0x456789AB, PelConvert::bytesToLong($this->bytes, 6, $o));
+        $this->assertSame(0x6789ABCD, PelConvert::bytesToLong($this->bytes, 7, $o));
+        $this->assertSame(0x89ABCDEF, PelConvert::bytesToLong($this->bytes, 8, $o));
+        $this->assertSame(0xABCDEFFF, PelConvert::bytesToLong($this->bytes, 9, $o));
+        $this->assertSame(0xCDEFFFFF, PelConvert::bytesToLong($this->bytes, 10, $o));
+        $this->assertSame(0xEFFFFFFF, PelConvert::bytesToLong($this->bytes, 11, $o));
+        $this->assertSame(0xFFFFFFFF, PelConvert::bytesToLong($this->bytes, 12, $o));
     }
 
     public function testShortLittle(): void
     {
         $o = PelConvert::LITTLE_ENDIAN;
 
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 0, $o), 0x0000);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 1, $o), 0x0000);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 2, $o), 0x0000);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 3, $o), 0x0100);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 4, $o), 0x2301);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 5, $o), 0x4523);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 6, $o), 0x6745);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 7, $o), 0x8967);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 8, $o), 0xAB89);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 9, $o), 0xCDAB);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 10, $o), 0xEFCD);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 11, $o), 0xFFEF);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 12, $o), 0xFFFF);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 13, $o), 0xFFFF);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 14, $o), 0xFFFF);
+        $this->assertSame(0x0000, PelConvert::bytesToShort($this->bytes, 0, $o));
+        $this->assertSame(0x0000, PelConvert::bytesToShort($this->bytes, 1, $o));
+        $this->assertSame(0x0000, PelConvert::bytesToShort($this->bytes, 2, $o));
+        $this->assertSame(0x0100, PelConvert::bytesToShort($this->bytes, 3, $o));
+        $this->assertSame(0x2301, PelConvert::bytesToShort($this->bytes, 4, $o));
+        $this->assertSame(0x4523, PelConvert::bytesToShort($this->bytes, 5, $o));
+        $this->assertSame(0x6745, PelConvert::bytesToShort($this->bytes, 6, $o));
+        $this->assertSame(0x8967, PelConvert::bytesToShort($this->bytes, 7, $o));
+        $this->assertSame(0xAB89, PelConvert::bytesToShort($this->bytes, 8, $o));
+        $this->assertSame(0xCDAB, PelConvert::bytesToShort($this->bytes, 9, $o));
+        $this->assertSame(0xEFCD, PelConvert::bytesToShort($this->bytes, 10, $o));
+        $this->assertSame(0xFFEF, PelConvert::bytesToShort($this->bytes, 11, $o));
+        $this->assertSame(0xFFFF, PelConvert::bytesToShort($this->bytes, 12, $o));
+        $this->assertSame(0xFFFF, PelConvert::bytesToShort($this->bytes, 13, $o));
+        $this->assertSame(0xFFFF, PelConvert::bytesToShort($this->bytes, 14, $o));
     }
 
     public function testShortBig(): void
     {
         $o = PelConvert::BIG_ENDIAN;
 
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 0, $o), 0x0000);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 1, $o), 0x0000);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 2, $o), 0x0000);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 3, $o), 0x0001);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 4, $o), 0x0123);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 5, $o), 0x2345);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 6, $o), 0x4567);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 7, $o), 0x6789);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 8, $o), 0x89AB);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 9, $o), 0xABCD);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 10, $o), 0xCDEF);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 11, $o), 0xEFFF);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 12, $o), 0xFFFF);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 13, $o), 0xFFFF);
-        $this->assertEquals(PelConvert::bytesToShort($this->bytes, 14, $o), 0xFFFF);
+        $this->assertSame(0x0000, PelConvert::bytesToShort($this->bytes, 0, $o));
+        $this->assertSame(0x0000, PelConvert::bytesToShort($this->bytes, 1, $o));
+        $this->assertSame(0x0000, PelConvert::bytesToShort($this->bytes, 2, $o));
+        $this->assertSame(0x0001, PelConvert::bytesToShort($this->bytes, 3, $o));
+        $this->assertSame(0x0123, PelConvert::bytesToShort($this->bytes, 4, $o));
+        $this->assertSame(0x2345, PelConvert::bytesToShort($this->bytes, 5, $o));
+        $this->assertSame(0x4567, PelConvert::bytesToShort($this->bytes, 6, $o));
+        $this->assertSame(0x6789, PelConvert::bytesToShort($this->bytes, 7, $o));
+        $this->assertSame(0x89AB, PelConvert::bytesToShort($this->bytes, 8, $o));
+        $this->assertSame(0xABCD, PelConvert::bytesToShort($this->bytes, 9, $o));
+        $this->assertSame(0xCDEF, PelConvert::bytesToShort($this->bytes, 10, $o));
+        $this->assertSame(0xEFFF, PelConvert::bytesToShort($this->bytes, 11, $o));
+        $this->assertSame(0xFFFF, PelConvert::bytesToShort($this->bytes, 12, $o));
+        $this->assertSame(0xFFFF, PelConvert::bytesToShort($this->bytes, 13, $o));
+        $this->assertSame(0xFFFF, PelConvert::bytesToShort($this->bytes, 14, $o));
     }
 
     public function testSShortLittle(): void
     {
         $o = PelConvert::LITTLE_ENDIAN;
 
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 0, $o), 0);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 1, $o), 0);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 2, $o), 0);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 3, $o), 256);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 4, $o), 8961);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 5, $o), 17699);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 6, $o), 26437);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 7, $o), - 30361);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 8, $o), - 21623);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 9, $o), - 12885);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 10, $o), - 4147);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 11, $o), - 17);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 12, $o), - 1);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 13, $o), - 1);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 14, $o), - 1);
+        $this->assertSame(0, PelConvert::bytesToSShort($this->bytes, 0, $o));
+        $this->assertSame(0, PelConvert::bytesToSShort($this->bytes, 1, $o));
+        $this->assertSame(0, PelConvert::bytesToSShort($this->bytes, 2, $o));
+        $this->assertSame(256, PelConvert::bytesToSShort($this->bytes, 3, $o));
+        $this->assertSame(8961, PelConvert::bytesToSShort($this->bytes, 4, $o));
+        $this->assertSame(17699, PelConvert::bytesToSShort($this->bytes, 5, $o));
+        $this->assertSame(26437, PelConvert::bytesToSShort($this->bytes, 6, $o));
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 7, $o), - 30361);
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 8, $o), - 21623);
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 9, $o), - 12885);
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 10, $o), - 4147);
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 11, $o), - 17);
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 12, $o), - 1);
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 13, $o), - 1);
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 14, $o), - 1);
     }
 
     public function testSShortBig(): void
     {
         $o = PelConvert::BIG_ENDIAN;
 
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 0, $o), 0);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 1, $o), 0);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 2, $o), 0);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 3, $o), 1);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 4, $o), 291);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 5, $o), 9029);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 6, $o), 17767);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 7, $o), 26505);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 8, $o), - 30293);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 9, $o), - 21555);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 10, $o), - 12817);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 11, $o), - 4097);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 12, $o), - 1);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 13, $o), - 1);
-        $this->assertEquals(PelConvert::bytesToSShort($this->bytes, 14, $o), - 1);
+        $this->assertSame(0, PelConvert::bytesToSShort($this->bytes, 0, $o));
+        $this->assertSame(0, PelConvert::bytesToSShort($this->bytes, 1, $o));
+        $this->assertSame(0, PelConvert::bytesToSShort($this->bytes, 2, $o));
+        $this->assertSame(1, PelConvert::bytesToSShort($this->bytes, 3, $o));
+        $this->assertSame(291, PelConvert::bytesToSShort($this->bytes, 4, $o));
+        $this->assertSame(9029, PelConvert::bytesToSShort($this->bytes, 5, $o));
+        $this->assertSame(17767, PelConvert::bytesToSShort($this->bytes, 6, $o));
+        $this->assertSame(26505, PelConvert::bytesToSShort($this->bytes, 7, $o));
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 8, $o), - 30293);
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 9, $o), - 21555);
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 10, $o), - 12817);
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 11, $o), - 4097);
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 12, $o), - 1);
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 13, $o), - 1);
+        $this->assertSame(PelConvert::bytesToSShort($this->bytes, 14, $o), - 1);
     }
 
     public function testByte(): void
     {
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 0), 0x00);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 1), 0x00);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 2), 0x00);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 3), 0x00);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 4), 0x01);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 5), 0x23);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 6), 0x45);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 7), 0x67);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 8), 0x89);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 9), 0xAB);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 10), 0xCD);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 11), 0xEF);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 12), 0xFF);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 13), 0xFF);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 14), 0xFF);
-        $this->assertEquals(PelConvert::bytesToByte($this->bytes, 15), 0xFF);
+        $this->assertSame(0x00, PelConvert::bytesToByte($this->bytes, 0));
+        $this->assertSame(0x00, PelConvert::bytesToByte($this->bytes, 1));
+        $this->assertSame(0x00, PelConvert::bytesToByte($this->bytes, 2));
+        $this->assertSame(0x00, PelConvert::bytesToByte($this->bytes, 3));
+        $this->assertSame(0x01, PelConvert::bytesToByte($this->bytes, 4));
+        $this->assertSame(0x23, PelConvert::bytesToByte($this->bytes, 5));
+        $this->assertSame(0x45, PelConvert::bytesToByte($this->bytes, 6));
+        $this->assertSame(0x67, PelConvert::bytesToByte($this->bytes, 7));
+        $this->assertSame(0x89, PelConvert::bytesToByte($this->bytes, 8));
+        $this->assertSame(0xAB, PelConvert::bytesToByte($this->bytes, 9));
+        $this->assertSame(0xCD, PelConvert::bytesToByte($this->bytes, 10));
+        $this->assertSame(0xEF, PelConvert::bytesToByte($this->bytes, 11));
+        $this->assertSame(0xFF, PelConvert::bytesToByte($this->bytes, 12));
+        $this->assertSame(0xFF, PelConvert::bytesToByte($this->bytes, 13));
+        $this->assertSame(0xFF, PelConvert::bytesToByte($this->bytes, 14));
+        $this->assertSame(0xFF, PelConvert::bytesToByte($this->bytes, 15));
     }
 
     public function testSByte(): void
     {
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 0), 0);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 1), 0);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 2), 0);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 3), 0);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 4), 1);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 5), 35);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 6), 69);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 7), 103);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 8), - 119);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 9), - 85);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 10), - 51);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 11), - 17);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 12), - 1);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 13), - 1);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 14), - 1);
-        $this->assertEquals(PelConvert::bytesToSByte($this->bytes, 15), - 1);
+        $this->assertSame(0, PelConvert::bytesToSByte($this->bytes, 0));
+        $this->assertSame(0, PelConvert::bytesToSByte($this->bytes, 1));
+        $this->assertSame(0, PelConvert::bytesToSByte($this->bytes, 2));
+        $this->assertSame(0, PelConvert::bytesToSByte($this->bytes, 3));
+        $this->assertSame(1, PelConvert::bytesToSByte($this->bytes, 4));
+        $this->assertSame(35, PelConvert::bytesToSByte($this->bytes, 5));
+        $this->assertSame(69, PelConvert::bytesToSByte($this->bytes, 6));
+        $this->assertSame(103, PelConvert::bytesToSByte($this->bytes, 7));
+        $this->assertSame(PelConvert::bytesToSByte($this->bytes, 8), - 119);
+        $this->assertSame(PelConvert::bytesToSByte($this->bytes, 9), - 85);
+        $this->assertSame(PelConvert::bytesToSByte($this->bytes, 10), - 51);
+        $this->assertSame(PelConvert::bytesToSByte($this->bytes, 11), - 17);
+        $this->assertSame(PelConvert::bytesToSByte($this->bytes, 12), - 1);
+        $this->assertSame(PelConvert::bytesToSByte($this->bytes, 13), - 1);
+        $this->assertSame(PelConvert::bytesToSByte($this->bytes, 14), - 1);
+        $this->assertSame(PelConvert::bytesToSByte($this->bytes, 15), - 1);
     }
 }

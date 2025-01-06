@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
 use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelTag;
+use PHPUnit\Framework\TestCase;
 
 class Gh77Test extends TestCase
 {
@@ -27,6 +27,6 @@ class Gh77Test extends TestCase
         $model = $ifd0->getEntry(PelTag::MODEL);
         $this->assertNotNull($model);
 
-        $this->assertEquals($model->getValue(), "Canon EOS 5D Mark III");
+        $this->assertEquals('Canon EOS 5D Mark III', $model->getValue());
     }
 }
