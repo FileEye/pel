@@ -44,7 +44,7 @@ jobs:
           id: actions-cache
           with:
             path: ${{ steps.composer-cache.outputs.dir }}
-            key: ${{ runner.os }}-composer-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+            key: ${{ runner.os }}-composer-${{ matrix.php-version }}
             restore-keys: |
               ${{ runner.os }}-composer-
 
@@ -53,7 +53,7 @@ jobs:
           id: vendor-cache
           with:
             path: vendor
-            key: ${{ runner.os }}-build-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+            key: ${{ runner.os }}-build-${{ matrix.php-version }}
 
         - name: Install Composer dependencies
           run: composer install --no-progress --ansi
