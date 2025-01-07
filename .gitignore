@@ -4,6 +4,7 @@ doc/*
 vendor
 ChangeLog
 build-base*
+composer.lock
 /.phpcs-cache
 /.phpunit.result.cache
 /.settings/
