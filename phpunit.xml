@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	backupGlobals="false" 
-	colors="true"
-        stopOnFailure="false"
-	bootstrap="vendor/autoload.php"
-	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.3/phpunit.xsd">
-        <source>
-                <include>
-                        <directory>./src/</directory>
-                </include>
-        </source>
-	<testsuites>
-		<testsuite name="Pel Testing Suite">
-			<directory suffix=".php">./test/</directory>
-		</testsuite>
-	</testsuites>
+    backupGlobals="false" 
+    colors="true"
+    stopOnFailure="false"
+    bootstrap="vendor/autoload.php"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.3/phpunit.xsd">
+    <source>
+        <include>
+            <directory>./src/</directory>
+        </include>
+    </source>
+    <testsuites>
+        <testsuite name="Pel Testing Suite">
+            <directory suffix=".php">./test/</directory>
+            <exclude>
+                test/NumberTestCase.php
+            </exclude>
+        </testsuite>
+    </testsuites>
 </phpunit>

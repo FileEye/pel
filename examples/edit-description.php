@@ -24,6 +24,8 @@
  * Boston, MA 02110-1301 USA
  */
 
+namespace Pel\examples;
+
 /* a printf() variant that appends a newline to the output. */
 use lsolesen\pel\Pel;
 use lsolesen\pel\PelConvert;
@@ -34,6 +36,8 @@ use lsolesen\pel\PelIfd;
 use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelTag;
 use lsolesen\pel\PelTiff;
+
+require_once dirname(dirname(__FILE__)) . '/autoload.php';
 
 function println($args)
 {

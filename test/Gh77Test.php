@@ -1,48 +1,32 @@
 <?php
 
-/**
- * PEL: PHP Exif Library.
- * A library with support for reading and
- * writing all Exif headers in JPEG and TIFF images using PHP.
- *
- * Copyright (C) 2004, 2006, 2007 Martin Geisler.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program in the file COPYING; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301 USA
- */
+declare(strict_types=1);
+
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
 use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelTag;
+use PHPUnit\Framework\TestCase;
 
 class Gh77Test extends TestCase
 {
-
-    public function testReturnModul()
+    public function testReturnModul(): void
     {
-        $file = dirname(__FILE__) . '/images/gh-77.jpg';
+        $file = __DIR__ . '/images/gh-77.jpg';
 
         $input_jpeg = new PelJpeg($file);
         $app1 = $input_jpeg->getExif();
+        $this->assertNotNull($app1);
 
         $tiff = $app1->getTiff();
+        $this->assertNotNull($tiff);
+
         $ifd0 = $tiff->getIfd();
+        $this->assertNotNull($ifd0);
 
         $model = $ifd0->getEntry(PelTag::MODEL);
+        $this->assertNotNull($model);
 
-        $this->assertEquals($model->getValue(), "Canon EOS 5D Mark III");
+        $this->assertEquals('Canon EOS 5D Mark III', $model->getValue());
     }
 }

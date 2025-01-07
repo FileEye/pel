@@ -1,26 +1,7 @@
 <?php
 
-/*
- * PEL: PHP Exif Library. A library with support for reading and
- * writing all Exif headers in JPEG and TIFF images using PHP.
- *
- * Copyright (C) 2004, 2006, 2007 Martin Geisler.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program in the file COPYING; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301 USA
- */
+declare(strict_types=1);
+
 namespace Pel\Test;
 
 use lsolesen\pel\PelConvert;
@@ -28,102 +9,114 @@ use lsolesen\pel\PelEntryAscii;
 use lsolesen\pel\PelEntryCopyright;
 use lsolesen\pel\PelEntryTime;
 use lsolesen\pel\PelFormat;
+use lsolesen\pel\PelInvalidArgumentException;
 use lsolesen\pel\PelTag;
 use PHPUnit\Framework\TestCase;
 
 class AsciiTest extends TestCase
 {
-
-    public function testReturnValues()
+    public function testReturnValues(): void
     {
         $entry = new PelEntryAscii(42);
-        $this->assertEquals($entry->getFormat(), PelFormat::ASCII);
+        $this->assertSame(PelFormat::ASCII, $entry->getFormat());
 
         $entry = new PelEntryAscii(42, 'foo bar baz');
-        $this->assertEquals($entry->getFormat(), PelFormat::ASCII);
-        $this->assertEquals($entry->getComponents(), 12);
-        $this->assertEquals($entry->getValue(), 'foo bar baz');
+        $this->assertSame(PelFormat::ASCII, $entry->getFormat());
+        $this->assertSame(12, $entry->getComponents());
+        $this->assertSame('foo bar baz', $entry->getValue());
     }
 
-    public function testTime()
+    public function testTime(): void
     {
         $entry = new PelEntryTime(PelTag::DATE_TIME_ORIGINAL, 10);
 
-        $this->assertEquals($entry->getFormat(), PelFormat::ASCII);
-        $this->assertEquals($entry->getTag(), PelTag::DATE_TIME_ORIGINAL);
-        $this->assertEquals($entry->getComponents(), 20);
-        $this->assertEquals($entry->getValue(), 10);
-        $this->assertEquals($entry->getValue(PelEntryTime::UNIX_TIMESTAMP), 10);
-        $this->assertEquals($entry->getValue(PelEntryTime::EXIF_STRING), '1970:01:01 00:00:10');
-        $this->assertEquals($entry->getValue(PelEntryTime::JULIAN_DAY_COUNT), 2440588 + 10 / 86400);
-        $this->assertEquals($entry->getText(), '1970:01:01 00:00:10');
-        $this->assertEquals($entry->getBytes(PelConvert::LITTLE_ENDIAN), '1970:01:01 00:00:10' . chr(0x00));
+        $this->assertSame(PelFormat::ASCII, $entry->getFormat());
+        $this->assertSame(PelTag::DATE_TIME_ORIGINAL, $entry->getTag());
+        $this->assertSame(20, $entry->getComponents());
+        $this->assertSame('10', $entry->getValue());
+        $this->assertSame('10', $entry->getValue(PelEntryTime::UNIX_TIMESTAMP));
+        $this->assertSame('1970:01:01 00:00:10', $entry->getValue(PelEntryTime::EXIF_STRING));
+        $this->assertSame($entry->getValue(PelEntryTime::JULIAN_DAY_COUNT), (string) (int) (2440588 + round(10 / 86400, 2)));
+        $this->assertSame('1970:01:01 00:00:10', $entry->getText());
+        $this->assertSame($entry->getBytes(PelConvert::LITTLE_ENDIAN), '1970:01:01 00:00:10' . chr(0x00));
 
         // Malformed Exif timestamp.
         $entry->setValue('1970!01-01 00 00 30', PelEntryTime::EXIF_STRING);
-        $this->assertEquals($entry->getValue(), 30);
+        $this->assertSame('30', $entry->getValue());
 
         $entry->setValue(2415021.75, PelEntryTime::JULIAN_DAY_COUNT);
         // This is Jan 1st 1900 at 18:00, outside the range of a UNIX
-        // timestamp:
-        $this->assertEquals($entry->getValue(), false);
-        $this->assertEquals($entry->getValue(PelEntryTime::EXIF_STRING), '1900:01:01 18:00:00');
-        $this->assertEquals($entry->getValue(PelEntryTime::JULIAN_DAY_COUNT), 2415021.75);
+        $caught = false;
+        try {
+            $entry->getValue();
+        } catch (PelInvalidArgumentException) {
+            $caught = true;
+        }
+        $this->assertTrue($caught);
+
+        $this->assertSame('1900:01:01 18:00:00', $entry->getValue(PelEntryTime::EXIF_STRING));
+        $this->assertEqualsWithDelta(2415021.75, $entry->getValue(PelEntryTime::JULIAN_DAY_COUNT), PHP_FLOAT_EPSILON);
 
         $entry->setValue('0000:00:00 00:00:00', PelEntryTime::EXIF_STRING);
 
-        $this->assertEquals($entry->getValue(), false);
-        $this->assertEquals($entry->getValue(PelEntryTime::EXIF_STRING), '0000:00:00 00:00:00');
-        $this->assertEquals($entry->getValue(PelEntryTime::JULIAN_DAY_COUNT), 0);
+        $caught = false;
+        try {
+            $entry->getValue();
+        } catch (PelInvalidArgumentException) {
+            $caught = true;
+        }
+        $this->assertTrue($caught);
+        $this->assertSame('0000:00:00 00:00:00', $entry->getValue(PelEntryTime::EXIF_STRING));
+        $this->assertSame('0', $entry->getValue(PelEntryTime::JULIAN_DAY_COUNT));
 
         $entry->setValue('9999:12:31 23:59:59', PelEntryTime::EXIF_STRING);
 
         // this test will fail on 32bit machines
-        $this->assertEquals($entry->getValue(), 253402300799);
-        $this->assertEquals($entry->getValue(PelEntryTime::EXIF_STRING), '9999:12:31 23:59:59');
-        $this->assertEquals($entry->getValue(PelEntryTime::JULIAN_DAY_COUNT), 5373484 + 86399 / 86400);
+        $this->assertSame('253402300799', $entry->getValue());
+        $this->assertSame('9999:12:31 23:59:59', $entry->getValue(PelEntryTime::EXIF_STRING));
+        $this->assertSame($entry->getValue(PelEntryTime::JULIAN_DAY_COUNT), (string) (int) (5373484 + round(86399 / 86400, 2)));
 
         // Check day roll-over for SF bug #1699489.
         $entry->setValue('2007:04:23 23:30:00', PelEntryTime::EXIF_STRING);
         $t = $entry->getValue(PelEntryTime::UNIX_TIMESTAMP);
-        $entry->setValue($t + 3600);
+        $entry->setValue((int) $t + 3600);
 
-        $this->assertEquals($entry->getValue(PelEntryTime::EXIF_STRING), '2007:04:24 00:30:00');
+        $this->assertSame('2007:04:24 00:30:00', $entry->getValue(PelEntryTime::EXIF_STRING));
     }
 
-    public function testCopyright()
+    public function testCopyright(): void
     {
         $entry = new PelEntryCopyright();
-        $this->assertEquals($entry->getFormat(), PelFormat::ASCII);
-        $this->assertEquals($entry->getTag(), PelTag::COPYRIGHT);
-        $value = $entry->getValue();
-        $this->assertEquals($value[0], '');
-        $this->assertEquals($value[1], '');
-        $this->assertEquals($entry->getText(false), '');
-        $this->assertEquals($entry->getText(true), '');
+        $this->assertSame(PelFormat::ASCII, $entry->getFormat());
+        $this->assertSame(PelTag::COPYRIGHT, $entry->getTag());
+        $value = $entry->getValueArray();
+        $this->assertEquals('', $value[0]);
+        $this->assertEquals('', $value[1]);
+        $this->assertSame('', $entry->getText(false));
+        $this->assertSame('', $entry->getText(true));
 
         $entry->setValue('A');
-        $value = $entry->getValue();
-        $this->assertEquals($value[0], 'A');
-        $this->assertEquals($value[1], '');
-        $this->assertEquals($entry->getText(false), 'A (Photographer)');
-        $this->assertEquals($entry->getText(true), 'A');
-        $this->assertEquals($entry->getBytes(PelConvert::LITTLE_ENDIAN), 'A' . chr(0));
+        $value = $entry->getValueArray();
+        $this->assertEquals('A', $value[0]);
+        $this->assertEquals('', $value[1]);
+        $this->assertSame('A (Photographer)', $entry->getText(false));
+        $this->assertSame('A', $entry->getText(true));
+        $this->assertSame($entry->getBytes(PelConvert::LITTLE_ENDIAN), 'A' . chr(0));
 
         $entry->setValue('', 'B');
-        $value = $entry->getValue();
-        $this->assertEquals($value[0], '');
-        $this->assertEquals($value[1], 'B');
-        $this->assertEquals($entry->getText(false), 'B (Editor)');
-        $this->assertEquals($entry->getText(true), 'B');
-        $this->assertEquals($entry->getBytes(PelConvert::LITTLE_ENDIAN), ' ' . chr(0) . 'B' . chr(0));
+        $value = $entry->getValueArray();
+        $this->assertEquals('', $value[0]);
+        $this->assertEquals('B', $value[1]);
+        $this->assertSame('B (Editor)', $entry->getText(false));
+        $this->assertSame('B', $entry->getText(true));
+        $this->assertSame($entry->getBytes(PelConvert::LITTLE_ENDIAN), ' ' . chr(0) . 'B' . chr(0));
 
         $entry->setValue('A', 'B');
-        $value = $entry->getValue();
-        $this->assertEquals($value[0], 'A');
-        $this->assertEquals($value[1], 'B');
-        $this->assertEquals($entry->getText(false), 'A (Photographer) - B (Editor)');
-        $this->assertEquals($entry->getText(true), 'A - B');
-        $this->assertEquals($entry->getBytes(PelConvert::LITTLE_ENDIAN), 'A' . chr(0) . 'B' . chr(0));
+        $value = $entry->getValueArray();
+        $this->assertEquals('A', $value[0]);
+        $this->assertEquals('B', $value[1]);
+        $this->assertSame('A (Photographer) - B (Editor)', $entry->getText(false));
+        $this->assertSame('A - B', $entry->getText(true));
+        $this->assertSame($entry->getBytes(PelConvert::LITTLE_ENDIAN), 'A' . chr(0) . 'B' . chr(0));
     }
 }

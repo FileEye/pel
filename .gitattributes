@@ -1,0 +1,6 @@
+.github/                export-ignore
+test/                   export-ignore
+examples/               export-ignore
+tutorials/              export-ignore
+*.sh                    export-ignore
+make-image-test.php     export-ignore

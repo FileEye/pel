@@ -1,27 +1,8 @@
 <?php
 
-/**
- * PEL: PHP Exif Library.
- * A library with support for reading and
- * writing all Exif headers in JPEG and TIFF images using PHP.
- *
- * Copyright (C) 2004, 2005, 2006, 2007 Martin Geisler.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program in the file COPYING; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301 USA
- */
+declare(strict_types=1);
+
+namespace lsolesen\pel;
 
 /**
  * Class used to manipulate strings in the format Windows XP uses.
@@ -36,9 +17,10 @@
  * normal strings.
  *
  * It is important that entries from this class are only created with
- * the {@link PelTag::XP_TITLE}, {@link PelTag::XP_COMMENT}, {@link
- * PelTag::XP_AUTHOR}, {@link PelTag::XP_KEYWORD}, and {@link
- * PelTag::XP_SUBJECT} tags. If another tag is used the data will no
+ * the {@link PelTag::XP_TITLE}, {@link PelTag::XP_COMMENT}, {@link PelTag::XP_AUTHOR},
+ * {@link PelTag::XP_KEYWORD}, and {@link PelTag::XP_SUBJECT} tags.
+ *
+ * If another tag is used the data will no
  * longer be correctly decoded when reloaded with PEL. (The data will
  * be loaded as an {@link PelEntryByte} entry, which isn't as useful.)
  *
@@ -53,21 +35,13 @@
  * $title = new PelEntryWindowsString(PelTag::XP_TITLE, 'A cute dog.');
  * $ifd->addEntry($title);
  * </code>
- *
- * @author Martin Geisler <mgeisler@users.sourceforge.net>
- * @package PEL
  */
-namespace lsolesen\pel;
-
 class PelEntryWindowsString extends PelEntry
 {
-
     /**
      * Two zero characters
-     *
-     * @var string
      */
-    const ZEROES = "\x0\x0";
+    public const ZEROES = "\x0\x0";
 
     /**
      * The string hold by this entry.
@@ -75,10 +49,8 @@ class PelEntryWindowsString extends PelEntry
      * This is the string that was given to the {@link __construct
      * constructor} or later to {@link setValue}, without any extra NULL
      * characters or any such nonsense.
-     *
-     * @var string
      */
-    private $str;
+    private string $str = '';
 
     /**
      * Make a new PelEntry that can hold a Windows XP specific string.
@@ -86,8 +58,8 @@ class PelEntryWindowsString extends PelEntry
      * @param int $tag
      *            the tag which this entry represents. This should be
      *            one of {@link PelTag::XP_TITLE}, {@link PelTag::XP_COMMENT},
-     *            {@link PelTag::XP_AUTHOR}, {@link PelTag::XP_KEYWORD}, and {@link
-     *            PelTag::XP_SUBJECT} tags. If another tag is used, then this
+     *            {@link PelTag::XP_AUTHOR}, {@link PelTag::XP_KEYWORD}, and
+     *            {@link PelTag::XP_SUBJECT} tags. If another tag is used, then this
      *            entry will be incorrectly reloaded as a {@link PelEntryByte}.
      * @param string $str
      *            the string that this entry will represent. It will
@@ -96,7 +68,7 @@ class PelEntryWindowsString extends PelEntry
      * @param bool $from_exif
      *            internal use only, tells that string is UCS-2LE encoded, as PHP fails to detect this encoding
      */
-    public function __construct($tag, $str = '', $from_exif = false)
+    public function __construct(int $tag, string $str = '', bool $from_exif = false)
     {
         $this->tag = $tag;
         $this->format = PelFormat::BYTE;
@@ -114,12 +86,12 @@ class PelEntryWindowsString extends PelEntry
      * @param bool $from_exif
      *            internal use only, tells that string is UCS-2LE encoded, as PHP fails to detect this encoding
      */
-    public function setValue($str, $from_exif = false)
+    public function setValue(mixed $str, bool $from_exif = false): void
     {
-        $zlen = strlen(static::ZEROES);
-        if (false !== $from_exif) {
+        $zlen = strlen(self::ZEROES);
+        if ($from_exif !== false) {
             $s = $str;
-            if (substr($str, - $zlen, $zlen) == static::ZEROES) {
+            if (substr($str, - $zlen, $zlen) === self::ZEROES) {
                 $str = substr($str, 0, - $zlen);
             }
             $str = mb_convert_encoding($str, 'UTF-8', 'UCS-2LE');
@@ -127,8 +99,8 @@ class PelEntryWindowsString extends PelEntry
             $s = mb_convert_encoding($str, 'UCS-2LE', 'auto');
         }
 
-        if (substr($s, - $zlen, $zlen) != static::ZEROES) {
-            $s .= static::ZEROES;
+        if (substr($s, - $zlen, $zlen) !== self::ZEROES) {
+            $s .= self::ZEROES;
         }
         $l = strlen($s);
 
@@ -144,7 +116,7 @@ class PelEntryWindowsString extends PelEntry
      *         characters. The string will be the same as the one given to
      *         {@link setValue} or to the {@link __construct constructor}.
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->str;
     }
@@ -154,13 +126,14 @@ class PelEntryWindowsString extends PelEntry
      *
      * This methods returns the same as {@link getValue}.
      *
-     * @param boolean $brief
+     * @param bool $brief
      *            not used.
+     *
      * @return string the string held, without any extra NULL
      *         characters. The string will be the same as the one given to
      *         {@link setValue} or to the {@link __construct constructor}.
      */
-    public function getText($brief = false)
+    public function getText(bool $brief = false): string
     {
         return $this->str;
     }
