@@ -16,7 +16,7 @@ class PelFileStream
 
     public function __construct(private readonly string $filename)
     {
-        if (!file_exists($filename)) {
+        if (! file_exists($filename)) {
             throw new PelException('File does not exist "%s"', $filename);
         }
 
