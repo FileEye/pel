@@ -192,6 +192,31 @@ class ReadWriteTest extends TestCase
     }
 
     /**
+     * Tests loading and writing back a JPEG image file.
+     */
+    public function testJpegLoadSave(): void
+    {
+        $file_uri = __DIR__ . '/imagetests/canon-eos-650d.jpg';
+        $jpeg = new PelJpeg($file_uri);
+        $ifd0 = $jpeg->getExif()->getTiff()->getIfd();
+
+        $entry = $ifd0->getEntry(271); // Make
+        $this->assertInstanceOf(PelEntryAscii::class, $entry);
+        $this->assertSame('Canon', $entry->getValue());
+        $entry->setValue('Foo-Bar');
+
+        $out_uri = __DIR__ . '/imagetests/output.canon-eos-650d.jpg';
+        $jpeg->saveFile($out_uri);
+
+        unset($jpeg);
+
+        $data_reload = exif_read_data($out_uri);
+        $this->assertEquals('Foo-Bar', $data_reload['Make']);
+
+        unlink($out_uri);
+    }
+
+    /**
      * Tests loading and writing back a TIFF image file.
      */
     public function testTiffLoadSave(): void
