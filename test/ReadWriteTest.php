@@ -216,6 +216,7 @@ class ReadWriteTest extends TestCase
         unset($jpeg);
 
         $data_reload = exif_read_data($out_uri);
+        $this->assertIsArray($data_reload);
         $this->assertArrayHasKey('Make', $data_reload);
         $this->assertEquals('Foo-Bar', $data_reload['Make']);
 
