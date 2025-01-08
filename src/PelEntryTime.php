@@ -151,7 +151,7 @@ class PelEntryTime extends PelEntryAscii
      *
      * @throws PelInvalidArgumentException
      */
-    public function setValue(int|float|string $timestamp, int $type = self::UNIX_TIMESTAMP): void
+    public function setValue(mixed $timestamp, int $type = self::UNIX_TIMESTAMP): void
     {
         if ($type === self::UNIX_TIMESTAMP) {
             if (is_string($timestamp)) {
