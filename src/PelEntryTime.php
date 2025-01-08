@@ -154,12 +154,15 @@ class PelEntryTime extends PelEntryAscii
     public function setValue(mixed $timestamp, int $type = self::UNIX_TIMESTAMP): void
     {
         if ($type === self::UNIX_TIMESTAMP) {
-            if (is_int($timestamp) || is_float($timestamp)) {
-                $this->day_count = (int) $this->convertUnixToJd($timestamp);
-                $this->seconds = $timestamp % 86400;
-            } else {
-                throw new PelInvalidArgumentException('Expected integer value for $type, got %s', gettype($timestamp));
+            if (is_string($timestamp)) {
+                if (is_numeric($timestamp)) {
+                    $timestamp = (int) $timestamp;
+                } else {
+                    throw new PelInvalidArgumentException('Expected numeric value for $type, got "%s"', $timestamp);
+                }
             }
+            $this->day_count = (int) $this->convertUnixToJd($timestamp);
+            $this->seconds = $timestamp % 86400;
         } elseif ($type === self::EXIF_STRING) {
             /*
              * Clean the timestamp: some timestamps are broken other
@@ -179,12 +182,15 @@ class PelEntryTime extends PelEntryAscii
             $this->day_count = $this->convertGregorianToJd((int) $d[0], (int) $d[1], (int) $d[2]);
             $this->seconds = (int) $d[3] * 3600 + (int) $d[4] * 60 + (int) $d[5];
         } elseif ($type === self::JULIAN_DAY_COUNT) {
-            if (is_int($timestamp) || is_float($timestamp)) {
-                $this->day_count = (int) floor($timestamp);
-                $this->seconds = (int) (86400 * ($timestamp - floor($timestamp)));
-            } else {
-                throw new PelInvalidArgumentException('Expected integer value for $type, got %s', gettype($timestamp));
+            if (is_string($timestamp)) {
+                if (is_numeric($timestamp)) {
+                    $timestamp = (int) $timestamp;
+                } else {
+                    throw new PelInvalidArgumentException('Expected numeric value for $type, got "%s"', $timestamp);
+                }
             }
+            $this->day_count = (int) floor($timestamp);
+            $this->seconds = (int) (86400 * ($timestamp - floor($timestamp)));
         } else {
             throw new PelInvalidArgumentException('Expected UNIX_TIMESTAMP (%d), EXIF_STRING (%d), or JULIAN_DAY_COUNT (%d) for $type, got %d.', self::UNIX_TIMESTAMP, self::EXIF_STRING, self::JULIAN_DAY_COUNT, $type);
         }
