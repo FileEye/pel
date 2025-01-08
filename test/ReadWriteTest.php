@@ -198,7 +198,12 @@ class ReadWriteTest extends TestCase
     {
         $file_uri = __DIR__ . '/imagetests/canon-eos-650d.jpg';
         $jpeg = new PelJpeg($file_uri);
-        $ifd0 = $jpeg->getExif()->getTiff()->getIfd();
+        $exif = $jpeg->getExif();
+        $this->assertInstanceOf(PelExif::class, $exif);
+        $tiff = $exif->getTiff();
+        $this->assertInstanceOf(PelTiff::class, $tiff);
+        $ifd0 = $tiff->getIfd();
+        $this->assertInstanceOf(PelIfd::class, $ifd0);
 
         $entry = $ifd0->getEntry(271); // Make
         $this->assertInstanceOf(PelEntryAscii::class, $entry);
@@ -211,6 +216,7 @@ class ReadWriteTest extends TestCase
         unset($jpeg);
 
         $data_reload = exif_read_data($out_uri);
+        $this->assertArrayHasKey('Make', $data_reload);
         $this->assertEquals('Foo-Bar', $data_reload['Make']);
 
         unlink($out_uri);
