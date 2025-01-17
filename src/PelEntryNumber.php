@@ -61,7 +61,7 @@ abstract class PelEntryNumber extends PelEntry
      *
      * @see PelEntryNumber::getValue
      */
-    public function setValue(int|array ...$value): void
+    public function setValue(mixed ...$value): void
     {
         $this->setValueArray($value);
     }
