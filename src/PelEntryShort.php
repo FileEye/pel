@@ -270,8 +270,8 @@ class PelEntryShort extends PelEntryNumber
     /**
      * Make a new entry that can hold an unsigned short.
      *
-     * The method accept several integer arguments. The {@link getValue} method will always return an array except for when a
-     * single integer argument is given here.
+     * The method accept several integer arguments. The {@link getValue} method will always return
+     * an array except for when a single integer argument is given here.
      *
      * This means that one can conveniently use objects like this:
      * <code>
@@ -283,16 +283,14 @@ class PelEntryShort extends PelEntryNumber
      * have to be extracted.
      *
      * @param int $tag
-     *            the tag which this entry represents. This should be
-     *            one of the constants defined in {@link PelTag}, e.g., {@link PelTag::IMAGE_WIDTH}, {@link PelTag::ISO_SPEED_RATINGS},
-     *            or any other tag with format {@link PelFormat::SHORT}.
-     * @param int $value...
-     *            the short(s) that this entry will
-     *            represent. The argument passed must obey the same rules as the
-     *            argument to {@link setValue}, namely that it should be within
-     *            range of an unsigned short, that is between 0 and 65535
-     *            (inclusive). If not, then a {@link PelOverFlowException} will be
-     *            thrown.
+     *   The tag which this entry represents. This should be one of the constants defined in
+     *   {@link PelTag}, e.g., {@link PelTag::IMAGE_WIDTH}, {@link PelTag::ISO_SPEED_RATINGS}, or
+     *   any other tag with format {@link PelFormat::SHORT}.
+     * @param int ...$value
+     *   The short(s) that this entry will represent. The argument passed must obey the same rules
+     *   as the argument to {@link setValue}, namely that it should be within range of an unsigned
+     *   short, that is between 0 and 65535 (inclusive). If not, then a
+     *   {@link PelOverFlowException} will be thrown.
      */
     public function __construct(int $tag, int ...$value)
     {
@@ -300,9 +298,6 @@ class PelEntryShort extends PelEntryNumber
         $this->min = 0;
         $this->max = 65535;
         $this->format = PelFormat::SHORT;
-
-        $value = func_get_args();
-        array_shift($value);
         $this->setValueArray($value);
     }
 

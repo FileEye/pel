@@ -23,15 +23,13 @@ class PelEntrySLong extends PelEntryNumber
      * single integer is given.
      *
      * @param int $tag
-     *            the tag which this entry represents. This
-     *            should be one of the constants defined in {@link PelTag}
-     *            which have format {@link PelFormat::SLONG}.
-     * @param int $value
-     *            the long(s) that this entry will represent
-     *            or an array of longs. The argument passed must obey the same
-     *            rules as the argument to {@link setValue}, namely that it should
-     *            be within range of a signed long (32 bit), that is between
-     *            -2147483648 and 2147483647 (inclusive). If not, then a {@link PelOverflowException} will be thrown.
+     *   The tag which this entry represents. This should be one of the constants defined in
+     *   {@link PelTag} which have format {@link PelFormat::SLONG}.
+     * @param int ...$value
+     *   The long(s) that this entry will represent or an array of longs. The argument passed
+     *   must obey the same rules as the argument to {@link setValue}, namely that it should be
+     *   within range of a signed long (32 bit), that is between -2147483648 and 2147483647
+     *   (inclusive). If not, then a {@link PelOverflowException} will be thrown.
      */
     public function __construct(int $tag, int ...$value)
     {
@@ -39,9 +37,6 @@ class PelEntrySLong extends PelEntryNumber
         $this->min = - 2147483648;
         $this->max = 2147483647;
         $this->format = PelFormat::SLONG;
-
-        $value = func_get_args();
-        array_shift($value);
         $this->setValueArray($value);
     }
 

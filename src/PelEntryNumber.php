@@ -54,17 +54,15 @@ abstract class PelEntryNumber extends PelEntry
      * method will always return an array except for when a single
      * number is given here.
      *
-     * @param int|array<int, mixed> $value...
-     *            the new value(s). This can be zero or
-     *            more numbers, that is, either integers or arrays. The input will
-     *            be checked to ensure that the numbers are within the valid range.
-     *            If not, then a {@link PelOverflowException} will be thrown.
+     * @param int|array{0:int,1:int} ...$value
+     *   The new value(s). This can be zero or more numbers, that is, either integers or arrays.
+     *   The input will be checked to ensure that the numbers are within the valid range. If not,
+     *   then a {@link PelOverflowException} will be thrown.
      *
      * @see PelEntryNumber::getValue
      */
-    public function setValue(mixed $value): void
+    public function setValue(mixed ...$value): void
     {
-        $value = func_get_args();
         $this->setValueArray($value);
     }
 
