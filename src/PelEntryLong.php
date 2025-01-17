@@ -41,16 +41,14 @@ class PelEntryLong extends PelEntryNumber
      * extracted.
      *
      * @param int $tag
-     *            the tag which this entry represents. This
-     *            should be one of the constants defined in {@link PelTag},
-     *            e.g., {@link PelTag::IMAGE_WIDTH}, or any other tag which can
-     *            have format {@link PelFormat::LONG}.
-     * @param int $value...
-     *            the long(s) that this entry will
-     *            represent or an array of longs. The argument passed must obey
-     *            the same rules as the argument to {@link setValue}, namely that
-     *            it should be within range of an unsigned long (32 bit), that is
-     *            between 0 and 4294967295 (inclusive). If not, then a {@link PelExifOverflowException} will be thrown.
+     *   The tag which this entry represents. This should be one of the constants defined in
+     *   {@link PelTag}, e.g., {@link PelTag::IMAGE_WIDTH}, or any other tag which can have format
+     *   {@link PelFormat::LONG}.
+     * @param int ...$value
+     *   The long(s) that this entry will represent or an array of longs. The argument passed must
+     *   obey the same rules as the argument to {@link setValue}, namely that it should be within
+     *   range of an unsigned long (32 bit), that is between 0 and 4294967295 (inclusive). If not,
+     *   then a {@link PelExifOverflowException} will be thrown.
      */
     public function __construct(int $tag, int ...$value)
     {
@@ -58,9 +56,6 @@ class PelEntryLong extends PelEntryNumber
         $this->min = 0;
         $this->max = 4294967295;
         $this->format = PelFormat::LONG;
-
-        $value = func_get_args();
-        array_shift($value);
         $this->setValueArray($value);
     }
 

@@ -688,20 +688,17 @@ class PelEntrySShort extends PelEntryNumber
     /**
      * Make a new entry that can hold a signed short.
      *
-     * The method accept several integer arguments. The {@link getValue} method will always return an array except for when a
-     * single integer argument is given here.
+     * The method accept several integer arguments. The {@link getValue} method will always return
+     * an array except for when a single integer argument is given here.
      *
      * @param int $tag
-     *            the tag which this entry represents. This
-     *            should be one of the constants defined in {@link PelTag}
-     *            which has format {@link PelFormat::SSHORT}.
-     * @param int $value...
-     *            the signed short(s) that this entry will
-     *            represent. The argument passed must obey the same rules as the
-     *            argument to {@link setValue}, namely that it should be within
-     *            range of a signed short, that is between -32768 to 32767
-     *            (inclusive). If not, then a {@link PelOverFlowException} will be
-     *            thrown.
+     *   The tag which this entry represents. This should be one of the constants defined in
+     *   {@link PelTag} which has format {@link PelFormat::SSHORT}.
+     * @param int ...$value
+     *   The signed short(s) that this entry will represent. The argument passed must obey the same
+     *   rules as the argument to {@link setValue}, namely that it should be within range of a
+     *   signed short, that is between -32768 to 32767 (inclusive). If not, then a
+     *   {@link PelOverFlowException} will be thrown.
      */
     public function __construct(int $tag, int ...$value)
     {
@@ -709,9 +706,6 @@ class PelEntrySShort extends PelEntryNumber
         $this->min = - 32768;
         $this->max = 32767;
         $this->format = PelFormat::SSHORT;
-
-        $value = func_get_args();
-        array_shift($value);
         $this->setValueArray($value);
     }
 

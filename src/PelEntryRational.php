@@ -32,17 +32,15 @@ class PelEntryRational extends PelEntryLong
      * Make a new entry that can hold an unsigned rational.
      *
      * @param int $tag
-     *            the tag which this entry represents. This should
-     *            be one of the constants defined in {@link PelTag}, e.g., {@link PelTag::X_RESOLUTION}, or any other tag which can have format
-     *            {@link PelFormat::RATIONAL}.
-     * @param array<int|string, mixed> ...$value
-     *            the rational(s) that this entry will
-     *            represent. The arguments passed must obey the same rules as the
-     *            argument to {@link setValue}, namely that each argument should be
-     *            an array with two entries, both of which must be within range of
-     *            an unsigned long (32 bit), that is between 0 and 4294967295
-     *            (inclusive). If not, then a {@link PelOverflowException} will be
-     *            thrown.
+     *   The tag which this entry represents. This should be one of the constants defined in
+     *   {@link PelTag}, e.g., {@link PelTag::X_RESOLUTION}, or any other tag which can have
+     *   format {@link PelFormat::RATIONAL}.
+     * @param array{0:int,1:int} ...$value
+     *   The rational(s) that this entry will represent. The arguments passed must obey the same
+     *   rules as the argument to {@link setValue}, namely that each argument should be an array
+     *   with two entries, both of which must be within range of an unsigned long (32 bit), that
+     *   is between 0 and 4294967295 (inclusive). If not, then a {@link PelOverflowException} will
+     *   be thrown.
      *
      * @throws PelOverflowException
      */
@@ -53,7 +51,6 @@ class PelEntryRational extends PelEntryLong
         $this->dimension = 2;
         $this->min = 0;
         $this->max = 4294967295;
-
         $this->setValueArray($value);
     }
 

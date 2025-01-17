@@ -21,15 +21,13 @@ class PelEntrySByte extends PelEntryNumber
      * integer argument is given here.
      *
      * @param int $tag
-     *            the tag which this entry represents. This
-     *            should be one of the constants defined in {@link PelTag}
-     *            which has format {@link PelFormat::BYTE}.
-     * @param int $value...
-     *            the byte(s) that this entry will represent.
-     *            The argument passed must obey the same rules as the argument to
-     *            {@link setValue}, namely that it should be within range of a
-     *            signed byte, that is between -128 and 127 (inclusive). If not,
-     *            then a {@link PelOverflowException} will be thrown.
+     *   The tag which this entry represents. This should be one of the constants defined in
+     *   {@link PelTag} which has format {@link PelFormat::BYTE}.
+     * @param int ...$value
+     *   The byte(s) that this entry will represent. The argument passed must obey the same rules
+     *   as the argument to {@link setValue}, namely that it should be within range of a signed
+     *   byte, that is between -128 and 127 (inclusive). If not, then a
+     *   {@link PelOverflowException} will be thrown.
      */
     public function __construct(int $tag, int ...$value)
     {
@@ -37,9 +35,6 @@ class PelEntrySByte extends PelEntryNumber
         $this->min = - 128;
         $this->max = 127;
         $this->format = PelFormat::SBYTE;
-
-        $value = func_get_args();
-        array_shift($value);
         $this->setValueArray($value);
     }
 

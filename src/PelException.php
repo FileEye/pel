@@ -18,18 +18,13 @@ class PelException extends Exception
      * Construct a new PEL exception.
      *
      * @param string $fmt
-     *            an optional format string can be given. It
-     *            will be used as a format string for vprintf(). The remaining
-     *            arguments will be available for the format string as usual with
-     *            vprintf().
+     *   An optional format string can be given. It will be used as a format string for vprintf().
+     *   The remaining arguments will be available for the format string as usual with vprintf().
      * @param mixed ...$args
-     *            any number of arguments to be used with
-     *            the format string.
+     *   Any number of arguments to be used with the format string.
      */
     public function __construct(string $fmt, mixed ...$args)
     {
-        $args = func_get_args();
-        $fmt = array_shift($args);
         parent::__construct(vsprintf($fmt, $args));
     }
 }
