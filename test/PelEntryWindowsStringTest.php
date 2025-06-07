@@ -29,7 +29,7 @@ class PelEntryWindowsStringTest extends TestCase
         $this->assertEquals($entry->getBytes(PelConvert::LITTLE_ENDIAN), $test_str_ucs2_zt);
 
         // incorrect data from exif
-        $entry->setValue($test_str_ucs2, true);
+        $entry->setValue((string) $test_str_ucs2, true);
         $this->assertNotSame($entry->getValue(), $entry->getBytes(PelConvert::LITTLE_ENDIAN));
         $this->assertSame($entry->getValue(), $test_str);
         $this->assertEquals($entry->getBytes(PelConvert::LITTLE_ENDIAN), $test_str_ucs2_zt);
