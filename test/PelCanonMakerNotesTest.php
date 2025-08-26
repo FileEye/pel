@@ -46,7 +46,6 @@ class PelCanonMakerNotesTest extends TestCase
         $makerNotes = new PelCanonMakerNotes($parentMock, $dataMock, 100, 2);
         $reflection = new \ReflectionClass($makerNotes);
         $method = $reflection->getMethod('parseCameraSettings');
-        $method->setAccessible(true);
 
         $method->invoke($makerNotes, $parentMock, $dataMock, 0, 0);
     }

@@ -51,9 +51,9 @@ class PelConvert
     public static function shortToBytes(int $value, bool $endian): string
     {
         if ($endian === self::LITTLE_ENDIAN) {
-            return chr($value) . chr($value >> 8);
+            return chr($value % 256) . chr(($value >> 8) % 256);
         }
-        return chr($value >> 8) . chr($value);
+        return chr(($value >> 8) % 256) . chr($value % 256);
     }
 
     /**
