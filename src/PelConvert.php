@@ -132,9 +132,9 @@ class PelConvert
          * integers for us.
          */
         if ($endian === self::LITTLE_ENDIAN) {
-            return chr($value) . chr($value >> 8) . chr($value >> 16) . chr($value >> 24);
+            return chr($value % 256) . chr(($value >> 8) % 256) . chr(($value >> 16) % 256) . chr(($value >> 24) % 256);
         }
-        return chr($value >> 24) . chr($value >> 16) . chr($value >> 8) . chr($value);
+        return chr(($value >> 24) % 256) . chr(($value >> 16) % 256) . chr(($value >> 8) % 256) . chr($value % 256);
     }
 
     /**
