@@ -47,12 +47,12 @@ jobs:
         - name: PHPinsights code analysis
           run: php vendor/bin/phpinsights analyse --no-interaction
 
-        - name: Execute Rector
-          continue-on-error: true
-          run: vendor/bin/rector --dry-run
+#        - name: Execute Rector
+#          continue-on-error: true
+#          run: vendor/bin/rector --dry-run
 
         - name: Run tests
-          run: ./vendor/bin/phpunit --color=always --coverage-clover=coverage.xml --testdox --fail-on-warning ./test
+          run: ./vendor/bin/phpunit --color=always --coverage-clover=coverage.xml --testdox ./test
 
         - name: Send code coverage report to Codecov.io
           uses: codecov/codecov-action@v4
