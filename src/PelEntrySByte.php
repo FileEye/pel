@@ -51,6 +51,6 @@ class PelEntrySByte extends PelEntryNumber
      */
     public function numberToBytes(int $number, bool $order): string
     {
-        return chr($number % 256);
+        return chr($number & 0xff);
     }
 }
