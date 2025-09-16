@@ -17,20 +17,19 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "7.4"
-          - "8.0"
           - "8.1"
           - "8.2"
           - "8.3"
           - "8.4"
+          - "8.5"
 
     steps:
 
         - name: Checkout
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
 
         - name: Install PHP
-          uses: "shivammathur/setup-php@v2"
+          uses: shivammathur/setup-php@v2
           with:
             php-version: "${{ matrix.php-version }}"
             coverage: "pcov"
@@ -39,18 +38,24 @@ jobs:
         - name: Install Composer dependencies
           run: composer install --no-progress --ansi
 
-        - name: Run tests
-          run: ./vendor/bin/phpunit --color=always --coverage-clover=coverage.xml ./test
-
-        - name: Send code coverage report to Codecov.io
-          uses: codecov/codecov-action@v3
-          with:
-            files: coverage.xml
-            
         - name: Code style test
-          if: ${{ matrix.php-version == 8.2 }}
-          run: ./vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1
+          run: ./vendor/bin/phpcs
 
         - name: PHPStan code analysis
-          if: ${{ matrix.php-version == 8.2 }}
           run: php vendor/bin/phpstan analyze
+
+        - name: PHPinsights code analysis
+          run: php vendor/bin/phpinsights analyse --no-interaction
+
+#        - name: Execute Rector
+#          continue-on-error: true
+#          run: vendor/bin/rector --dry-run
+
+        - name: Run tests
+          run: ./vendor/bin/phpunit --color=always --coverage-clover=coverage.xml --testdox ./test
+
+        - name: Send code coverage report to Codecov.io
+          uses: codecov/codecov-action@v4
+          with:
+            token: ${{ secrets.CODECOV_TOKEN }}
+            files: coverage.xml

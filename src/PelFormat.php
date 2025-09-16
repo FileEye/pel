@@ -1,27 +1,8 @@
 <?php
-/*
- * PEL: PHP Exif Library.
- * A library with support for reading and
- * writing all Exif headers in JPEG and TIFF images using PHP.
- *
- * Copyright (C) 2004, 2005 Martin Geisler.
- * Copyright (C) 2017 Johannes Weberhofer.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program in the file COPYING; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301 USA
- */
+
+declare(strict_types=1);
+
+namespace lsolesen\pel;
 
 /**
  * Namespace for functions operating on Exif formats.
@@ -33,19 +14,9 @@
  *
  * All the methods defined here are static, and they all operate on a
  * single argument which should be one of the class constants.
- *
- * @author Martin Geisler <mgeisler@users.sourceforge.net>
- * @author Johannes Weberhofer <jweberhofer@weberhofer.at>
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public
- *          License (GPL)
- * @package
- *
  */
-namespace lsolesen\pel;
-
 class PelFormat
 {
-
     /**
      * ERROR Handling
      * FIX Unknown format: 0x0
@@ -61,7 +32,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntryByte} class.
      */
-    const BYTE = 1;
+    public const BYTE = 1;
 
     /**
      * ASCII string.
@@ -70,7 +41,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntryAscii} class.
      */
-    const ASCII = 2;
+    public const ASCII = 2;
 
     /**
      * Unsigned short.
@@ -80,7 +51,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntryShort} class.
      */
-    const SHORT = 3;
+    public const SHORT = 3;
 
     /**
      * Unsigned long.
@@ -90,7 +61,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntryLong} class.
      */
-    const LONG = 4;
+    public const LONG = 4;
 
     /**
      * Unsigned rational number.
@@ -101,7 +72,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntryRational} class.
      */
-    const RATIONAL = 5;
+    public const RATIONAL = 5;
 
     /**
      * Signed byte.
@@ -111,7 +82,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntrySByte} class.
      */
-    const SBYTE = 6;
+    public const SBYTE = 6;
 
     /**
      * Undefined byte.
@@ -120,7 +91,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntryUndefined} class.
      */
-    const UNDEFINED = 7;
+    public const UNDEFINED = 7;
 
     /**
      * Signed short.
@@ -130,7 +101,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntrySShort} class.
      */
-    const SSHORT = 8;
+    public const SSHORT = 8;
 
     /**
      * Signed long.
@@ -140,7 +111,7 @@ class PelFormat
      *
      * Modelled with the {@link PelEntrySLong} class.
      */
-    const SLONG = 9;
+    public const SLONG = 9;
 
     /**
      * Signed rational number.
@@ -151,26 +122,28 @@ class PelFormat
      *
      * Modelled with the {@link PelEntrySRational} class.
      */
-    const SRATIONAL = 10;
+    public const SRATIONAL = 10;
 
     /**
      * Floating point number.
      *
      * Entries with this format are not currently implemented.
      */
-    const FLOAT = 11;
+    public const FLOAT = 11;
 
     /**
      * Double precision floating point number.
      *
      * Entries with this format are not currently implemented.
      */
-    const DOUBLE = 12;
+    public const DOUBLE = 12;
 
     /**
      * Values for format's short names
+     *
+     * @var array<int, string>
      */
-    protected static $formatName = [
+    protected static array $formatName = [
         self::ASCII => 'Ascii',
         self::BYTE => 'Byte',
         self::SHORT => 'Short',
@@ -186,7 +159,10 @@ class PelFormat
         self::ERROR => 'ERROR'
     ];
 
-    protected static $formatLength = [
+    /**
+     * @var array<int, int>
+     */
+    protected static array $formatLength = [
         self::ASCII => 1,
         self::BYTE => 1,
         self::SHORT => 2,
@@ -205,11 +181,10 @@ class PelFormat
     /**
      * Returns the name of a format like 'Ascii' for the {@link ASCII} format
      *
-     * @param integer $type
+     * @param int $type
      *            as defined in {@link PelFormat}
-     * @return string
      */
-    public static function getName($type)
+    public static function getName(int $type): string
     {
         if (array_key_exists($type, self::$formatName)) {
             return self::$formatName[$type];
@@ -221,11 +196,10 @@ class PelFormat
      * Return the size of components in a given format in bytes needed to store one component with the
      * given format.
      *
-     * @param integer $type
+     * @param int $type
      *            as defined in {@link PelFormat}
-     * @return integer
      */
-    public static function getSize($type)
+    public static function getSize(int $type): int
     {
         if (array_key_exists($type, self::$formatLength)) {
             return self::$formatLength[$type];

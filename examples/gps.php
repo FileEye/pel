@@ -34,6 +34,9 @@
  * used in Exif data.
  * - addGpsInfo() adds several Exif tags to your JPEG file.
  */
+
+namespace Pel\examples;
+
 use lsolesen\pel\PelEntryAscii;
 use lsolesen\pel\PelEntryByte;
 use lsolesen\pel\PelEntryRational;
@@ -43,6 +46,8 @@ use lsolesen\pel\PelIfd;
 use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelTag;
 use lsolesen\pel\PelTiff;
+
+require_once dirname(dirname(__FILE__)) . '/autoload.php';
 
 /**
  * Convert a decimal degree into degrees, minutes, and seconds.
@@ -67,15 +72,15 @@ function convertDecimalToDMS($degree)
 
     $seconds = $degree * 3600; // Total number of seconds.
 
-    $degrees = floor($degree); // Number of whole degrees.
+    $degrees = (int) floor($degree); // Number of whole degrees.
     $seconds -= $degrees * 3600; // Subtract the number of seconds
                                  // taken by the degrees.
 
-    $minutes = floor($seconds / 60); // Number of whole minutes.
+    $minutes = (int) floor($seconds / 60); // Number of whole minutes.
     $seconds -= $minutes * 60; // Subtract the number of seconds
                                // taken by the minutes.
 
-    $seconds = round($seconds * 100, 0); // Round seconds with a 1/100th
+    $seconds = (int) round($seconds * 100, 0); // Round seconds with a 1/100th
                                          // second precision.
 
     return [
@@ -208,3 +213,6 @@ function addGpsInfo($input, $output, $description, $comment, $model, $longitude,
     /* Finally we store the data in the output file. */
     file_put_contents($output, $jpeg->getBytes());
 }
+
+//function addGpsInfo($input, $output, $description, $comment, $model, $longitude, $latitude, $altitude, $date_time)
+addGpsInfo('IMG_0005.jpeg', 'IMG_0005_output.jpeg', 'Desc', 'Comment', 'Canon', 10.5, 20.3, 90, "2025-07-27 00:11:00");

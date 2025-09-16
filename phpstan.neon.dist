@@ -1,13 +1,7 @@
 parameters:
 
-  level: 5
+  level: 8
 
   paths:
     - src
     - test
-
-  ignoreErrors:
-    -
-       message: "#^Unreachable statement - code above always terminates.$#"
-       count: 2
-       path: test/ConvertTest.php

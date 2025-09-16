@@ -1,27 +1,8 @@
 <?php
 
-/**
- * PEL: PHP Exif Library.
- * A library with support for reading and
- * writing all Exif headers in JPEG and TIFF images using PHP.
- *
- * Copyright (C) 2004, 2005 Martin Geisler.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program in the file COPYING; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301 USA
- */
+declare(strict_types=1);
+
+namespace lsolesen\pel;
 
 /**
  * Class representing Exif data.
@@ -34,29 +15,21 @@
  * which one normally think of when talking about Exif data. This is
  * because Exif data is stored as an extension of the TIFF file
  * format.
- *
- * @author Martin Geisler <mgeisler@users.sourceforge.net>
- * @package PEL
  */
-namespace lsolesen\pel;
-
-class PelExif extends PelJpegContent
+class PelExif extends PelJpegContent implements \Stringable
 {
-
     /**
      * Exif header.
      *
      * The Exif data must start with these six bytes to be considered
      * valid.
      */
-    const EXIF_HEADER = "Exif\0\0";
+    public const EXIF_HEADER = "Exif\0\0";
 
     /**
      * The PelTiff object contained within.
-     *
-     * @var PelTiff
      */
-    private $tiff = null;
+    private ?PelTiff $tiff = null;
 
     /**
      * Construct a new Exif object.
@@ -72,22 +45,32 @@ class PelExif extends PelJpegContent
     }
 
     /**
+     * Return a string representation of this object.
+     *
+     * @return string a string describing this object. This is mostly
+     *         useful for debugging.
+     */
+    public function __toString(): string
+    {
+        return Pel::tra("Dumping Exif data...\n") . $this->tiff?->__toString();
+    }
+
+    /**
      * Load and parse Exif data.
      *
      * This will populate the object with Exif data, contained as a
      * {@link PelTiff} object. This TIFF object can be accessed with
      * the {@link getTiff()} method.
-     *
-     * @param PelDataWindow $d
      */
-    public function load(PelDataWindow $d)
+    public function load(PelDataWindow $d): void
     {
         Pel::debug('Parsing %d bytes of Exif data...', $d->getSize());
 
         /* There must be at least 6 bytes for the Exif header. */
         if ($d->getSize() < 6) {
-            throw new PelInvalidDataException('Expected at least 6 bytes of Exif ' . 'data, found just %d bytes.', $d->getSize());
+            throw new PelInvalidDataException('Expected at least 6 bytes of Exif data, found just %d bytes.', $d->getSize());
         }
+
         /* Verify the Exif header */
         if ($d->strcmp(0, self::EXIF_HEADER)) {
             $d->setWindowStart(strlen(self::EXIF_HEADER));
@@ -110,7 +93,7 @@ class PelExif extends PelJpegContent
      * @param PelTiff $tiff
      *            the new TIFF object.
      */
-    public function setTiff(PelTiff $tiff)
+    public function setTiff(PelTiff $tiff): void
     {
         $this->tiff = $tiff;
     }
@@ -123,7 +106,7 @@ class PelExif extends PelJpegContent
      *
      * @return PelTiff|null the TIFF object with the Exif data.
      */
-    public function getTiff()
+    public function getTiff(): ?PelTiff
     {
         return $this->tiff;
     }
@@ -133,19 +116,8 @@ class PelExif extends PelJpegContent
      *
      * @return string bytes representing this object.
      */
-    public function getBytes()
+    public function getBytes(): string
     {
-        return self::EXIF_HEADER . $this->tiff->getBytes();
-    }
-
-    /**
-     * Return a string representation of this object.
-     *
-     * @return string a string describing this object. This is mostly
-     *         useful for debugging.
-     */
-    public function __toString()
-    {
-        return Pel::tra("Dumping Exif data...\n") . $this->tiff->__toString();
+        return self::EXIF_HEADER . $this->tiff?->getBytes();
     }
 }

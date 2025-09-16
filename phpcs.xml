@@ -2,7 +2,7 @@
 <ruleset>
     <arg name="basepath" value="."/>
     <arg name="extensions" value="php"/>
-    <arg name="parallel" value="80"/>
+    <arg name="parallel" value="10"/>
     <arg name="cache" value=".phpcs-cache"/>
     <arg name="colors" />
 
@@ -12,7 +12,7 @@
     <file>src</file>
     <file>test</file>
 
-    <rule ref="PSR2"/>
+    <rule ref="PSR12"/>
 
     <!-- Allow long lines -->
     <rule ref="Generic.Files.LineLength">

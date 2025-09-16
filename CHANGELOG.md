@@ -1,8 +1,12 @@
 # CHANGELOG
 
-## 0.9.21 - 2024-xx-xx
+**NOTE**: since version 0.10, this CHANGELOG is no longer updated. Check the
+[release notes](https://github.com/FileEye/pel/releases) of each release instead.
 
-* [CI] Run PHPStan at rule level 0
+## 0.10.0 - 2024-01-11
+
+* [CI] Run PHPStan at rule level 5
+* Add Codecov
 * Removed support for PHP lower than 7.4
 
 ## 0.9.20 - 2023-06-20

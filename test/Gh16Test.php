@@ -1,29 +1,9 @@
 <?php
-/**
- * PEL: PHP Exif Library.
- * A library with support for reading and
- * writing all Exif headers in JPEG and TIFF images using PHP.
- *
- * Copyright (C) 2004, 2006, 2007 Martin Geisler.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program in the file COPYING; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301 USA
- */
+
+declare(strict_types=1);
+
 namespace Pel\Test;
 
-use PHPUnit\Framework\TestCase;
 use lsolesen\pel\PelDataWindow;
 use lsolesen\pel\PelEntryWindowsString;
 use lsolesen\pel\PelExif;
@@ -31,16 +11,16 @@ use lsolesen\pel\PelIfd;
 use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelTag;
 use lsolesen\pel\PelTiff;
+use PHPUnit\Framework\TestCase;
 
 class Gh16Test extends TestCase
 {
-
-    protected $file;
+    protected string $file;
 
     protected function setUp(): void
     {
-        $this->file = dirname(__FILE__) . '/images/gh-16-tmp.jpg';
-        $file = dirname(__FILE__) . '/images/gh-16.jpg';
+        $this->file = __DIR__ . '/images/gh-16-tmp.jpg';
+        $file = __DIR__ . '/images/gh-16.jpg';
         copy($file, $this->file);
     }
 
@@ -49,11 +29,15 @@ class Gh16Test extends TestCase
         unlink($this->file);
     }
 
-    public function testThisDoesNotWorkAsExpected()
+    public function testThisDoesNotWorkAsExpected(): void
     {
-        $subject = "Превед, медвед!";
+        $subject = 'Превед, медвед!';
 
-        $data = new PelDataWindow(file_get_contents($this->file));
+        $fileContent = file_get_contents($this->file);
+
+        $this->assertNotFalse($fileContent);
+
+        $data = new PelDataWindow($fileContent);
 
         $this->assertTrue(PelJpeg::isValid($data));
 
@@ -61,7 +45,7 @@ class Gh16Test extends TestCase
         $jpeg->load($data);
         $exif = $jpeg->getExif();
 
-        if (null === $exif) {
+        if ($exif === null) {
             $exif = new PelExif();
             $jpeg->setExif($exif);
             $tiff = new PelTiff();
@@ -69,9 +53,10 @@ class Gh16Test extends TestCase
         }
 
         $tiff = $exif->getTiff();
+        $this->assertNotNull($tiff);
 
         $ifd0 = $tiff->getIfd();
-        if (null === $ifd0) {
+        if ($ifd0 === null) {
             $ifd0 = new PelIfd(PelIfd::IFD0);
             $tiff->setIfd($ifd0);
         }
@@ -81,9 +66,13 @@ class Gh16Test extends TestCase
 
         $jpeg = new PelJpeg($this->file);
         $exif = $jpeg->getExif();
+        $this->assertNotNull($exif);
         $tiff = $exif->getTiff();
+        $this->assertNotNull($tiff);
         $ifd0 = $tiff->getIfd();
+        $this->assertNotNull($ifd0);
         $written_subject = $ifd0->getEntry(PelTag::XP_SUBJECT);
+        $this->assertNotNull($written_subject);
         $this->assertEquals($subject, $written_subject->getValue());
     }
 }
