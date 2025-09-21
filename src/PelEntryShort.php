@@ -360,6 +360,7 @@ class PelEntryShort extends PelEntryNumber
         }
         if (array_key_exists($this->tag, self::PEL_TAG_TRANSLATIONS)) {
             if (array_key_exists($this->value[0], self::PEL_TAG_TRANSLATIONS[$this->tag])) {
+                // @phpstan-ignore offsetAccess.notFound
                 return Pel::tra(self::PEL_TAG_TRANSLATIONS[$this->tag][$this->value[0]]);
             }
             return (string) $this->value[0];
