@@ -14,8 +14,8 @@ class PelMakerNotesTest extends TestCase
 {
     public function testCreateMakerNotesFromManufacturer(): void
     {
-        $parentMock = $this->createMock(PelIfd::class);
-        $dataMock = $this->createMock(PelDataWindow::class);
+        $parentMock = $this->createStub(PelIfd::class);
+        $dataMock = $this->createStub(PelDataWindow::class);
 
         $makerNotes = PelMakerNotes::createMakerNotesFromManufacturer('Canon', $parentMock, $dataMock, 100, 0);
         $this->assertInstanceOf(PelCanonMakerNotes::class, $makerNotes);

@@ -14,8 +14,8 @@ class PelCanonMakerNotesTest extends TestCase
 {
     public function testConstructor(): void
     {
-        $parentMock = $this->createMock(PelIfd::class);
-        $dataMock = $this->createMock(PelDataWindow::class);
+        $parentMock = $this->createStub(PelIfd::class);
+        $dataMock = $this->createStub(PelDataWindow::class);
 
         $makerNotes = new PelCanonMakerNotes($parentMock, $dataMock, 100, 0);
         // @phpstan-ignore-next-line
@@ -24,8 +24,8 @@ class PelCanonMakerNotesTest extends TestCase
 
     public function testLoad(): void
     {
-        $parentMock = $this->createMock(PelIfd::class);
-        $dataMock = $this->createMock(PelDataWindow::class);
+        $parentMock = $this->createStub(PelIfd::class);
+        $dataMock = $this->createStub(PelDataWindow::class);
         $dataMock->method('getShort')->willReturn(4);
         $dataMock->method('getLong')->willReturn(2);
 
@@ -39,8 +39,8 @@ class PelCanonMakerNotesTest extends TestCase
     {
         $this->expectException(PelMakerNotesMalformedException::class);
 
-        $parentMock = $this->createMock(PelIfd::class);
-        $dataMock = $this->createMock(PelDataWindow::class);
+        $parentMock = $this->createStub(PelIfd::class);
+        $dataMock = $this->createStub(PelDataWindow::class);
         $dataMock->method('getShort')->willReturn(1);
 
         $makerNotes = new PelCanonMakerNotes($parentMock, $dataMock, 100, 2);
