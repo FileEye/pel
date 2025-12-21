@@ -43,7 +43,7 @@ class PelJpegCommentTest extends TestCase
 
     public function testLoad(): void
     {
-        $dataWindowMock = $this->createMock(PelDataWindow::class);
+        $dataWindowMock = $this->createStub(PelDataWindow::class);
         $dataWindowMock->method('getBytes')->willReturn('Loaded comment');
 
         $comment = new PelJpegComment();

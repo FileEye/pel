@@ -10,7 +10,7 @@ class PelJpegContentTest extends TestCase
 {
     public function testGetBytesWithData(): void
     {
-        $dataWindowMock = $this->createMock(PelDataWindow::class);
+        $dataWindowMock = $this->createStub(PelDataWindow::class);
         $dataWindowMock->method('getBytes')->willReturn('JPEG content bytes');
 
         $content = new PelJpegContent($dataWindowMock);
