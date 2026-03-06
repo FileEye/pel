@@ -106,9 +106,15 @@ class PelConvert
          */
         $hex = str_pad(base_convert((string) $value, 10, 16), 8, '0', STR_PAD_LEFT);
         if ($endian === self::LITTLE_ENDIAN) {
-            return chr((int) hexdec($hex[6] . $hex[7])) . chr((int) hexdec($hex[4] . $hex[5])) . chr((int) hexdec($hex[2] . $hex[3])) . chr((int) hexdec($hex[0] . $hex[1]));
+            return chr(((int) hexdec($hex[6] . $hex[7])) & 0xFF) .
+              chr(((int) hexdec($hex[4] . $hex[5])) & 0xFF) .
+              chr(((int) hexdec($hex[2] . $hex[3])) & 0xFF) .
+              chr(((int) hexdec($hex[0] . $hex[1])) & 0xFF);
         }
-        return chr((int) hexdec($hex[0] . $hex[1])) . chr((int) hexdec($hex[2] . $hex[3])) . chr((int) hexdec($hex[4] . $hex[5])) . chr((int) hexdec($hex[6] . $hex[7]));
+        return chr(((int) hexdec($hex[0] . $hex[1])) & 0xFF) .
+          chr(((int) hexdec($hex[2] . $hex[3])) & 0xFF) .
+          chr(((int) hexdec($hex[4] . $hex[5])) & 0xFF) .
+          chr(((int) hexdec($hex[6] . $hex[7])) & 0xFF);
     }
 
     /**

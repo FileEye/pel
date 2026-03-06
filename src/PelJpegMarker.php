@@ -461,7 +461,7 @@ class PelJpegMarker
      */
     public static function getBytes(int $marker): string
     {
-        return chr($marker);
+        return chr($marker & 0xFF);
     }
 
     /**
