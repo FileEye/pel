@@ -16,9 +16,8 @@
     <testsuites>
         <testsuite name="Pel Testing Suite">
             <directory suffix=".php">./test/</directory>
-            <exclude>
-                test/NumberTestCase.php
-            </exclude>
+            <exclude>test/NumberTestCase.php</exclude>
+            <exclude>test/CountingStreamWrapper.php</exclude>
         </testsuite>
     </testsuites>
 </phpunit>

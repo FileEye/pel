@@ -37,6 +37,11 @@ namespace lsolesen\pel;
 class PelJpeg implements \Stringable
 {
     /**
+     * Number of bytes read at once when searching for the EOI marker.
+     */
+    private const EOI_SEARCH_CHUNK_SIZE = 65536;
+
+    /**
      * The sections in the JPEG data.
      *
      * A JPEG file is built up as a sequence of sections, each section
@@ -238,10 +243,7 @@ class PelJpeg implements \Stringable
                          * a PelJpegContent object.
                          */
 
-                        $length = $d->getSize();
-                        while ($d->getByte($length - 2) !== 0xFF || $d->getByte($length - 1) !== PelJpegMarker::EOI) {
-                            $length--;
-                        }
+                        $length = self::findEoiEnd($d);
 
                         $clone = $d->getClone(0, $length - 2);
                         $this->jpeg_data = $clone;
@@ -271,6 +273,42 @@ class PelJpeg implements \Stringable
                 }
             }
         } /* while ($d->getSize() > 0) */
+    }
+
+    /**
+     * Find the end of the last EOI marker in the data.
+     *
+     * The data is searched backwards in chunks, as reading it byte by byte
+     * is slow for files with a lot of trailing content.
+     *
+     * @param PelDataWindow $d
+     *            the data to search.
+     *
+     * @return int the offset right after the last EOI marker.
+     *
+     * @throws PelDataWindowOffsetException if there is no EOI marker.
+     */
+    private static function findEoiEnd(PelDataWindow $d): int
+    {
+        $marker = "\xFF" . chr(PelJpegMarker::EOI);
+        $size = $d->getSize();
+        $end = $size;
+        while ($end >= 2) {
+            $start = max(0, $end - self::EOI_SEARCH_CHUNK_SIZE);
+            /* getBytes() rejects an explicit size reaching the end of the data. */
+            $chunk = $end === $size ? $d->getBytes($start) : $d->getBytes($start, $end - $start);
+            $position = strrpos($chunk, $marker);
+            if ($position !== false) {
+                return $start + $position + 2;
+            }
+            if ($start === 0) {
+                break;
+            }
+            /* Search the first byte again, a marker can span two chunks. */
+            $end = $start + 1;
+        }
+
+        throw new PelDataWindowOffsetException('No EOI marker found in %d bytes of JPEG data', $size);
     }
 
     /**
